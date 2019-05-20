@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>{{title}}</title>
+        <!--
+        Comila Template
+        http://www.templatemo.com/tm-490-comila
+        -->
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+
+        <!-- stylesheets css -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/animate.min.css">
+
+        <link rel="stylesheet" href="css/et-line-font.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="css/vegas.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <!-- javscript js -->
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+
+        <link href='https://fonts.googleapis.com/css?family=Rajdhani:400,500,700' rel='stylesheet' type='text/css'>
+        <style>
+            .editar{
+                margin: 10px;
+                display: inline-block;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.42857143;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                -ms-touch-action: manipulation;
+                touch-action: manipulation;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                background-image: none;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                color: #333;
+                background-color: #fff;
+                border-color: #ccc;
+                background: transparent;
+                border: 3px solid #ffffff;
+                border-radius: 0px;
+                color: #ffffff;
+                font-size: 18px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                margin-top: 5px;
+                margin-right: 10px;
+                -webkit-transition: all 0.4s ease-in-out;
+                transition: all 0.4s ease-in-out;
+
+            }
+        </style>
+
+    </head>
+    <body>
+        <script>
+$().ready(function () {
+    cargarTabla();
+
+});
+
+function cargarTabla() {
+    var url = "http://localhost:3000/lista/categorias";       ///test/sw/listaProdLot     
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'JSON',
+
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            var html = "";
+
+            $.each(data, function (i, item) {
+                html += '<tr>';
+                html += '<td>' + (i + 1) + '</td>';
+                html += '<td>' + item.nombre + '</td>';
+                html += '<td><a type="button" class="editar" id="' + i + '" data-toggle="modal" data-target="#modal1">Editar</a></td>';
+                html += '<script>';
+                html += '$("#' + i + '").click(function () {';
+                html += '$("#external").val("' + item.external_id + '");';
+                html += '$("#nombre").val("' + item.nombre + '");';
+                html += '});';
+                html += '</scrip' + 't>';
+                html += '</tr>';
+            });
+
+            html += '</tr>';
+
+            $("#tabla tbody").html(html);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+        </script>
+
+
+
+        <!-- preloader section -->
+        <section class="preloader">
+            <div class="sk-circle">
+                <div class="sk-circle1 sk-child"></div>
+                <div class="sk-circle2 sk-child"></div>
+                <div class="sk-circle3 sk-child"></div>
+                <div class="sk-circle4 sk-child"></div>
+                <div class="sk-circle5 sk-child"></div>
+                <div class="sk-circle6 sk-child"></div>
+                <div class="sk-circle7 sk-child"></div>
+                <div class="sk-circle8 sk-child"></div>
+                <div class="sk-circle9 sk-child"></div>
+                <div class="sk-circle10 sk-child"></div>
+                <div class="sk-circle11 sk-child"></div>
+                <div class="sk-circle12 sk-child"></div>
+            </div>
+        </section>
+
+        <!-- registro clientes -->
+        <section id="contact">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-offset-2 col-md-8 col-sm-12">
+                        <div class="section-title">
+                            <h1 class="wow fadeInUp" >Agregar categoria</h1>
+                            <p class="wow fadeInUp">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat.</p>
+                        </div>
+                        <div class="contact-form wow fadeInUp">
+                            <form id="contact-form" method="post" action="/guardar_categoria">
+                                <div class="col-md-8 col-sm-6" style="left: 38%; margin-top: -10px; margin-left: -150px;">
+                                    <input name="nombre" type="text" class="form-control" placeholder="Nombre" required>
+                                </div>
+                                <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+                                    <input name="submit" type="submit" class="form-control submit" id="submit" value="Registralo ahora">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- feature section -->
+        <section id="feature">
+            <div class="container">
+                <div class="row">
+
+                    <svg preserveAspectRatio="none" viewBox="0 0 100 102" height="100" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" class="svgcolor-light">
+                    <path d="M0 0 L50 100 L100 0 Z"></path>
+                    </svg>
+                    <div class="section-title text-center">
+                        <h1 class="wow fadeInUp" >Lista de categorias</h1>                    
+                    </div>
+
+                    <table class="table table-bordered" id="tabla" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Nro</th>
+                                <th style="text-align: center;">Nombre</th>
+                                <th style="text-align: center;">Accion</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                        </tbody>
+                    </table>
+
+                    <div class="clearfix text-center col-md-12 col-sm-12">
+                        <a href="#contact" class="btn btn-default smoothScroll">Talk to us</a>
+                        <a href="#" class="btn btn-lg btn-success smoothScroll wow fadeInUp">Notify me!</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- contact section -->
+        <section id="contact">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-3 col-sm-6">
+                        <a href="#">
+                            <img class="img-fluid d-block mx-auto" src="img/logos/envato.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <a href="#">
+                            <img class="img-fluid d-block mx-auto" src="img/logos/designmodo.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <a href="#">
+                            <img class="img-fluid d-block mx-auto" src="img/logos/themeforest.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <a href="#">
+                            <img class="img-fluid d-block mx-auto" src="img/logos/creative-market.jpg" alt="">
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- footer section -->
+        <footer>
+            <div class="container">
+                <div class="row">
+
+                    <svg class="svgcolor-light" preserveAspectRatio="none" viewBox="0 0 100 102" height="100" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0 L50 100 L100 0 Z"></path>
+                    </svg>
+
+                    <div class="col-md-4 col-sm-6">
+
+                        <div class="wow fadeInUp" data-wow-delay="0.3s">
+                            <p class="copyright-text">Copyright &copy; 2016 Your Company <br> </div>
+                    </div>
+
+                    <div class="col-md-1 col-sm-1"></div>
+
+                    <div class="col-md-4 col-sm-5">
+                        <ul class="social-icon">
+                            <li><a href="#" class="fa fa-facebook wow bounceIn" data-wow-delay="0.9s"></a></li>
+                            <li><a href="#" class="fa fa-twitter wow bounceIn" data-wow-delay="1.2s"></a></li>
+                            <li><a href="#" class="fa fa-behance wow bounceIn" data-wow-delay="1.4s"></a></li>
+                            <li><a href="#" class="fa fa-dribbble wow bounceIn" data-wow-delay="1.6s"></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+        <!-- modal -->
+        <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content modal-popup">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2 style="color: #333;" class="modal-title">Editar categoria</h2>
+                    </div>
+                    <form action="/editar_categoria" method="post">
+                        <input type="hidden" id="external" value="0" name="external">
+                        <input style="color: #333;" name="nombre1" type="text" class="form-control" id="nombre" placeholder="Nuevo nombre">
+                        <div class="">
+                            <input name="submit" type="submit" class="form-control" id="submit" style="font-weight: bold;" value="Modificar">  
+                        </div>
+                    </form>
+                    <p>Thank you for your visiting!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back top -->
+        <a href="#back-top" class="go-top"><i class="fa fa-angle-up"></i></a>
+
+        <script src="js/vegas.min.js"></script>
+
+        <script src="js/wow.min.js"></script>
+        <script src="js/smoothscroll.js"></script>
+        <script src="js/custom.js"></script>
+
+    </body>
+</html>
+
