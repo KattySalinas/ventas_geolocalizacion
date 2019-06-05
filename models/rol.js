@@ -12,7 +12,7 @@ module.exports = function (sequelize, Sequelize) {
         timestamps: false
     });
     Rol.associate = function (models) {
-        models.rol.hasMany(models.persona, {
+        models.rol.hasMany(models.cuenta, {
             foreignKey: 'id_rol'
         });
     };

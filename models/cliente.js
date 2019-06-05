@@ -1,4 +1,6 @@
 module.exports = function (sequelize, Sequelize) {
+    var persona = require('../models/persona');
+    var Persona = new persona(sequelize, Sequelize);
     var Cliente = sequelize.define('cliente', {
         id: {
             autoIncrement: true,
@@ -28,9 +30,12 @@ module.exports = function (sequelize, Sequelize) {
     },{timestamps: false,
         freezeTableName: true
     });
+    Cliente.belongsTo(Persona, {
+        foreignKey: 'id_persona'
+    });
 
     Cliente.associate = function (models) {
-        models.cliente.hasMany(models.compra, {
+        models.cliente.hasMany(models.venta, {
             foreignKey: 'id_cliente'
         });
     };

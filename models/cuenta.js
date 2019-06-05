@@ -1,6 +1,6 @@
 module.exports = function (sequelize, Sequelize) {
-    var persona = require('../models/persona');
-    var Persona = new persona(sequelize, Sequelize);
+    var rol = require('../models/rol');
+    var Rol = new rol(sequelize, Sequelize);
     var Cuenta = sequelize.define('cuenta', {
         id: {
             autoIncrement: true,
@@ -26,10 +26,15 @@ module.exports = function (sequelize, Sequelize) {
         freezeTableName: true
     });
     
-    Cuenta.belongsTo(Persona, {
-        foreignKey: 'id_persona',
+    Cuenta.belongsTo(Rol, {
+        foreignKey: 'id_rol',
         constraints: false
     });
+    Rol.associate = function (models) {
+        models.cuenta.hasOne(models.persona, {
+            foreignKey: 'id_cuenta'
+        });
+    };
     
     return Cuenta;
 };

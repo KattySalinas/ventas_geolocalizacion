@@ -8,8 +8,8 @@
     },
     "staging":{
         "username": "root",
-        "password": "",
-        "database": "factura",
+        "password": "root",
+        "database": "sarita",
         "host": "localhost",
         "dialect": "mysql"
     }
