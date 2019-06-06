@@ -1,304 +1,330 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
+        <title>Subject</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="./css/main.css">
+        <!-- UPLOAD-->
 
-        <meta charset="utf-8">
-
-        <title>{{title}}</title>
-        <!--
-        Comila Template
-        http://www.templatemo.com/tm-490-comila
-        -->
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-
-        <!-- stylesheets css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/animate.min.css">
-
-        <link rel="stylesheet" href="css/et-line-font.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-
-        <link rel="stylesheet" href="css/vegas.min.css">
-        <link rel="stylesheet" href="css/style.css">
-
-        <!-- javscript js -->
-        <script src="js/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-
-
-        <link href='https://fonts.googleapis.com/css?family=Rajdhani:400,500,700' rel='stylesheet' type='text/css'>
 
     </head>
     <body>
-
-        <!-- preloader section -->
-        <section class="preloader">
-            <div class="sk-circle">
-                <div class="sk-circle1 sk-child"></div>
-                <div class="sk-circle2 sk-child"></div>
-                <div class="sk-circle3 sk-child"></div>
-                <div class="sk-circle4 sk-child"></div>
-                <div class="sk-circle5 sk-child"></div>
-                <div class="sk-circle6 sk-child"></div>
-                <div class="sk-circle7 sk-child"></div>
-                <div class="sk-circle8 sk-child"></div>
-                <div class="sk-circle9 sk-child"></div>
-                <div class="sk-circle10 sk-child"></div>
-                <div class="sk-circle11 sk-child"></div>
-                <div class="sk-circle12 sk-child"></div>
-            </div>
-        </section>
-        <script>
-$().ready(function () {
-    cargarNombreCategoria();
-    cargarTabla();
-
-});
-
-function cargarNombreCategoria() {
-    var url = 'http://localhost:3000/lista/categorias';
-    $.ajax({
-        url: url,
-        type: 'get',
-        dataType: 'json',
-        success: function (data, textStatus, jqXHR) {
-            console.log(data);
-            var html = "<option value=''>Selecciona la categoria</option>";
-            $.each(data, function (i, item) {
-                html += '<option style="color: #333;" class="form-control" value="' + item.id + '">' + item.nombre + '</option>';
-            });
-            $("#categoria").html(html);
-            $("#categoria1").html(html);
-
-        }, error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.responseText);
-        }
-
-    });
-}
-function cargarTabla() {
-    var url = "http://localhost:3000/lista/productos";       ///test/sw/listaProdLot     
-    $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'JSON',
-
-        success: function (data, textStatus, jqXHR) {
-            console.log(data);
-            var html = "";
-
-            $.each(data, function (i, item) {
-                html += '<tr>';
-                html += '<td>' + (i + 1) + '</td>';
-                html += '<td>' + item.marca + '</td>';
-                html += '<td>' + item.nombre + '</td>';
-                html += '<td>' + item.subnombre + '</td>';
-                html += '<td> <img style="width: 120px; height: 120px;" src="/img/' + item.foto + '"></td>';
-                html += '<td>' + '$ ' + item.precio + '</td>';
-                html += '<td><a type="button" id="' + i + '" class="editar" data-toggle="modal" data-target="#modal1">Editar</a></td>';
-                html += '<script>';
-                html += '$("#' + i + '").click(function () {';
-                html += '$("#external1").val("' + item.external_id + '");';
-                html += '$("#categoria1").val("' + item.categorium.nombre + '");';
-                html += '$("#marca").val("' + item.marca + '");';
-                html += '$("#nombre").val("' + item.nombre + '");';
-                html += '$("#detalle").val("' + item.subnombre + '");';
-                html += '$("#precio").val("' + item.precio + '");';
-                html += '});';
-                html += '</scrip' + 't>';
-                html += '</tr>';
-            });
-
-            html += '</tr>';
-
-            $("#tabla tbody").html(html);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.responseText);
-        }
-    });
-}
-        </script>
-
-        <!-- registro clientes -->
-        <section id="contact">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-md-offset-2 col-md-8 col-sm-12">
-                        <div class="section-title">
-                            <h1 class="wow fadeInUp">Agregar articulo</h1>
-                            <p class="wow fadeInUp">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat.</p>
-                        </div>
-                        <div class="contact-form wow fadeInUp">
-                            <form id="contact-form" method="post" action="/guardar_producto">
-                                <input type="hidden" name="external" value="0" id="external"/>
-                                <div class="col-md-6 col-sm-6">
-                                    <select class="form-control" name="categoria" id="categoria" >
-
-                                    </select>
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <input name="marca" type="text" class="form-control" placeholder="Marca" required>
-                                </div>
-
-                                <div class="col-md-6 col-sm-6">
-                                    <input name="nombre" type="text" class="form-control" placeholder="Nombre" required>
-                                </div>
-
-                                <div class="col-md-6 col-sm-6">
-                                    <input name="detalle" type="text" class="form-control" placeholder="Detalle" required>
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <input name="precio" type="text" class="form-control" placeholder="Precio" required>
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <input name="cantidad" type="number" class="form-control" placeholder="Cantidad" required>
-                                </div>
-
-                                <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-                                    <input name="submit" type="submit" class="form-control submit" id="submit" value="Registralo ahora">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
+        <!-- SideBar -->
+        <section class="full-box cover dashboard-sideBar">
+            <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
+            <div class="full-box dashboard-sideBar-ct">
+                <!--SideBar Title -->
+                <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
+                    company <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
                 </div>
-            </div>
-        </section>
-
-
-
-        <!-- feature section -->
-        <section id="feature">
-            <div class="container">
-                <div class="row">
-
-                    <svg preserveAspectRatio="none" viewBox="0 0 100 102" height="100" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" class="svgcolor-light">
-                    <path d="M0 0 L50 100 L100 0 Z"></path>
-                    </svg>
-                    <div class="section-title text-center">
-                        <h1 class="wow fadeInUp" >Lista de Articulos</h1>                    
-                    </div>
-
-                    <table class="table" id="tabla">
-                        <thead>
-                            <tr>
-                                <th>Nro</th>
-                                <th>Marca</th>
-                                <th>Nombre</th>
-                                <th>Detalle</th>
-                                <th>Foto</th>
-                                <th>Precio</th>
-                                <th>Accion</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                    <div class="clearfix text-center col-md-12 col-sm-12">
-                        <a href="#contact" class="btn btn-default smoothScroll">Talk to us</a>
-                    </div>
-
+                <!-- SideBar User info -->
+                <div class="full-box dashboard-sideBar-UserInfo">
+                    <figure class="full-box">
+                        <img src="./assets/img/avatar.jpg" alt="UserIcon">
+                        <figcaption class="text-center text-titles">User Name</figcaption>
+                    </figure>
+                    <ul class="full-box list-unstyled text-center">
+                        <li>
+                            <a href="#!">
+                                <i class="zmdi zmdi-settings"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!" class="btn-exit-system">
+                                <i class="zmdi zmdi-power"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-        </section>
-        <!-- contact section -->
-        <section id="contact">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-md-3 col-sm-6">
-                        <a href="#">
-                            <img class="img-fluid d-block mx-auto" src="img/logos/envato.jpg" alt="">
+                <!-- SideBar Menu -->
+                <ul class="list-unstyled full-box dashboard-sideBar-Menu">
+                    <li>
+                        <a href="/home">
+                            <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Inicio
                         </a>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <a href="#">
-                            <img class="img-fluid d-block mx-auto" src="img/logos/designmodo.jpg" alt="">
+                    </li>
+                    <li>
+                        <a href="/ventas" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-case zmdi-hc-fw"></i> Ventas
+                        </a>					
+                    </li>
+                    <li>
+                        <a href="/pagos" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-money zmdi-hc-fw"></i> Pagos 
                         </a>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <a href="#">
-                            <img class="img-fluid d-block mx-auto" src="img/logos/themeforest.jpg" alt="">
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-sideBar-SubMenu">
+                            <i class=" zmdi zmdi-font zmdi-hc-fw "></i> Arcticulos <i class="zmdi zmdi-caret-down pull-right"></i>
                         </a>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <a href="#">
-                            <img class="img-fluid d-block mx-auto" src="img/logos/creative-market.jpg" alt="">
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- footer section -->
-        <footer>
-            <div class="container">
-                <div class="row">
-
-                    <svg class="svgcolor-light" preserveAspectRatio="none" viewBox="0 0 100 102" height="100" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0 L50 100 L100 0 Z"></path>
-                    </svg>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="wow fadeInUp" data-wow-delay="0.3s">
-                            <p class="copyright-text">Copyright &copy; 2016 Your Company <br> </div>
-                    </div>
-                    <div class="col-md-1 col-sm-1"></div>
-                    <div class="col-md-4 col-sm-5">
-                        <ul class="social-icon">
-                            <li><a href="#" class="fa fa-facebook wow bounceIn" data-wow-delay="0.9s"></a></li>
-                            <li><a href="#" class="fa fa-twitter wow bounceIn" data-wow-delay="1.2s"></a></li>
-                            <li><a href="#" class="fa fa-behance wow bounceIn" data-wow-delay="1.4s"></a></li>
-                            <li><a href="#" class="fa fa-dribbble wow bounceIn" data-wow-delay="1.6s"></a></li>
+                        <ul class="list-unstyled full-box">
+                            <li>
+                                <a href="/productos"><i class="zmdi zmdi-book zmdi-hc-fw "></i> Productos</a>
+                            </li>
+                            <li>
+                                <a href="/categoria"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Categoria</a>
+                            </li>
                         </ul>
+                    </li> 
+                    <li>
+                        <a href="/clientes" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-account zmdi-hc-fw"></i> Clientes 
+                        </a>
+                    </li>                    
+                    <li>
+                        <a href="#!" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-shield-security zmdi-hc-fw"></i> Settings School <i class="zmdi zmdi-caret-down pull-right"></i>
+                        </a>
+                        <ul class="list-unstyled full-box">
+                            <li>
+                                <a href="school.html"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> School Data</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>     
+
+        <!-- Content page-->
+        <section class="full-box dashboard-contentPage">
+            <!-- NavBar -->
+            <nav class="full-box dashboard-Navbar">
+                <ul class="full-box list-unstyled text-right">
+                    <li class="pull-left">
+                        <a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-Notifications-area">
+                            <i class="zmdi zmdi-notifications-none"></i>
+                            <span class="badge">7</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-search">
+                            <i class="zmdi zmdi-search"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-modal-help">
+                            <i class="zmdi zmdi-help-outline"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Content page -->
+            <div class="container-fluid">
+                <div class="page-header">
+                    <h1 class="text-titles"><i class="zmdi zmdi-book zmdi-hc-fw "></i> Producto <small> Registro</small></h1>
+                </div>
+                <p class="lead"></p>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                            <li class="active"><a href="#new" data-toggle="tab"> Nuevo</a></li>
+                            <li><a href="#list" data-toggle="tab"> Lista</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="new">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                            <form action="">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Categoría</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Código</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Nombre</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Precio</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Cantidad</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Estado</label>
+                                                    <select class="form-control">
+                                                        <option>Active</option>
+                                                        <option>Disable</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Photo</label>
+                                                    <div>
+                                                        <input type="text" readonly="" class="form-control" placeholder="Browse...">
+                                                        <input type="file" >
+                                                    </div>
+                                                </div>
+                                                <p class="text-center">
+                                                    <button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Save</button>
+                                                </p>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="list">
+                                <div class="table-responsive">
+                                    <table class="table table-hover text-center">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th class="text-center">Code</th>
+                                                <th class="text-center">Name</th>
+                                                <th class="text-center">Status</th>
+                                                <th class="text-center">Update</th>
+                                                <th class="text-center">Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>100</td>
+                                                <td>Mathematics</td>
+                                                <td>Active</td>
+                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>500</td>
+                                                <td>Science</td>
+                                                <td>Active</td>
+                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>300</td>
+                                                <td>Social</td>
+                                                <td>Active</td>
+                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>700</td>
+                                                <td>English</td>
+                                                <td>Active</td>
+                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <ul class="pagination pagination-sm">
+                                        <li class="disabled"><a href="#!">«</a></li>
+                                        <li class="active"><a href="#!">1</a></li>
+                                        <li><a href="#!">2</a></li>
+                                        <li><a href="#!">3</a></li>
+                                        <li><a href="#!">4</a></li>
+                                        <li><a href="#!">5</a></li>
+                                        <li><a href="#!">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </section>
 
-        <!-- modal -->
-        <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content modal-popup">
+        <!-- Notifications area -->
+        <section class="full-box Notifications-area">
+            <div class="full-box Notifications-bg btn-Notifications-area"></div>
+            <div class="full-box Notifications-body">
+                <div class="Notifications-body-title text-titles text-center">
+                    Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
+                </div>
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row-action-primary">
+                            <i class="zmdi zmdi-alert-triangle"></i>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">17m</div>
+                            <h4 class="list-group-item-heading">Tile with a label</h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+                    <div class="list-group-item">
+                        <div class="row-action-primary">
+                            <i class="zmdi zmdi-alert-octagon"></i>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">15m</div>
+                            <h4 class="list-group-item-heading">Tile with a label</h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+                    <div class="list-group-item">
+                        <div class="row-action-primary">
+                            <i class="zmdi zmdi-help"></i>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">10m</div>
+                            <h4 class="list-group-item-heading">Tile with a label</h4>
+                            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+                    <div class="list-group-item">
+                        <div class="row-action-primary">
+                            <i class="zmdi zmdi-info"></i>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">8m</div>
+                            <h4 class="list-group-item-heading">Tile with a label</h4>
+                            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Dialog help -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h2 style="color: #333;" class="modal-title">Editar articulo</h2>
+                        <h4 class="modal-title">Help</h4>
                     </div>
-                    <form action="#" method="post">
-                        <input type="hidden" name="external1" value="0" id="external1"/>
-                        <select  style="color: #333;" class="form-control" name="categoria" id="categoria1" >
-                        </select>
-                        <input style="color: #333;" id="marca" name="marca" type="text" class="form-control" placeholder="Marca" required>
-                        <input style="color: #333;" id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombre" required>
-                        <input style="color: #333;" id="detalle" name="detalle" type="text" class="form-control" placeholder="Detalle" required>
-                        <input style="color: #333;" id="precio" name="precio" type="text" class="form-control" placeholder="Precio" required>
-                        <input style="color: #333;" id="cantidad" name="cantidad" type="number" class="form-control" placeholder="Cantidad" required>
-                        <input style="color: #333;" name="submit" type="submit" class="form-control" id="submit" value="Modificar">
-                    </form>
-                    <p>Thank you for your visiting!</p>
+                    <div class="modal-body">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> Ok</button>
+                    </div>
                 </div>
             </div>
         </div>
-
-
-        <!-- Back top -->
-        <a href="#back-top" class="go-top"><i class="fa fa-angle-up"></i></a>
-
-
-        <script src="js/vegas.min.js"></script>
-
-        <script src="js/wow.min.js"></script>
-        <script src="js/smoothscroll.js"></script>
-        <script src="js/custom.js"></script>
-
+        <!--====== Scripts -->
+        <script src="./js/jquery-3.1.1.min.js"></script>
+        <script src="./js/sweetalert2.min.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/material.min.js"></script>
+        <script src="./js/ripples.min.js"></script>
+        <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="./js/main.js"></script>
+        <script>
+            $.material.init();
+        </script>
     </body>
 </html>
-

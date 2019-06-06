@@ -1,21 +1,24 @@
 module.exports = function (sequelize, Sequelize) {
-    var Rol = sequelize.define('rol', {
+    var Contado = sequelize.define('contado', {
         id: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        nombre: {
-            type: Sequelize.STRING(20)
+        total: {
+            type: Sequelize.DOUBLE
         }
     },{freezeTableName: true,
         timestamps: false
     });
-    Rol.associate = function (models) {
-        models.rol.hasMany(models.persona, {
-            foreignKey: 'id_rol'
+    
+    Contado.associate = function (models) {
+        models.contado.hasOne(models.pago, {
+            foreignKey: 'id_contado'
         });
     };
 
-    return Rol;
+    return Contado;
 };
+
+

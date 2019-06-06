@@ -38,6 +38,8 @@ module.exports = function (sequelize, Sequelize) {
      Venta.associate= function (models){
         models.venta.hasMany(models.detalle_articulo, {
             foreignKey:'id_venta'});
+        models.venta.hasOne(models.pago, {
+            foreignKey:'id_venta'});
     };
     
 

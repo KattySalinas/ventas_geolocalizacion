@@ -1,14 +1,14 @@
 {
     "development":{
         "username": "root",
-        "password": "root",
+        "password": "toor",
         "database": "sarita",
         "host": "localhost",
         "dialect": "mysql"
     },
     "staging":{
         "username": "root",
-        "password": "root",
+        "password": "",
         "database": "sarita",
         "host": "localhost",
         "dialect": "mysql"
