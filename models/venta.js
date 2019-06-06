@@ -12,10 +12,10 @@ module.exports = function (sequelize, Sequelize) {
         fecha: {
             type: Sequelize.DATEONLY
         },
-        entrada: {
+        valor_total: {
             type: Sequelize.DOUBLE
         },
-        saldo: {
+        descuento: {
             type: Sequelize.DOUBLE
         },
         external_id: {

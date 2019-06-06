@@ -1,4 +1,6 @@
 module.exports = function (sequelize, Sequelize) {
+    var plazo = require('../models/plazo');
+    var Plazo = new plazo(sequelize, Sequelize);
     var Cuota = sequelize.define('cuota', {
         id: {
             autoIncrement: true,
@@ -13,13 +15,12 @@ module.exports = function (sequelize, Sequelize) {
         }
     },{freezeTableName: true,
         timestamps: false
-    });
+    });    
     
-    Cuota.associate = function (models) {
-        models.cuota.hasMany(models.plazo, {
-            foreignKey: 'id_cuota'
-        });
-    };
+    Cuota.belongsTo(Plazo, {
+        foreignKey: 'id_plazo',
+        constraints: false
+    });
 
     return Cuota;
 };

@@ -1,6 +1,6 @@
-module.exports = function (sequelize, Sequelize) {
-    var cuota = require('../models/cuota');
-    var Cuota = new cuota(sequelize, Sequelize);
+module.exports = function (sequelize, Sequelize) { 
+    var pago = require('../models/pago');
+    var Pago = new pago(sequelize, Sequelize);
     var Plazo = sequelize.define('plazo', {
         id: {
             autoIncrement: true,
@@ -15,17 +15,18 @@ module.exports = function (sequelize, Sequelize) {
         }
     },{freezeTableName: true,
         timestamps: false
+    });    
+    
+    Plazo.belongsTo(Pago, {
+        foreignKey: 'id_pago',
+        constraints: false
     });
     
-    Plazo.associate = function (models) {
-        models.plazo.hasOne(models.pago, {
+    Plazo.associate = function (models) {        
+        models.plazo.hasMany(models.cuota, {
             foreignKey: 'id_plazo'
         });
     };
-    Plazo.belongsTo(Cuota, {
-        foreignKey: 'id_cuota',
-        constraints: false
-    });
-
+    
     return Plazo;
 };

@@ -17,10 +17,11 @@ module.exports = function (sequelize, Sequelize) {
         nombre: {
             type: Sequelize.STRING(50)
         },      
-        subnombre: {type: Sequelize.STRING(100)
+        descripcion: {type: Sequelize.STRING
         }
-    }, {
-        freezeTableName: true
+    }, {freezeTableName: true,
+        createdAt: 'fecha_registro',
+        updatedAt: 'fecha_modificacion'
     });
     
     Articulo.associate = function (models) {

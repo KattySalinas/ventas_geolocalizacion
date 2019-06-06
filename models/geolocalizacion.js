@@ -26,7 +26,7 @@ module.exports = function (sequelize, Sequelize) {
     });
     
     Geolocalizacion.belongsTo(Persona, {
-        foreignKey: 'id_rol'       
+        foreignKey: 'id_persona'       
     });
 
     return Geolocalizacion;

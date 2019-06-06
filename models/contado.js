@@ -1,4 +1,6 @@
 module.exports = function (sequelize, Sequelize) {
+    var pago = require('../models/pago');
+    var Pago = new pago(sequelize, Sequelize);
     var Contado = sequelize.define('contado', {
         id: {
             autoIncrement: true,
@@ -10,13 +12,12 @@ module.exports = function (sequelize, Sequelize) {
         }
     },{freezeTableName: true,
         timestamps: false
-    });
+    });    
     
-    Contado.associate = function (models) {
-        models.contado.hasOne(models.pago, {
-            foreignKey: 'id_contado'
-        });
-    };
+    Contado.belongsTo(Pago, {
+        foreignKey: 'id_pago',
+        constraints: false
+    });
 
     return Contado;
 };

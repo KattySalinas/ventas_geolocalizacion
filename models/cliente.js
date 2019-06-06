@@ -27,8 +27,9 @@ module.exports = function (sequelize, Sequelize) {
             defaultValue: true
         }
 
-    },{timestamps: false,
-        freezeTableName: true
+    },{freezeTableName: true,
+        createdAt: 'fecha_registro',
+        updatedAt: 'fecha_modificacion'
     });
     Cliente.belongsTo(Persona, {
         foreignKey: 'id_persona'

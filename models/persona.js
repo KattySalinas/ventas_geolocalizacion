@@ -1,6 +1,4 @@
 module.exports = function (sequelize, Sequelize) {
-    var rol = require('../models/rol');
-    var Rol = new rol(sequelize, Sequelize);
     var Persona = sequelize.define('persona', {
         id: {
             autoIncrement: true,
@@ -29,11 +27,7 @@ module.exports = function (sequelize, Sequelize) {
         createdAt: 'fecha_registro',
         updatedAt: 'fecha_modificacion'
     });
-
-    Persona.belongsTo(Rol, {
-        foreignKey: 'id_rol'
-    });
-
+    
     Persona.associate = function (models) {
         models.persona.hasOne(models.cuenta, {
             foreignKey: 'id_persona'

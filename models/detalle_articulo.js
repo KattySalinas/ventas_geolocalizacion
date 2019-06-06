@@ -2,8 +2,7 @@ module.exports = function (sequelize, Sequelize) {
     var venta = require('../models/venta');
     var Venta = new venta(sequelize, Sequelize);
     var articulo = require('../models/articulo');
-    var Articulo = new articulo(sequelize, Sequelize);
-    
+    var Articulo = new articulo(sequelize, Sequelize);    
     var Detalle_articulo = sequelize.define('detalle_articulo', {
         id: {
             autoIncrement: true,
