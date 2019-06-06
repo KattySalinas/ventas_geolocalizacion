@@ -7,32 +7,37 @@
 	<link rel="stylesheet" href="./css/main.css">
 </head>
 <body class="cover" style="background-image: url(./assets/img/loginFont.jpg);">
-	<form action="/iniciar_sesion" method="post" autocomplete="off" class="full-box logInForm">
+	<form action="/registrarComerciante" method="post" autocomplete="off" class="full-box logInForm">
 		<p class="text-center text-muted"><i class="zmdi zmdi-account-circle zmdi-hc-5x"></i></p>
 		<p class="text-center text-muted text-uppercase">Registrar tu cuenta</p>
                 <div class="form-group label-floating">
 		  <label class="control-label" for="UserNombre">Nombre</label>
-		  <input class="form-control" id="UserEmail" type="text">
+                  <input class="form-control" id="nombre" type="text" name="nombre">
 		  <p class="help-block">Escribe tú nombre</p>
 		</div>
                 <div class="form-group label-floating">
 		  <label class="control-label" for="UserApellido">Apellido</label>
-		  <input class="form-control" id="UserEmail" type="text">
+                  <input class="form-control" id="apellido" type="text" name="apellido">
 		  <p class="help-block">Escribe tú apellido</p>
 		</div>
                 <div class="form-group label-floating">
 		  <label class="control-label" for="UserTelefono">Teléfono</label>
-		  <input class="form-control" id="UserEmail" type="text">
+                  <input class="form-control" id="telefono" type="text" name="telefono">
 		  <p class="help-block">Escribe tú teléfono</p>
+		</div>
+                <div class="form-group label-floating">
+		  <label class="control-label" for="UserTelefono">Ruc</label>
+                  <input class="form-control" id="ruc" type="text" name="ruc">
+		  <p class="help-block">Como comerciante anótalo</p>
 		</div>
 		<div class="form-group label-floating">
 		  <label class="control-label" for="UserEmail">E-mail</label>
-		  <input class="form-control" id="UserEmail" type="email">
+                  <input class="form-control" id="correo" type="email" name="correo">
 		  <p class="help-block">Escribe tú E-mail</p>
 		</div>
 		<div class="form-group label-floating">
 		  <label class="control-label" for="UserPass">Contraseña</label>
-		  <input class="form-control" id="UserPass" type="text">
+                  <input class="form-control" id="contraseña" type="text" name="contraseña">
 		  <p class="help-block">Escribe tú contraseña</p>
 		</div>
 		<div class="form-group text-center">

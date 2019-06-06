@@ -3,9 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-//var passport = require('passport');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
 
 var app = express();
 var session = require('express-session');
@@ -36,7 +36,7 @@ models.sequelize.sync().then( () => {
 
 
 //load passport strategies
-//require('./config/passport/passport')(passport, models.cuenta, models.persona, models.rol);
+//require('./config/pasaporte/passport')(passport, models.cuenta, models.persona, models.rol);
 
 
 app.use(logger('dev'));

@@ -7,14 +7,8 @@ module.exports = function (sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        nombre: {
+        ruc: {
             type: Sequelize.STRING(50)
-        },
-        apellido: {
-            type: Sequelize.STRING(50)
-        },
-        telefono: {
-            type: Sequelize.STRING(15)
         },
         external_id: {
             type: Sequelize.UUID,
