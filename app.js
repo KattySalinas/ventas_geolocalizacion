@@ -25,9 +25,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.use(flash()); 
 
-
+app.use(flash(app));
 
 var models = require('./models/');
 models.sequelize.sync().then( () => {

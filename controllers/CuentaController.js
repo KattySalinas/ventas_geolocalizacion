@@ -5,9 +5,10 @@ var Comerciante = models.comerciante;
 var Cuenta = models.cuenta;
 class CuentaController {
     guardarComerciante(req, res) {
-        Comerciante.findOne({ruc: req.body.ruc}).then(function (err, comerciante) {
+        console.log('ruc....' + req.body.ruc);
+        Comerciante.findOne({where: {ruc: req.body.ruc}}).then(function (err, comerciante) {
             if (err) {
-                console.log('error....' + err);
+                console.log('error.... y mas' + err);
                 res.redirect('/registrarCuenta');
             } else {
                 if (comerciante) {
@@ -20,7 +21,7 @@ class CuentaController {
                         telefono: req.body.telefono
                     }).then(function (newPersona) {
                         if (newPersona) {
-                            console.log('persona..........' + newPersona.id);
+                          // console.log('persona..........' + newPersona.id);
                             Comerciante.create({
                                 ruc: req.body.ruc,
                                 id_persona: newPersona.id
@@ -33,6 +34,7 @@ class CuentaController {
                                         id_persona: newPersona.id
                                     }).then(function (newCuenta) {
                                         if (newComerciante) {
+                                            req.flash('info', 'Se ha registrado ', false);
                                             console.log("...Se registrò correctamente");
                                             res.redirect("/registrarCuenta");
                                         }
