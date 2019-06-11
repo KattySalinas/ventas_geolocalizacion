@@ -5,8 +5,28 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="./css/main.css">
+        <script src="../../jquery_validation.js"></script>
     </head>
     <body>
+        <script>
+            var t = jQuery.noConflict();
+            t().ready(function () {
+                t("#categoria").validate({
+                    rules: {
+                        nombre: {
+                            required: true,
+                            minlength: 3
+                        }
+                    },
+                    messages: {
+                        nombre: {
+                            required: "Ingrese el nombre por favor",
+                            minlength: "Minimo 3 caracteres"
+                        }
+                    }
+                });
+            });
+        </script>
         <!-- SideBar -->
         <section class="full-box cover dashboard-sideBar">
             <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
@@ -60,7 +80,7 @@
                                 <a href="/productos"><i class="zmdi zmdi-book zmdi-hc-fw "></i> Productos</a>
                             </li>
                             <li>
-                                <a href="/categoria"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Categoria</a>
+                                <a href="/categorias"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Categoria</a>
                             </li>
                         </ul>
                     </li> 
@@ -111,6 +131,9 @@
                 </div>
                 <p class="lead"></p>
             </div>
+            {{#if info}}
+            <div class="alert alert-info">{{info}}</div>
+            {{/if}}
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
@@ -123,13 +146,14 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-10 col-md-offset-1">
-                                            <form action="">
+                                            <form action="/registrarCategoria" method="post" id="categoria">
+                                                <input type="hidden" name="external" value="0" id="external">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Nombre</label>
-                                                    <input class="form-control" type="text">
+                                                    <input class="form-control" type="text" id="nombre" name="nombre">
                                                 </div>                                                
                                                 <p class="text-center">
-                                                    <button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Save</button>
+                                                    <button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Guardar</button>
                                                 </p>
                                             </form>
                                         </div>
@@ -142,51 +166,29 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th class="text-center">Name</th>
-                                                <th class="text-center">Status</th>
-                                                <th class="text-center">Start Date</th>
-                                                <th class="text-center">End Date</th>
-                                                <th class="text-center">Amount</th>
-                                                <th class="text-center">year</th>
-                                                <th class="text-center">Update</th>
-                                                <th class="text-center">Delete</th>
+                                                <th class="text-center">Nombre</th>
+                                                <th class="text-center">Actualizar</th>
+                                                <th class="text-center">Eliminar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{#each this.categoria as |item i|}}
                                             <tr>
-                                                <td>1</td>
-                                                <td>First</td>
-                                                <td>Active</td>
-                                                <td>07/01/2017</td>
-                                                <td>06/04/2017</td>
-                                                <td>$40</td>
-                                                <td>2017</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Second</td>
-                                                <td>Active</td>
-                                                <td>07/04/2017</td>
-                                                <td>06/08/2017</td>
-                                                <td>$40</td>
-                                                <td>2017</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Third</td>
-                                                <td>Active</td>
-                                                <td>07/08/2017</td>
-                                                <td>06/12/2017</td>
-                                                <td>$40</td>
-                                                <td>2017</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                                <td>{{i}}</td>
+                                                <td>{{item.nombre}}</td>
+                                                <td>
+                                                    <a id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
+                                                    <script>
+                                                        t("#{{i}}").click(function () {
+                                                            t("#nombre").val("{{item.nombre}}");
+                                                            t("#external").val("{{item.external_id}}");
+                                                        });
+                                                    </script>
+                                                </td>
                                                 <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
                                             </tr>
                                         </tbody>
+                                        {{/each}}
                                     </table>
                                     <ul class="pagination pagination-sm">
                                         <li class="disabled"><a href="#!">«</a></li>
