@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="./css/main.css">
-        <script src="jquery_validation.js"></script>
+        
          <!--====== Scripts -->
         <script src="./js/jquery-3.1.1.min.js"></script>
         <script src="./js/sweetalert2.min.js"></script>
@@ -14,15 +14,16 @@
         <script src="./js/ripples.min.js"></script>
         <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="./js/main.js"></script>
+        <script src="jquery_validation.js"></script>
         <script>
             $.material.init();
         </script>
     </head>
     <body>
         <script>
-            var t = jQuery.noConflict();
-            t().ready(function () {
-                t("#categoria").validate({
+            
+            $().ready(function () {
+                $("#categoria").validate({
                     rules: {
                         nombre: {
                             required: true,
@@ -190,7 +191,7 @@
                                                 <td>
                                                     <a id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
                                                     <script>
-                                                        t("#{{i}}").click(function () {
+                                                        $("#{{i}}").click(function () {
                                                             t("#nombre").val("{{item.nombre}}");
                                                             t("#external").val("{{item.external_id}}");
                                                         });
