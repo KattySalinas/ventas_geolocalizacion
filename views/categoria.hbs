@@ -189,15 +189,15 @@
                                                 <td>{{i}}</td>
                                                 <td>{{item.nombre}}</td>
                                                 <td>
-                                                    <a id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
+                                                    <a href="#new" id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
                                                     <script>
                                                         $("#{{i}}").click(function () {
-                                                            t("#nombre").val("{{item.nombre}}");
-                                                            t("#external").val("{{item.external_id}}");
+                                                            $("#nombre").val("{{item.nombre}}");
+                                                            $("#external").val("{{item.external_id}}");
                                                         });
                                                     </script>
                                                 </td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                                <td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
                                             </tr>
                                         </tbody>
                                         {{/each}}
