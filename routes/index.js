@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/registrarCuenta', function (req, res) {
-    res.render('registrarCuenta', {title: 'Cuenta'});
+    res.render('registrarCuenta', {title: 'Cuenta', mensaje: req.flash('info')});
 });
 
 

@@ -9,7 +9,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 var session = require('express-session');
-var flash = require('express-flash-notification');
+var flash = require('connect-flash');
 
 var bodyParser = require('body-parser');
 
@@ -26,7 +26,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(flash(app));
+app.use(flash());
 
 var models = require('./models/');
 models.sequelize.sync().then( () => {
