@@ -26,4 +26,5 @@ router.post('/registrarComerciante', CuentaController.guardarComerciante);
 
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);
 router.get('/categorias',CategoriaController.listarCategoria);
+router.get('/categorias2',CategoriaController.listarC);
 module.exports = router;

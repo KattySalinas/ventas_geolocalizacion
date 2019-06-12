@@ -5,8 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="./css/main.css">
-        
-         <!--====== Scripts -->
+
+        <!--====== Scripts -->
         <script src="./js/jquery-3.1.1.min.js"></script>
         <script src="./js/sweetalert2.min.js"></script>
         <script src="./js/bootstrap.min.js"></script>
@@ -21,7 +21,7 @@
     </head>
     <body>
         <script>
-            
+
             $().ready(function () {
                 $("#categoria").validate({
                     rules: {
@@ -150,8 +150,13 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                            {{#if orden}}
+                            <li><a href="#new" data-toggle="tab">Nuevo</a></li>
+                            <li class="active"><a href="#list" data-toggle="tab">Lista</a></li>
+                            {{else}}
                             <li class="active"><a href="#new" data-toggle="tab">Nuevo</a></li>
                             <li><a href="#list" data-toggle="tab">Lista</a></li>
+                            {{/if}}
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="new">
@@ -294,6 +299,6 @@
                 </div>
             </div>
         </div>
-       
+
     </body>
 </html>

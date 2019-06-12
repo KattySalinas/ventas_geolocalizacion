@@ -12,7 +12,7 @@ class CategoriaController {
             }).then(function (newCategoria, created) {
                 console.log(newCategoria);
                 if (newCategoria) {
-                    res.redirect('/categorias');
+                    res.redirect('/categorias2');
                     console.log('Se guardo categoria............');
                     req.flash('info', 'Creación exitosa', false);
                 }
@@ -21,7 +21,7 @@ class CategoriaController {
             Categoria.update({
                 nombre: req.body.nombre
             }, {where: {external_id: req.body.external}}).then(function (updatedcategoria, created) {
-                res.redirect('/categorias');
+                res.redirect('/categorias2');
                 if (updatedcategoria) {
                     req.flash('info', 'Modificación éxitosa', false);
                     console.log('Se modifico categoria............');
@@ -31,9 +31,14 @@ class CategoriaController {
     }
 
     listarCategoria(req, res) {
-        Categoria.findAll({}).then(function (listaCategoria) {
-            console.log(listaCategoria);
+        Categoria.findAll({}).then(function (listaCategoria) {            
             res.render('categoria', {title: 'Categorias', categoria: listaCategoria});
+        });
+    }
+    listarC(req, res) {        
+        Categoria.findAll({}).then(function (listaCategoria) {            
+            res.render('categoria', {title: 'Categorias', categoria: listaCategoria, orden: true});
+            console.log(true);
         });
     }
 }
