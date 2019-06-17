@@ -22,8 +22,8 @@ router.get('/clientes', function (req, res) {
 }); 
 
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
-
+router.post('/iniciar_sesion', CuentaController.iniciarSesion);
 
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);
-router.get('/categorias',CategoriaController.listarCategoria);
+router.get('/categorias', CategoriaController.listarCategoria);
 module.exports = router;

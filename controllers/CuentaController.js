@@ -48,5 +48,21 @@ class CuentaController {
             });
 
     }
+    iniciarSesion(req, res){
+        Cuenta.findOne({where: {correo: req.body.correo}}).then(function (cuenta) {
+            console.log('cuenta..' + cuenta);
+            console.log('correo..' + req.body.correo);
+            if (cuenta) {
+                if (cuenta.clave == req.body.clave) {
+                    console.log("Se inicio session");
+                    res.redirect('/categorias');  
+                }else {
+                    console.log("datos erroneos");
+                    res.redirect('/');  
+                }
+            }            
+        });
+        
+    }
 }
 module.exports = CuentaController;
