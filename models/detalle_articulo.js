@@ -8,6 +8,9 @@ module.exports = function (sequelize, Sequelize) {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
+        },        
+        external_id: {
+            type: Sequelize.UUID
         },
         cantidad: {
             type: Sequelize.INTEGER
