@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="./css/main.css">
         <!-- mapa -->        
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgC-DedY7_d36WrG6UoaeHdLpcRj16NGA&callback=initMap"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"></script>
 
         <script src="./geolocalizacion.js"></script>  
 
@@ -218,8 +218,8 @@
                                                 <div class="form-group col-md-6">
                                                     <label class="control-label">Estado</label>
                                                     <select class="form-control">
-                                                        <option>Active</option>
-                                                        <option>Disable</option>
+                                                        <option>Activo</option>
+                                                        <option>Desactivo</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-6">
@@ -234,9 +234,6 @@
                                                     <button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Save</button>
                                                 </p>
                                             </form>
-                                            <div id="map" style="width: 700px; height: 700px;">
-                                                
-                                            </div> 
                                         </div>
                                     </div>
                                 </div>
@@ -267,8 +264,8 @@
                                                 <td>{{item.marca}}</td>
                                                 <td>{{item.descripcion}}</td>
                                                 <td>{{item.cantidad}}</td>
-                                                <td>{{item.precio}}</td>
-                                                <td>{{item.estado}}</td>
+                                                <td>{{item.precio}}</td>                                                
+                                               
                                                 <td>
                                                     <a href="#new" id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
                                                     <script>
@@ -279,7 +276,6 @@
                                                             $("#descripcion").val("{{item.descripcion}}");
                                                             $("#cantidad").val("{{item.cantidad}}");
                                                             $("#precio").val("{{item.precio}}");
-                                                            $("#estado").val("{{item.estado}}");
                                                             $("#external").val("{{item.external_id}}");
                                                         });
                                                     </script>
