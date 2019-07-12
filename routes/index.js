@@ -25,6 +25,10 @@ router.get('/clientes', function (req, res) {
     res.render('cliente', {title: 'Cliente'});
 }); 
 
+router.get('/ventas', function (req, res) {
+    res.render('venta', {title: 'Venta'});
+}); 
+
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);

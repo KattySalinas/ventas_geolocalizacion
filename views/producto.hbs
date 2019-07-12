@@ -9,6 +9,11 @@
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"></script>
 
         <script src="./geolocalizacion.js"></script>  
+        
+       <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+        <link rel='stylesheet' , type='text/css' , href='./css/index.css'>
 
         <!--====== Scripts -->
         <script src="./js/jquery-3.1.1.min.js"></script>
@@ -24,6 +29,35 @@
         </script>
     </head>
     <body>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#btn_imagen').click(function () {
+                    $('#input_imagen').click();
+                });
+
+                var _URL = window.URL || window.webkitURL;
+                console.log(_URL);
+                $('#input_imagen').change(function () {
+                    let input = this;
+                    var file, img;
+                    if ((file = input.files[0])) {
+                        img = new Image();
+                        img.onload = function () {
+                            let id = '#bloque_imagen';
+                            $('' + id).css('background-image', 'url("' + _URL.createObjectURL(file) + '")');
+                            $('' + id).css('background-size', '100% 100%');
+                        };
+                        img.onerror = function () {
+                            console.log('error, cargando la foto');
+                        };
+                        img.src = _URL.createObjectURL(file);
+                    }
+                });
+            });
+        </script>
         <script>
 
             $().ready(function () {
@@ -172,7 +206,7 @@
                 </div>
                 <p class="lead"></p>
             </div>
-
+            
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
@@ -216,19 +250,11 @@
                                                     <input class="form-control" type="text" name="precio" id="precio">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label class="control-label">Estado</label>
-                                                    <select class="form-control">
-                                                        <option>Activo</option>
-                                                        <option>Desactivo</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label">Photo</label>
-                                                    <div>
-                                                        <input type="text" readonly="" class="form-control" placeholder="Browse...">
-                                                        <input type="file" >
+                                                    <label class="control-label">Photo</label>                                                    
+                                                    <div class="bloque_imagen" id="bloque_imagen">
+                                                        <input type="file" id="input_imagen" class="input_file">
+                                                        <i class="fas fa-camera-retro btn_imagen" id="btn_imagen"></i>
                                                     </div>
-
                                                 </div>
                                                 <p class="text-center">
                                                     <button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Save</button>
@@ -249,10 +275,9 @@
                                                 <th class="text-center">Marca</th>
                                                 <th class="text-center">Descripción</th>
                                                 <th class="text-center">Cantidad</th>
-                                                <th class="text-center">Precio</th>
-                                                <th class="text-center">Estado</th>                                                
+                                                <th class="text-center">Precio</th>                                               
                                                 <th class="text-center">Actualizar</th>
-                                                <th class="text-center">Eliminar</th>
+                                                <th class="text-center">Estado</th> 
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -265,7 +290,7 @@
                                                 <td>{{item.descripcion}}</td>
                                                 <td>{{item.cantidad}}</td>
                                                 <td>{{item.precio}}</td>                                                
-                                               
+
                                                 <td>
                                                     <a href="#new" id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
                                                     <script>

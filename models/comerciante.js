@@ -31,6 +31,9 @@ module.exports = function (sequelize, Sequelize) {
         models.comerciante.hasMany(models.venta, {
             foreignKey: 'id_comerciante'
         });
+        models.comerciante.hasMany(models.cronograma, {
+            foreignKey: 'id_comerciante'
+        });
     };
 
 
