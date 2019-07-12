@@ -17,14 +17,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/registrarCuenta', function (req, res) {
-    res.render('registrarCuenta', {title: 'Cuenta'});
+    res.render('registrarCuenta', {title: 'Cuenta', mensaje: req.flash('info')});
 });
 
 
-router.get('/clientes', function (req, res) {
-    res.render('cliente', {title: 'Cliente'});
-}); 
+router.get('/clientes', CuentaController.listarCLientes); 
 
+<<<<<<< HEAD
 router.get('/ventas', function (req, res) {
     res.render('venta', {title: 'Venta'});
 }); 
@@ -37,4 +36,28 @@ router.get('/categorias',CategoriaController.listarCategoria);
 router.post('/registrarProducto', ProductoController.guardarProducto);
 router.get('/productos',ProductoController.listarProducto);
 
+=======
+router.get('/rutas', function (req, res) {
+    res.render('rutas', {title: 'Rutas'});
+});
+router.get('/home', function (req, res) {
+    res.render('home', {title: 'Inicio'});
+});
+router.get('/ventas', function (req, res) {
+    res.render('venta', {title: 'Ventas'});
+});
+router.get('/pagos', function (req, res) {
+    res.render('payments', {title: 'Pagos'});
+});
+router.get('/productos', function (req, res) {
+    res.render('producto', {title: 'Productos'});
+});
+router.post('/registrarComerciante', CuentaController.guardarComerciante);
+router.post('/iniciar_sesion', CuentaController.iniciarSesion);
+
+router.post('/registrarCategoria', CategoriaController.guardarCategoria);
+router.get('/categorias', CategoriaController.listarCategoria);
+
+router.post('/registrarCliente', CuentaController.guardarCliente);
+>>>>>>> 9793d62fbc0d4ae3904119d2e48ad2dfd7045132
 module.exports = router;

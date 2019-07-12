@@ -2,14 +2,14 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var logger = require('morgan')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-
+;
 var app = express();
 var session = require('express-session');
-var flash = require('express-flash-notification');
+var flash = require('connect-flash');
 
 var bodyParser = require('body-parser');
 
@@ -26,7 +26,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(flash(app));
+app.use(flash());
 
 var models = require('./models/');
 models.sequelize.sync().then( () => {

@@ -79,33 +79,32 @@ function crearMarker(pos, map, geocoder) {
     marker.addListener('dragend', function (event) {
         cargarDireccion(geocoder, event.latLng, map);
         console.log(event.latLng);
-        /*coordsDiv.textContent =
+        coordsDiv.textContent =
          'lat: ' + event.latLng.lat() + ', ' +
-         'lng: ' + event.latLng.lng();*/
+         'lng: ' + event.latLng.lng();
     });
     return marker;
 }
 
 function cargarDireccion(geocoder, latlng, map) {
-
     geocoder.geocode({'location': latlng}, function (results, status) {
         console.log(results + "   xxxxxx");
         if (status === 'OK') {
             if (results[0] && results[1]) {
-                //var direccion = document.getElementById('txt_direccion');
+                var direccion = document.getElementById('txt_direccion');
                 var txt_long = document.getElementById('txt_long');
                 var txt_lat = document.getElementById('txt_lat');
-                //var txt_ciudad = document.getElementById('txt_ciudad');
+                var txt_ciudad = document.getElementById('txt_ciudad');
                 /*map.setZoom(11);
                  var marker = new google.maps.Marker({
                  position: latlng,
                  map: map
                  });*/
 
-                //direccion.value = results[0].formatted_address;
-                console.log(results);
+                direccion.value = results[0].formatted_address.split(",")[0];
+                console.log(results[0]);
                 //if(latlng['lat'] == 'function(){return a}' || latlng['lat'] == 'function(){return b}') {
-                if(txt_lat!=null && txt_long!=null){
+                if (txt_lat != null && txt_long != null) {
                     if (isNaN(latlng['lat']) || isNaN(latlng['lat'])) {
                         txt_lat.value = latlng.lat();
                         txt_long.value = latlng.lng();
@@ -115,9 +114,9 @@ function cargarDireccion(geocoder, latlng, map) {
                     }
                 }
                 //console.log(results[1].formatted_address);
-                //txt_ciudad.value = (results[2].formatted_address);
-                //infowindow.setContent(results[1].formatted_address);
-                //infowindow.open(map, marker);
+                txt_ciudad.value = (results[2].formatted_address);
+                infowindow.setContent(results[1].formatted_address);
+                infowindow.open(map, marker);
             } else {
                 window.alert('No results found');
             }
@@ -135,19 +134,19 @@ function deleteMarkers(map) {
     }
 }
 
-function pintar(puntos) {    
+function pintar(puntos) {
     //console.log("xxxx "+map);
     deleteMarkers(null);
     for (var i = 0; i < puntos.length; i++) {
         var url_icono = 'http://maps.google.com/mapfiles/ms/icons/blue-pushpin.png';
         var punto = puntos[i];
         var pos = {
-                lat: punto["lat"]*1,
-                lng: punto["lng"]*1,
-            };
+            lat: punto["lat"] * 1,
+            lng: punto["lng"] * 1,
+        };
         marker = new google.maps.Marker({
             map: map,
-            draggable: false,            
+            draggable: false,
             position: pos,
             icon: {
                 url: url_icono

@@ -7,17 +7,11 @@ module.exports = function (sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        nombre: {
-            type: Sequelize.STRING(100)
-        },
-        direccion: {
-            type: Sequelize.STRING(50)
-        },
         referencias: {
             type: Sequelize.STRING(50)
         },
-        telefono: {
-            type: Sequelize.STRING(11)
+        cedula: {
+            type: Sequelize.INTEGER
         },
         external_id: {
             type: Sequelize.UUID
