@@ -6,10 +6,12 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="./css/main.css">
         <!-- mapa -->        
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCN4pKzD21uzA00fgxJhSW69koN9Jx7Qcs&callback=initMap"></script>
-        <script src="../public/geolocalizacion.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"></script>
+        <script src="./geolocalizacion.js"></script>
+        <script src="jquery_validation.js"></script>
     </head>
     <body>
+
         <!-- SideBar -->
         <section class="full-box cover dashboard-sideBar">
             <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
@@ -125,41 +127,51 @@
                             <div class="tab-pane fade active in" id="new">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-12 col-md-10 col-md-offset-1">                                            
-                                            <form action="">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Nombres</label>
-                                                    <input class="form-control" type="text">
+                                        <div class="col-xs-10 col-md-8"> 
+                                            <form action="/registrarCliente" method="post">
+                                                <div class="col-xs-12 col-md-8"> 
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Nombres</label>
+                                                        <input type="text" class="form-control" name="nombre">
+                                                    </div>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Apellidos</label>
+                                                        <input type="text" class="form-control" name="apellido" >
+                                                    </div>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Telefono</label>
+                                                        <input type="text" class="form-control" name="telefono">
+                                                    </div>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Cedula</label>
+                                                        <input type="text" class="form-control" name="cedula">
+                                                    </div>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Referencias</label>
+                                                        <input type="text" class="form-control" name="referencias">
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label class="control-label">Ciudad</label>
+                                                        <input type="text" class="form-control" name="ciudad" id="txt_ciudad">
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label class="control-label">Direccion</label>
+                                                        <input type="text" class="form-control" name="direccion" id="txt_direccion">
+                                                    </div>
+                                                    <input type="hidden" class="form-control" name="longitud" id="txt_long">
+                                                    <input type="hidden" class="form-control" name="latitud" id="txt_lat">
+
+                                                    <p class="text-center">
+                                                        <button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Guardar</button>
+                                                    </p>
                                                 </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Apellidos</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Correo</label>
-                                                    <textarea class="form-control"></textarea>
-                                                </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Telefono</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Referencia</label>
-                                                    <input class="form-control" type="text">
-                                                </div>                                                
-                                                <div class="form-group">
-                                                    <label class="control-label">Photo</label>
-                                                    <div>
-                                                        <input type="text" readonly="" class="form-control" placeholder="Browse...">
-                                                        <input type="file" >
+                                                <div class="col-xs-12 col-md-3"> 
+                                                    <div class="text-right"> 
+                                                        <div id="map" style="width:522px; height:500px; margin-bottom:40px; margin-left: 30px" ></div> 
                                                     </div>
                                                 </div>
-
-                                                <p class="text-center">
-                                                    <button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Guardar</button>
-                                                </p>
                                             </form>
-                                        </div>                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>                            
@@ -170,55 +182,33 @@
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th class="text-center">Nombre</th>
-                                                <th class="text-center">Apellidos</th>
-                                                <th class="text-center">Correo</th>
+                                                <th class="text-center">Apellidos</th> 
                                                 <th class="text-center">Telefono</th>
-                                                <th class="text-center">Referencia</th>
+                                                <th class="text-center">Ciudad</th>
                                                 <th class="text-center">Update</th>
                                                 <th class="text-center">Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{#each this.clientes as |item i|}}
                                             <tr>
-                                                <td>1</td>
-                                                <td>Carlos</td>
-                                                <td>Alfaro</td>
-                                                <td>El Salvador</td>
-                                                <td>carlos@gmail.com</td>
-                                                <td>+50312345678</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                                <td>{{i}}</td>
+                                                <td>{{item.persona.nombre}}</td>
+                                                <td>{{item.persona.apellido}}</td>
+                                                <td>{{item.persona.telefono}}</td>
+                                                <td>{{item.ciudad }}</td>
+                                                <td>
+                                                    <a id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
+                                                    <script>
+$("#{{i}}").click(function () {
+    
+});
+                                                    </script>
+                                                </td>
                                                 <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Alicia</td>
-                                                <td>Melendez</td>
-                                                <td>El Salvador</td>
-                                                <td>alicia@gmail.com</td>
-                                                <td>+50312345678</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Sarai</td>
-                                                <td>Lopez</td>
-                                                <td>El Salvador</td>
-                                                <td>sarai@gmail.com</td>
-                                                <td>+50312345678</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Alba</td>
-                                                <td>Bonilla</td>
-                                                <td>El Salvador</td>
-                                                <td>alba@gmail.com</td>
-                                                <td>+50312345678</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
+                                        </tbody>
+                                        {{/each}}
                                         </tbody>
                                     </table>
                                     <ul class="pagination pagination-sm">
@@ -322,7 +312,7 @@
         <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="./js/main.js"></script>
         <script>
-            $.material.init();
+$.material.init();
         </script>
     </body>
 </html>

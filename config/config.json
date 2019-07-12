@@ -7,7 +7,7 @@
         "dialect": "mysql"
     },
     "staging":{
-        "username": "root",
+        "username": "",
         "password": "",
         "database": "sarita",
         "host": "localhost",

@@ -13,6 +13,12 @@ module.exports = function (sequelize, Sequelize) {
         longitud: {
             type: Sequelize.DOUBLE
         },
+        ciudad: {
+            type: Sequelize.STRING
+        },
+        direccion: {
+            type: Sequelize.STRING
+        },
         external_id: {
             type: Sequelize.UUID
         },

@@ -17,13 +17,28 @@ router.get('/registrarCuenta', function (req, res) {
 });
 
 
-router.get('/clientes', function (req, res) {
-    res.render('cliente', {title: 'Cliente'});
-}); 
+router.get('/clientes', CuentaController.listarCLientes); 
 
+router.get('/rutas', function (req, res) {
+    res.render('rutas', {title: 'Rutas'});
+});
+router.get('/home', function (req, res) {
+    res.render('home', {title: 'Inicio'});
+});
+router.get('/ventas', function (req, res) {
+    res.render('venta', {title: 'Ventas'});
+});
+router.get('/pagos', function (req, res) {
+    res.render('payments', {title: 'Pagos'});
+});
+router.get('/productos', function (req, res) {
+    res.render('producto', {title: 'Productos'});
+});
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 router.post('/iniciar_sesion', CuentaController.iniciarSesion);
 
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);
 router.get('/categorias', CategoriaController.listarCategoria);
+
+router.post('/registrarCliente', CuentaController.guardarCliente);
 module.exports = router;

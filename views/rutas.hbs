@@ -5,6 +5,20 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="./css/main.css">
+        <script src="./geolocalizacion.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"
+        type="text/javascript"></script>
+        <!--====== Scripts -->
+        <script src="./js/jquery-3.1.1.min.js"></script>
+        <script src="./js/sweetalert2.min.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/material.min.js"></script>
+        <script src="./js/ripples.min.js"></script>
+        <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="./js/main.js"></script>
+        
+
+
     </head>
     <body>
         <!-- SideBar -->
@@ -104,6 +118,7 @@
                     </li>
                 </ul>
             </nav>
+
             <!-- Content page -->
             <div class="container-fluid">
                 <div class="page-header">
@@ -122,17 +137,18 @@
                             <div class="tab-pane fade active in" id="new">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-xs-12 col-md-10 col-md-offset-1">
-                                            <form action="">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Nombre</label>
-                                                    <input class="form-control" type="text">
-                                                </div>                                                
-                                                <p class="text-center">
-                                                    <button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Save</button>
-                                                </p>
-                                            </form>
-                                        </div>
+                                        <form action="action" >
+                                            <div class="col-xs-12 col-md-10 col-md-offset-1" >
+                                                <div id="map" style="width:850px; height:500px;" ></div>  
+                                            </div>
+                                            <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                                <input type="text" class="form-control" placeholder="Longitud" name="longitud" id="txt_long" readonly>
+                                            </div>
+                                            <div class="col-xs-12 col-md-10 col-md-offset-1" >
+                                                <input type="text" class="form-control" placeholder="Latitud" name="latitud" id="txt_lat" readonly>
+                                            </div>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -280,14 +296,7 @@
                 </div>
             </div>
         </div>
-        <!--====== Scripts -->
-        <script src="./js/jquery-3.1.1.min.js"></script>
-        <script src="./js/sweetalert2.min.js"></script>
-        <script src="./js/bootstrap.min.js"></script>
-        <script src="./js/material.min.js"></script>
-        <script src="./js/ripples.min.js"></script>
-        <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="./js/main.js"></script>
+
         <script>
             $.material.init();
         </script>
