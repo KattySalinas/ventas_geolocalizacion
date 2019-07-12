@@ -5,11 +5,98 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="./css/main.css">
-        <!-- UPLOAD-->
+        <!-- mapa -->        
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"></script>
 
+        <script src="./geolocalizacion.js"></script>  
+        
+       <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+        <link rel='stylesheet' , type='text/css' , href='./css/index.css'>
 
+        <!--====== Scripts -->
+        <script src="./js/jquery-3.1.1.min.js"></script>
+        <script src="./js/sweetalert2.min.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/material.min.js"></script>
+        <script src="./js/ripples.min.js"></script>
+        <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="./js/main.js"></script>
+        <script src="jquery_validation.js"></script>
+        <script>
+            $.material.init();
+        </script>
     </head>
     <body>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#btn_imagen').click(function () {
+                    $('#input_imagen').click();
+                });
+
+                var _URL = window.URL || window.webkitURL;
+                console.log(_URL);
+                $('#input_imagen').change(function () {
+                    let input = this;
+                    var file, img;
+                    if ((file = input.files[0])) {
+                        img = new Image();
+                        img.onload = function () {
+                            let id = '#bloque_imagen';
+                            $('' + id).css('background-image', 'url("' + _URL.createObjectURL(file) + '")');
+                            $('' + id).css('background-size', '100% 100%');
+                        };
+                        img.onerror = function () {
+                            console.log('error, cargando la foto');
+                        };
+                        img.src = _URL.createObjectURL(file);
+                    }
+                });
+            });
+        </script>
+        <script>
+
+            $().ready(function () {
+                $("#producto").validate({
+                    rules: {
+                        categoria: {
+                            required: true
+                        },
+                        nombre: {
+                            required: true,
+                            minlength: 3
+                        },
+                        marca: {
+                            required: true,
+                            minlength: 2
+                        },
+                        estado: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        categoria: {
+                            required: "Ingrese la categoria por favor"
+                        },
+                        nombre: {
+                            required: "Ingrese el nombre por favor",
+                            minlength: "Minimo 3 caracteres"
+                        },
+                        marca: {
+                            required: "Ingrese la marca por favor",
+                            minlength: "Minimo 2 caracteres"
+                        },
+                        estado: {
+                            required: "Ingrese el estado por favor"
+                        }
+                    }
+                });
+            });
+        </script>
         <!-- SideBar -->
         <section class="full-box cover dashboard-sideBar">
             <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
@@ -119,7 +206,7 @@
                 </div>
                 <p class="lead"></p>
             </div>
-
+            
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
@@ -132,43 +219,45 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-10 col-md-offset-1">
-                                            <form action="">
-                                                <div class="form-group label-floating">
+                                            <form action="/registrarProducto" method="post" id="producto">
+                                                <input type="hidden" name="external" value="0" id="external"/>
+                                                <div class="form-group label-floating col-md-6">
                                                     <label class="control-label">Categoría</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Código</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Nombre</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Precio</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Cantidad</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label">Estado</label>
-                                                    <select class="form-control">
-                                                        <option>Active</option>
-                                                        <option>Disable</option>
+                                                    <select class="form-control" name="categoria" id="categoria">
+                                                        {{#each this.categoria as |item|}}
+                                                        <option value="{{ item.id }}" > {{item.nombre}}</option>
+                                                        {{/each}}
                                                     </select>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="control-label">Photo</label>
-                                                    <div>
-                                                        <input type="text" readonly="" class="form-control" placeholder="Browse...">
-                                                        <input type="file" >
+                                                <div class="form-group label-floating col-md-6">
+                                                    <label class="control-label">Nombre</label>
+                                                    <input class="form-control" type="text" name="nombre" id="nombre">
+                                                </div>
+                                                <div class="form-group label-floating col-md-6">
+                                                    <label class="control-label">Marca</label>
+                                                    <input class="form-control" type="text" name="marca" id="marca">
+                                                </div>
+                                                <div class="form-group label-floating col-md-6">
+                                                    <label class="control-label">Descripcion</label>
+                                                    <input class="form-control" type="text" name="descripcion" id="descripcion">
+                                                </div>
+                                                <div class="form-group label-floating col-md-6">
+                                                    <label class="control-label">Cantidad</label>
+                                                    <input class="form-control" type="text" name="cantidad" id="cantidad">
+                                                </div>
+                                                <div class="form-group label-floating col-md-6">
+                                                    <label class="control-label col-md-6">Precio</label>
+                                                    <input class="form-control" type="text" name="precio" id="precio">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label class="control-label">Photo</label>                                                    
+                                                    <div class="bloque_imagen" id="bloque_imagen">
+                                                        <input type="file" id="input_imagen" class="input_file">
+                                                        <i class="fas fa-camera-retro btn_imagen" id="btn_imagen"></i>
                                                     </div>
                                                 </div>
                                                 <p class="text-center">
-                                                    <button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Save</button>
+                                                    <button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Save</button>
                                                 </p>
                                             </form>
                                         </div>
@@ -181,47 +270,45 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th class="text-center">Code</th>
-                                                <th class="text-center">Name</th>
-                                                <th class="text-center">Status</th>
-                                                <th class="text-center">Update</th>
-                                                <th class="text-center">Delete</th>
+                                                <th class="text-center">Categoría</th>
+                                                <th class="text-center">Nombre</th>
+                                                <th class="text-center">Marca</th>
+                                                <th class="text-center">Descripción</th>
+                                                <th class="text-center">Cantidad</th>
+                                                <th class="text-center">Precio</th>                                               
+                                                <th class="text-center">Actualizar</th>
+                                                <th class="text-center">Estado</th> 
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{#each this.producto as |item i|}}
                                             <tr>
-                                                <td>1</td>
-                                                <td>100</td>
-                                                <td>Mathematics</td>
-                                                <td>Active</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                                <td>{{i}}</td>
+                                                <td>{{item.categorium.nombre}}</td>
+                                                <td>{{item.nombre}}</td>
+                                                <td>{{item.marca}}</td>
+                                                <td>{{item.descripcion}}</td>
+                                                <td>{{item.cantidad}}</td>
+                                                <td>{{item.precio}}</td>                                                
+
+                                                <td>
+                                                    <a href="#new" id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
+                                                    <script>
+                                                        $("#{{i}}").click(function () {
+                                                            $("#categoria").val("{{item.categorium.id}}");
+                                                            $("#nombre").val("{{item.nombre}}");
+                                                            $("#marca").val("{{item.marca}}");
+                                                            $("#descripcion").val("{{item.descripcion}}");
+                                                            $("#cantidad").val("{{item.cantidad}}");
+                                                            $("#precio").val("{{item.precio}}");
+                                                            $("#external").val("{{item.external_id}}");
+                                                        });
+                                                    </script>
+                                                </td>
+                                                <td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>500</td>
-                                                <td>Science</td>
-                                                <td>Active</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>300</td>
-                                                <td>Social</td>
-                                                <td>Active</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>700</td>
-                                                <td>English</td>
-                                                <td>Active</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                        </tbody>
+                                            {{/each}}
+                                        </tbody>                                   
                                     </table>
                                     <ul class="pagination pagination-sm">
                                         <li class="disabled"><a href="#!">«</a></li>
@@ -315,16 +402,5 @@
                 </div>
             </div>
         </div>
-        <!--====== Scripts -->
-        <script src="./js/jquery-3.1.1.min.js"></script>
-        <script src="./js/sweetalert2.min.js"></script>
-        <script src="./js/bootstrap.min.js"></script>
-        <script src="./js/material.min.js"></script>
-        <script src="./js/ripples.min.js"></script>
-        <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="./js/main.js"></script>
-        <script>
-            $.material.init();
-        </script>
     </body>
 </html>

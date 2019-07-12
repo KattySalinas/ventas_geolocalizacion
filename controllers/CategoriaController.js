@@ -31,8 +31,7 @@ class CategoriaController {
     }
 
     listarCategoria(req, res) {
-        Categoria.findAll({}).then(function (listaCategoria) {
-            console.log(listaCategoria);
+        Categoria.findAll({}).then(function (listaCategoria) {            
             res.render('categoria', {title: 'Categorias', categoria: listaCategoria});
         });
     }

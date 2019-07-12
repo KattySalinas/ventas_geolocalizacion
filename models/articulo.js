@@ -18,7 +18,18 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.STRING(50)
         },      
         descripcion: {type: Sequelize.STRING
+        },        
+        cantidad: {
+            type: Sequelize.INTEGER
+        },        
+        precio: {
+            type: Sequelize.DOUBLE(7, 2)
+        },
+        estado: { 
+            type: Sequelize.BOOLEAN,
+            defaultValue: true
         }
+        
     }, {freezeTableName: true,
         createdAt: 'fecha_registro',
         updatedAt: 'fecha_modificacion'

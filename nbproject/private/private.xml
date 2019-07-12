@@ -3,12 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Asus/ventas_geolocalizacion/models/index.js</file>
             <file>file:/C:/Users/Asus/ventas_geolocalizacion/config/config.json</file>
             <file>file:/C:/Users/Asus/ventas_geolocalizacion/routes/index.js</file>
             <file>file:/C:/Users/Asus/ventas_geolocalizacion/controllers/CategoriaController.js</file>
             <file>file:/C:/Users/Asus/ventas_geolocalizacion/app.js</file>
             <file>file:/C:/Users/Asus/ventas_geolocalizacion/views/categoria.hbs</file>
+=======
+            <file>file:/C:/Users/Asus/ventas_geolocalizacion/models/comerciante.js</file>
+            <file>file:/C:/Users/Asus/ventas_geolocalizacion/models/pago.js</file>
+            <file>file:/C:/Users/Asus/ventas_geolocalizacion/models/plazo.js</file>
+            <file>file:/C:/Users/Asus/ventas_geolocalizacion/views/producto.hbs</file>
+            <file>file:/C:/Users/Asus/ventas_geolocalizacion/models/venta.js</file>
+            <file>file:/C:/Users/Asus/ventas_geolocalizacion/routes/index.js</file>
+>>>>>>> test
         </group>
     </open-files>
 </project-private>

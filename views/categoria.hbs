@@ -5,8 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="./css/main.css">
-        
-         <!--====== Scripts -->
+
+        <!--====== Scripts -->
         <script src="./js/jquery-3.1.1.min.js"></script>
         <script src="./js/sweetalert2.min.js"></script>
         <script src="./js/bootstrap.min.js"></script>
@@ -21,7 +21,7 @@
     </head>
     <body>
         <script>
-            
+
             $().ready(function () {
                 $("#categoria").validate({
                     rules: {
@@ -149,9 +149,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
-                        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                        <ul class="nav nav-tabs" style="margin-bottom: 15px;">                           
                             <li class="active"><a href="#new" data-toggle="tab">Nuevo</a></li>
-                            <li><a href="#list" data-toggle="tab">Lista</a></li>
+                            <li><a href="#list" data-toggle="tab">Lista</a></li>                            
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="new">
@@ -199,8 +199,8 @@
                                                 </td>
                                                 <td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
                                             </tr>
+                                            {{/each}}
                                         </tbody>
-                                        {{/each}}
                                     </table>
                                     <ul class="pagination pagination-sm">
                                         <li class="disabled"><a href="#!">«</a></li>
@@ -294,6 +294,5 @@
                 </div>
             </div>
         </div>
-       
     </body>
 </html>
