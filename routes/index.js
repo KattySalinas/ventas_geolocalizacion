@@ -23,7 +23,6 @@ router.get('/registrarCuenta', function (req, res) {
 
 router.get('/clientes', CuentaController.listarCLientes); 
 
-<<<<<<< HEAD
 router.get('/ventas', function (req, res) {
     res.render('venta', {title: 'Venta'});
 }); 
@@ -36,7 +35,6 @@ router.get('/categorias',CategoriaController.listarCategoria);
 router.post('/registrarProducto', ProductoController.guardarProducto);
 router.get('/productos',ProductoController.listarProducto);
 
-=======
 router.get('/rutas', function (req, res) {
     res.render('rutas', {title: 'Rutas'});
 });
@@ -59,5 +57,5 @@ router.post('/registrarCategoria', CategoriaController.guardarCategoria);
 router.get('/categorias', CategoriaController.listarCategoria);
 
 router.post('/registrarCliente', CuentaController.guardarCliente);
->>>>>>> 9793d62fbc0d4ae3904119d2e48ad2dfd7045132
+
 module.exports = router;
