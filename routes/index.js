@@ -15,6 +15,9 @@ var ProductoController = new producto;
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Pagina de inicio' });
 });
+router.get('/demo', function(req, res, next) {
+  res.render('demo', { title: 'Pagina de inicio' });
+});
 
 router.get('/registrarCuenta', function (req, res) {
     res.render('registrarCuenta', {title: 'Cuenta'});
