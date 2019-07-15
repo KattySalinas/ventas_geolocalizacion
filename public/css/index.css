@@ -9,11 +9,12 @@ body {
 .bloque_imagen {
     width: 22vw;
     height: 20vw;
-    background: red;
-    margin: 0 auto;
+    background: rgba(0,0,0,.12);
+    margin: 5px 0;
     display: flex;
     align-items: center;
 }
+
 
 .bloque_imagen .input_file {
     display: none;

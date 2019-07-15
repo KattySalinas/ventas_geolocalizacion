@@ -1,9 +1,9 @@
 {
     "development":{
-        "username": "jhomaira",
-        "password": "@jhomaira123",
+        "username": "root",
+        "password": "toor",
         "database": "sarita",
-        "host": "db4free.net",
+        "host": "localhost",
         "dialect": "mysql"
     },
     "staging":{
