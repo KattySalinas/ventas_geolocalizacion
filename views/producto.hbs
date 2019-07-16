@@ -22,8 +22,8 @@
                 uploadHBR.init({
                     "target": "#uploads",
                     "max": 6,
-                    "textNew": "ADD",
-                    "textTitle": "Click here or drag to upload an imagem",
+                    "textNew": "...",
+                    "textTitle": "Haga clic aquí o arrastre para subir una imagen",
                     "textTitleRemove": "Click here remove the imagem"
                 });
                 $('#reset').click(function () {
@@ -207,9 +207,9 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-10 col-md-offset-1">
-                                            <form action="/registrarProducto" method="post" id="producto">
+                                            <form action="/registrarProducto" method="post" id="producto" enctype="multipart/form-data">
                                                 <input type="hidden" name="external" value="0" id="external"/>
-                                                <div class="form-group label-floating col-md-6">
+                                                <div class="form-group label-floating ">
                                                     <label class="control-label">Categoría</label>
                                                     <select class="form-control" name="categoria" id="categoria">
                                                         {{#each this.categoria as |item|}}
@@ -217,28 +217,28 @@
                                                         {{/each}}
                                                     </select>
                                                 </div>
-                                                <div class="form-group label-floating col-md-6">
+                                                <div class="form-group label-floating ">
                                                     <label class="control-label">Nombre</label>
                                                     <input class="form-control" type="text" name="nombre" id="nombre">
                                                 </div>
-                                                <div class="form-group label-floating col-md-6">
+                                                <div class="form-group label-floating ">
                                                     <label class="control-label">Marca</label>
                                                     <input class="form-control" type="text" name="marca" id="marca">
                                                 </div>
-                                                <div class="form-group label-floating col-md-6">
+                                                <div class="form-group label-floating ">
                                                     <label class="control-label">Descripcion</label>
                                                     <input class="form-control" type="text" name="descripcion" id="descripcion">
                                                 </div>
-                                                <div class="form-group label-floating col-md-6">
+                                                <div class="form-group label-floating ">
                                                     <label class="control-label">Cantidad</label>
                                                     <input class="form-control" type="text" name="cantidad" id="cantidad">
                                                 </div>
-                                                <div class="form-group label-floating col-md-6">
-                                                    <label class="control-label col-md-6">Precio</label>
+                                                <div class="form-group label-floating ">
+                                                    <label class="control-label">Precio</label>
                                                     <input class="form-control" type="text" name="precio" id="precio">
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label col-md-6">Photo</label>                                                    
+                                                <div class="form-group ">
+                                                    <label class="control-label">Arrastra tus fotos o súbelas</label>                                                    
                                                     <div class="w3-row">
                                                         <div class="w3-col s12 m12">
                                                             <div class="w3-col s12 m12 l12" id="columns">                                                                
@@ -246,7 +246,7 @@
                                                                 <div id="uploads"><!-- Upload Content --></div>
                                                             </div>
                                                             <div class="w3-clear"></div>
-                                                            <button class="w3-btn w3-red w3-left" id="reset" type="button" ><i class="fa fa-history"></i> Clear</button>                                                            
+                                                            <button class="w3-btn w3-orange w3-left" id="reset" type="button" ><i class="fa fa-history"></i> Borrar</button>                                                            
                                                         </div>
                                                     </div>
                                                 </div>
