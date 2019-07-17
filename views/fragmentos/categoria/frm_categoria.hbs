@@ -1,3 +1,22 @@
+<script>
+
+    $().ready(function () {
+        $("#categoria").validate({
+            rules: {
+                nombre: {
+                    required: true,
+                    minlength: 3
+                }
+            },
+            messages: {
+                nombre: {
+                    required: "Ingrese el nombre por favor",
+                    minlength: "Minimo 3 caracteres"
+                }
+            }
+        });
+    });
+</script>
 <!-- Content page -->
 <div class="container-fluid">
     <div class="page-header">
