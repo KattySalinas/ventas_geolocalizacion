@@ -10,6 +10,8 @@ var CategoriaController = new categoria;
 var producto = require('../controllers/ProductoController');
 var ProductoController = new producto;
 
+var cliente = require('../controllers/ClienteController');
+var ClienteController = new cliente;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -21,9 +23,9 @@ router.get('/registrarCuenta', function (req, res) {
 });
 
 
-router.get('/clientes', CuentaController.listarCLientes); 
+router.get('/clientes', ClienteController.listarCLientes); 
 
-<<<<<<< HEAD
+
 router.get('/ventas', function (req, res) {
     res.render('venta', {title: 'Venta'});
 }); 
@@ -31,12 +33,13 @@ router.get('/ventas', function (req, res) {
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);
+router.post('/editarCategoria', CategoriaController.editarCategoria);
 router.get('/categorias',CategoriaController.listarCategoria);
 
 router.post('/registrarProducto', ProductoController.guardarProducto);
+router.post('/editarProducto', ProductoController.editarProducto);
 router.get('/productos',ProductoController.listarProducto);
 
-=======
 router.get('/rutas', function (req, res) {
     res.render('rutas', {title: 'Rutas'});
 });
@@ -58,6 +61,6 @@ router.post('/iniciar_sesion', CuentaController.iniciarSesion);
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);
 router.get('/categorias', CategoriaController.listarCategoria);
 
-router.post('/registrarCliente', CuentaController.guardarCliente);
->>>>>>> 9793d62fbc0d4ae3904119d2e48ad2dfd7045132
+router.post('/registrarCliente', ClienteController.guardarCliente);
+//router.post('/guardar_imagen', ProductoController.guardarImagen);
 module.exports = router;

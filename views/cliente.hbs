@@ -8,10 +8,79 @@
         <!-- mapa -->        
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"></script>
         <script src="./geolocalizacion.js"></script>
+
+        <!--====== Scripts -->
+        <script src="./js/jquery-3.1.1.min.js"></script>
+        <script src="./js/sweetalert2.min.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/material.min.js"></script>
+        <script src="./js/ripples.min.js"></script>
+        <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="./js/main.js"></script>
         <script src="jquery_validation.js"></script>
+        <script>
+            $.material.init();
+        </script>
     </head>
     <body>
+        <script>
 
+            $().ready(function () {
+                $("#cliente").validate({
+                    rules: {
+                        nombre: {
+                            required: true,
+                            minlength: 3
+                        },
+                        apellido: {
+                            required: true,
+                            minlength: 3
+                        },
+                        telefono: {
+                            required: true,
+                            minlength: 10,
+                            maxlength: 10
+                        },
+                        cedula: {
+                            required: true
+                        },
+                        referencias: {
+                            required: true
+                        },
+                        txt_ciudad: {
+                            required: true
+                        },
+                        txt_direccion: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        nombre: {
+                            required: "Ingrese el nombre por favor",
+                            minlength: "Minimo 3 caracteres"
+                        },
+                        apellido: {
+                            required: "Ingrese el apellido"
+                        },
+                        telefono: {
+                            required: "Ingrese un telefono"
+                        },
+                        cedula: {
+                            required: "Ingrese un numero de cedula"
+                        },
+                        referencias: {
+                            required: "Ingrese una referencia"
+                        },
+                        txt_ciudad: {
+                            required: "No tienen una ciudad"
+                        },
+                        txt_direccion: {
+                            required: "No tiene una direccion"
+                        }
+                    }
+                });
+            });
+        </script>
         <!-- SideBar -->
         <section class="full-box cover dashboard-sideBar">
             <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
@@ -128,48 +197,51 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-xs-10 col-md-8"> 
-                                            <form action="/registrarCliente" method="post">
+                                            <form action="/registrarCliente" method="post" id="cliente">
+                                                <input type="hidden" name="external" value="0" id="external">
+                                                <input type="hidden" name="externalp" value="0" id="externalp">
+                                                <input type="hidden" name="externalc" value="0" id="externalc">
                                                 <div class="col-xs-12 col-md-8"> 
                                                     <div class="form-group label-floating">
                                                         <label class="control-label">Nombres</label>
-                                                        <input type="text" class="form-control" name="nombre">
+                                                        <input type="text" class="form-control" name="nombre" id="nombre">
                                                     </div>
                                                     <div class="form-group label-floating">
                                                         <label class="control-label">Apellidos</label>
-                                                        <input type="text" class="form-control" name="apellido" >
+                                                        <input type="text" class="form-control" name="apellido" id="apellido">
                                                     </div>
                                                     <div class="form-group label-floating">
                                                         <label class="control-label">Telefono</label>
-                                                        <input type="text" class="form-control" name="telefono">
+                                                        <input type="text" class="form-control" name="telefono" id="telefono">
                                                     </div>
                                                     <div class="form-group label-floating">
                                                         <label class="control-label">Cedula</label>
-                                                        <input type="text" class="form-control" name="cedula">
+                                                        <input type="text" class="form-control" name="cedula" id="cedula">
                                                     </div>
                                                     <div class="form-group label-floating">
                                                         <label class="control-label">Referencias</label>
-                                                        <input type="text" class="form-control" name="referencias">
+                                                        <input type="text" class="form-control" name="referencias" id="referencias">
                                                     </div>
-                                                    <div class="form-group ">
+                                                    <div class="form-group" style="margin: auto">
                                                         <label class="control-label">Ciudad</label>
                                                         <input type="text" class="form-control" name="ciudad" id="txt_ciudad">
                                                     </div>
-                                                    <div class="form-group ">
+                                                    <div class="form-group" style="margin: auto">
                                                         <label class="control-label">Direccion</label>
                                                         <input type="text" class="form-control" name="direccion" id="txt_direccion">
                                                     </div>
                                                     <input type="hidden" class="form-control" name="longitud" id="txt_long">
                                                     <input type="hidden" class="form-control" name="latitud" id="txt_lat">
 
-                                                    <p class="text-center">
-                                                        <button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Guardar</button>
-                                                    </p>
                                                 </div>
                                                 <div class="col-xs-12 col-md-3"> 
                                                     <div class="text-right"> 
-                                                        <div id="map" style="width:522px; height:500px; margin-bottom:40px; margin-left: 30px" ></div> 
+                                                        <div id="map" style="width:522px; height:570px; margin-bottom:40px; margin-left: 30px" ></div> 
                                                     </div>
                                                 </div>
+                                                <p class="text-center">
+                                                    <button href="#!" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Guardar</button>
+                                                </p>
                                             </form>
                                         </div>
                                     </div>
@@ -184,31 +256,46 @@
                                                 <th class="text-center">Nombre</th>
                                                 <th class="text-center">Apellidos</th> 
                                                 <th class="text-center">Telefono</th>
+                                                <th class="text-center">Cedula</th>
+                                                <th class="text-center">Referencia</th>
                                                 <th class="text-center">Ciudad</th>
                                                 <th class="text-center">Update</th>
                                                 <th class="text-center">Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{#each this.clientes as |item i|}}
+                                             {{#each this.clientes as |item i|}} 
                                             <tr>
+                                               
                                                 <td>{{i}}</td>
                                                 <td>{{item.persona.nombre}}</td>
                                                 <td>{{item.persona.apellido}}</td>
                                                 <td>{{item.persona.telefono}}</td>
+                                                <td>{{item.persona.cliente.cedula}}</td>
+                                                <td>{{item.persona.cliente.referencias}}</td>
                                                 <td>{{item.ciudad }}</td>
                                                 <td>
-                                                    <a id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
+                                                    <a a href="#new" data-toggle="tab" id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>                                                  
                                                     <script>
-$("#{{i}}").click(function () {
-    
-});
+                                                        $("#{{i}}").click(function () {
+                                                            $("#nombre").val("{{item.persona.nombre}}");
+                                                            $("#apellido").val("{{item.persona.apellido}}");
+                                                            $("#telefono").val("{{item.persona.telefono}}");
+                                                            $("#cedula").val("{{item.persona.cliente.cedula}}");
+                                                            $("#referencias").val("{{item.persona.cliente.referencias}}");
+                                                            $("#txt_ciudad").val("{{item.ciudad}}");
+                                                            $("#txt_direccion").val("{{item.direccion}}");
+                                                            $("#txt_latitud").val("{{item.latitud}}");
+                                                            $("#txt_longitud").val("{{item.longitud}}");
+                                                            $("#external").val("{{item.external_id}}");
+                                                            $("#externalp").val("{{item.persona.external_id}}");
+                                                            $("#externalc").val("{{item.persona.cliente.external_id}}");
+                                                        });  
                                                     </script>
                                                 </td>
                                                 <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
                                             </tr>
-                                        </tbody>
-                                        {{/each}}
+                                            {{/each}}                                      
                                         </tbody>
                                     </table>
                                     <ul class="pagination pagination-sm">
@@ -227,6 +314,7 @@ $("#{{i}}").click(function () {
                 </div>
             </div>
         </section>
+
 
         <!-- Notifications area -->
         <section class="full-box Notifications-area">
@@ -303,16 +391,6 @@ $("#{{i}}").click(function () {
                 </div>
             </div>
         </div>
-        <!--====== Scripts -->
-        <script src="./js/jquery-3.1.1.min.js"></script>
-        <script src="./js/sweetalert2.min.js"></script>
-        <script src="./js/bootstrap.min.js"></script>
-        <script src="./js/material.min.js"></script>
-        <script src="./js/ripples.min.js"></script>
-        <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="./js/main.js"></script>
-        <script>
-$.material.init();
-        </script>
+
     </body>
 </html>

@@ -9,8 +9,8 @@
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"></script>
 
         <script src="./geolocalizacion.js"></script>  
-        
-       <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />-->
+
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
         <link rel='stylesheet' , type='text/css' , href='./css/index.css'>
@@ -160,14 +160,9 @@
                         </a>
                     </li>                    
                     <li>
-                        <a href="#!" class="btn-sideBar-SubMenu">
-                            <i class="zmdi zmdi-shield-security zmdi-hc-fw"></i> Settings School <i class="zmdi zmdi-caret-down pull-right"></i>
-                        </a>
-                        <ul class="list-unstyled full-box">
-                            <li>
-                                <a href="school.html"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> School Data</a>
-                            </li>
-                        </ul>
+                        <a href="/rutas" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-trending-up zmdi-hc-fw"></i> Rutas
+                        </a>                        
                     </li>
                 </ul>
             </div>
@@ -206,13 +201,13 @@
                 </div>
                 <p class="lead"></p>
             </div>
-            
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
                         <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                             <li class="active"><a href="#new" data-toggle="tab"> Nuevo</a></li>
-                            <li><a href="#list" data-toggle="tab"> Lista</a></li>
+                            <li><a href="#list" data-toggle="tab">Lista</a></li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="new">
@@ -220,12 +215,11 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-md-10 col-md-offset-1">
                                             <form action="/registrarProducto" method="post" id="producto">
-                                                <input type="hidden" name="external" value="0" id="external"/>
                                                 <div class="form-group label-floating col-md-6">
                                                     <label class="control-label">Categoría</label>
                                                     <select class="form-control" name="categoria" id="categoria">
                                                         {{#each this.categoria as |item|}}
-                                                        <option value="{{ item.id }}" > {{item.nombre}}</option>
+                                                        <option value="{{ item.id }}" class="form-control"> {{item.nombre}}</option>
                                                         {{/each}}
                                                     </select>
                                                 </div>
@@ -249,23 +243,24 @@
                                                     <label class="control-label col-md-6">Precio</label>
                                                     <input class="form-control" type="text" name="precio" id="precio">
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    <label class="control-label">Photo</label>                                                    
-                                                    <div class="bloque_imagen" id="bloque_imagen">
-                                                        <input type="file" id="input_imagen" class="input_file">
-                                                        <i class="fas fa-camera-retro btn_imagen" id="btn_imagen"></i>
-                                                    </div>
+
+                                                <div class="form-group label-floating col-md-6">
+                                                    <p class="text-center">
+                                                        <button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Save</button>
+                                                    </p>                                                    
                                                 </div>
-                                                <p class="text-center">
-                                                    <button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Save</button>
-                                                </p>
+
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="tab-pane fade" id="list">
                                 <div class="table-responsive">
+                                    <div class="btn col-md-6">
+                                        <input class="form-control" type="text"  id="buscarDependencia"  placeholder="Buscar">
+                                    </div>
                                     <table class="table table-hover text-center">
                                         <thead>
                                             <tr>
@@ -275,7 +270,7 @@
                                                 <th class="text-center">Marca</th>
                                                 <th class="text-center">Descripción</th>
                                                 <th class="text-center">Cantidad</th>
-                                                <th class="text-center">Precio</th>                                               
+                                                <th class="text-center">Precio</th>
                                                 <th class="text-center">Actualizar</th>
                                                 <th class="text-center">Estado</th> 
                                             </tr>
@@ -289,18 +284,17 @@
                                                 <td>{{item.marca}}</td>
                                                 <td>{{item.descripcion}}</td>
                                                 <td>{{item.cantidad}}</td>
-                                                <td>{{item.precio}}</td>                                                
-
+                                                <td>$ {{item.precio}}</td> 
                                                 <td>
-                                                    <a href="#new" id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
+                                                    <a id="{{ i }}" class="btn btn-success btn-raised btn-xs" data-toggle="modal" data-target="#modalModificar"><i class="zmdi zmdi-refresh"></i></a>
                                                     <script>
                                                         $("#{{i}}").click(function () {
-                                                            $("#categoria").val("{{item.categorium.id}}");
-                                                            $("#nombre").val("{{item.nombre}}");
-                                                            $("#marca").val("{{item.marca}}");
-                                                            $("#descripcion").val("{{item.descripcion}}");
-                                                            $("#cantidad").val("{{item.cantidad}}");
-                                                            $("#precio").val("{{item.precio}}");
+                                                            $("#categoria1").val("{{item.categorium.id}}");
+                                                            $("#nombre1").val("{{item.nombre}}");
+                                                            $("#marca1").val("{{item.marca}}");
+                                                            $("#descripcion1").val("{{item.descripcion}}");
+                                                            $("#cantidad1").val("{{item.cantidad}}");
+                                                            $("#precio1").val("{{item.precio}}");
                                                             $("#external").val("{{item.external_id}}");
                                                         });
                                                     </script>
@@ -326,6 +320,63 @@
                 </div>
             </div>
         </section>
+
+        <!-- edit modal -->
+        <div class="modal fade" id="modalModificar"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h2 class="modal-title text-center" id="exampleModalLongTitle">Editar Producto</h2>
+                    </div>
+                    <form name="sentMessage" action="/editarProducto" method="POST">
+                        <input type="hidden" name="external" value="0" id="external"/>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">  
+                                    <div class="form-group">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Categoría</label>
+                                            <select class="form-control" name="categoria1" id="categoria1">
+                                                {{#each this.categoria as |item|}}
+                                                <option value="{{ item.id }}" class="form-control"> {{item.nombre}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                        <div class="form-group label-floating ">
+                                            <label class="control-label">Nombre</label>
+                                            <input class="form-control" type="text" name="nombre1" id="nombre1">
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Marca</label>
+                                            <input class="form-control" type="text" name="marca1" id="marca1">
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Descripcion</label>
+                                            <input class="form-control" type="text" name="descripcion1" id="descripcion1">
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Cantidad</label>
+                                            <input class="form-control" type="text" name="cantidad1" id="cantidad1">
+                                        </div>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Precio</label>
+                                            <input class="form-control" type="text" name="precio1" id="precio1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-info">Modificar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <!-- Notifications area -->
         <section class="full-box Notifications-area">

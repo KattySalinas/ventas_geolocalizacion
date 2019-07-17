@@ -159,7 +159,6 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-md-10 col-md-offset-1">
                                             <form action="/registrarCategoria" method="post" id="categoria">
-                                                <input type="hidden" name="external" value="0" id="external">
                                                 <div class="form-group label-floating">
                                                     <label class="control-label">Nombre</label>
                                                     <input class="form-control" type="text" id="nombre" name="nombre">
@@ -189,10 +188,10 @@
                                                 <td>{{i}}</td>
                                                 <td>{{item.nombre}}</td>
                                                 <td>
-                                                    <a href="#new" id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
+                                                    <a id="{{ i }}" class="btn btn-success btn-raised btn-xs" data-toggle="modal" data-target="#modalModificar"><i class="zmdi zmdi-refresh"></i></a>
                                                     <script>
                                                         $("#{{i}}").click(function () {
-                                                            $("#nombre").val("{{item.nombre}}");
+                                                            $("#nombre1").val("{{item.nombre}}");
                                                             $("#external").val("{{item.external_id}}");
                                                         });
                                                     </script>
@@ -218,6 +217,39 @@
                 </div>
             </div>
         </section>
+
+        <!-- edit modal-->
+        <div class="modal fade" id="modalModificar"  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content"> 
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Editar Categoria</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form  name="sentMessage" action="/editarCategoria" method="POST">
+                        <input type="hidden" name="external" value="0" id="external">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">  
+                                    <div class="form-group">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Nombre</label>
+                                            <input class="form-control" type="text" id="nombre1" name="nombre1">
+                                        </div> 
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-info">Modificar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <!-- Notifications area -->
         <section class="full-box Notifications-area">
