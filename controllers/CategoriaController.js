@@ -31,9 +31,17 @@ class CategoriaController {
     }
 
     listarCategoria(req, res) {
+        console.log('aqui estoy ...');
         Categoria.findAll({}).then(function (listaCategoria) {            
-            res.render('categoria', {title: 'Categorias', categoria: listaCategoria});
+            //res.render('categoria', {title: 'Categorias', categoria: listaCategoria});
+            
+            res.render('main',
+                    {titulo: 'Administracion de Categorías',
+                        fragmento: 'fragmentos/categoria/frm_categoria',
+                        categoria: listaCategoria
+                    });
         });
+        
     }
 }
 module.exports = CategoriaController;

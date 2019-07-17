@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 var cuenta = require('../controllers/CuentaController');
-var CuentaController = new cuenta;
+var CuentaController = new cuenta();
 
 var categoria = require('../controllers/CategoriaController');
-var CategoriaController = new categoria;
+var CategoriaController = new categoria();
 
 var producto = require('../controllers/ProductoController');
-var ProductoController = new producto;
+var ProductoController = new producto();
 
 
 /* GET home page. */
@@ -29,9 +29,11 @@ router.get('/ventas', function (req, res) {
 
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 
+//Categorias
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);
 router.get('/categorias',CategoriaController.listarCategoria);
 
+//Productos
 router.post('/registrarProducto', ProductoController.guardarProducto);
 router.get('/productos',ProductoController.listarProducto);
 
@@ -52,9 +54,6 @@ router.get('/productos', function (req, res) {
 });
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 router.post('/iniciar_sesion', CuentaController.iniciarSesion);
-
-router.post('/registrarCategoria', CategoriaController.guardarCategoria);
-router.get('/categorias', CategoriaController.listarCategoria);
 
 router.post('/registrarCliente', CuentaController.guardarCliente);
 
