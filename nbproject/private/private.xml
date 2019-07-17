@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/models/galeria.js</file>
             <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/routes/index.js</file>
             <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/views/cliente.hbs</file>
@@ -12,6 +13,12 @@
             <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/models/geolocalizacion.js</file>
             <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/controllers/CuentaController.js</file>
             <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/config/config.json</file>
+=======
+            <file>file:/C:/Users/Asus/ventas_geolocalizacion/models/comerciante.js</file>
+            <file>file:/C:/Users/Asus/ventas_geolocalizacion/views/producto.hbs</file>
+            <file>file:/C:/Users/Asus/ventas_geolocalizacion/models/venta.js</file>
+            <file>file:/C:/Users/Asus/ventas_geolocalizacion/routes/index.js</file>
+>>>>>>> 344107f8029086a953e6dd3924c3f8ba8adaf140
         </group>
     </open-files>
 </project-private>

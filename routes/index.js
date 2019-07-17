@@ -61,6 +61,11 @@ router.post('/iniciar_sesion', CuentaController.iniciarSesion);
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);
 router.get('/categorias', CategoriaController.listarCategoria);
 
+<<<<<<< HEAD
 router.post('/registrarCliente', ClienteController.guardarCliente);
 //router.post('/guardar_imagen', ProductoController.guardarImagen);
+=======
+router.post('/registrarCliente', CuentaController.guardarCliente);
+
+>>>>>>> 344107f8029086a953e6dd3924c3f8ba8adaf140
 module.exports = router;
