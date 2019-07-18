@@ -42,10 +42,10 @@ router.post('/registrarComerciante', CuentaController.guardarComerciante);
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);
 router.get('/categorias',CategoriaController.listarCategoria);
 
-//router.post('/registrarProducto', ProductoController.guardarProducto);
+router.post('/registrarProducto', ProductoController.guardarProducto);
 router.get('/productos',ProductoController.listarProducto);
 
-router.post('/registrarProducto', upload.array('base[]', 6), function(req, res, next) {
+/*router.post('/registrarProducto', upload.array('base', 6), function(req, res, next) {
     for(var x=0;x<req.files.length;x++) {
        //copiamos el archivo a la carpeta definitiva de fotos
        fs.createReadStream('./uploads/'+req.files[x].filename).pipe(fs.createWriteStream('./public/fotos/'+req.files[x].originalname)); 
@@ -55,7 +55,7 @@ router.post('/registrarProducto', upload.array('base[]', 6), function(req, res, 
     var pagina='<!doctype html><html><head></head><body>'+
                '<p>Se subieron las fotos</p>'+
                '<br><a href="/">Retornar</a></body></html>';
-      res.send(pagina);        
-});
+      res.send(pagina);     
+});*/
 
 module.exports = router;
