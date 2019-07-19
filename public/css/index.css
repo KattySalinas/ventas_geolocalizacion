@@ -7,17 +7,25 @@ body {
 }
 
 .bloque_imagen {
+<<<<<<< HEAD
     width: 22vw;
     height: 20vw;
     background: rgba(0,0,0,.12);
     margin: 5px 0;
     display: flex;
+=======
+    width: 7vw;
+    height: 7vw;
+    background: #cccccc;
+    margin: 10px;
+    display: inline-flex;
+>>>>>>> f75802193b833cc776455a9ac4c1738f25521fb1
     align-items: center;
 }
 
 
 .bloque_imagen .input_file {
-    display: none;
+    display: block;
 }
 
 .bloque_imagen  .btn_imagen {

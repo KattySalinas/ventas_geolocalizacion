@@ -13,7 +13,7 @@ class CuentaController {
             if (comerciante) {
                 console.log("comerciante registrado :)");
                 req.flash('info', '¡Ya existe esta cuenta!');
-                res.redirect("/registrarCuenta");
+                //res.redirect("/registrarCuenta");
             } else {
                 Persona.create({
                     nombre: req.body.nombre,
@@ -34,7 +34,7 @@ class CuentaController {
                                     id_persona: newPersona.id
                                 }).then(function (newCuenta) {
                                     if (newCuenta) {
-                                        res.redirect("/registrarCuenta");
+                                        res.redirect("/");
                                         req.flash('info', 'Se ha registrado ');
                                         console.log("...Se registrò correctamente");
 
@@ -67,8 +67,8 @@ class CuentaController {
                 }).then(function (newCliente) {
                     if (newCliente) {
                         console.log('se creo cliente');
-                       // res.redirect("/registrarCliente");
-                       // req.flash('info', 'Se ha registrado ');
+                        // res.redirect("/registrarCliente");
+                        // req.flash('info', 'Se ha registrado ');
                     }
                 });
                 Geolocalizacion.create({
@@ -89,12 +89,18 @@ class CuentaController {
             }
         });
     }
-    listarCLientes(req, res){
-        Geolocalizacion.findAll({include: {model: Persona}}).then(function (listaClientes) {
-            console.log('clientes................'+listaClientes);
-            res.render('cliente', {title: 'Clientes', clientes: listaClientes});
+    editarCliente() {
+
+    }
+    listarCLientes(req, res) {
+        Geolocalizacion.findAll({include: [{model: Persona, include: [Cliente]}]}).then(function (Lclientes) {
+            res.render('cliente', {
+                title: 'Clientes',
+                clientes: Lclientes
+            });
         });
     }
+    
     iniciarSesion(req, res) {
         Cuenta.findOne({where: {correo: req.body.correo}}).then(function (cuenta) {
             console.log('cuenta..' + cuenta);

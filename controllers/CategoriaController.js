@@ -32,7 +32,7 @@ class CategoriaController {
 
     listarCategoria(req, res) {
         console.log('aqui estoy ...');
-        Categoria.findAll({}).then(function (listaCategoria) {            
+        Categoria.findAll({}).then(function (listaCategoria) {
             //res.render('categoria', {title: 'Categorias', categoria: listaCategoria});
             console.log('aqui estoy tambien ...');
             res.render('main',
@@ -41,7 +41,7 @@ class CategoriaController {
                         categoria: listaCategoria
                     });
         });
-        
+
     }
 }
 module.exports = CategoriaController;
