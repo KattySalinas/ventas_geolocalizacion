@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -7,7 +7,7 @@ var logger = require('morgan')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-;
+
 var app = express();
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -65,7 +65,6 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-=======
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -133,4 +132,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
->>>>>>> test
+

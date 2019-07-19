@@ -48,7 +48,6 @@ router.post('/registrarProducto', ProductoController.guardarProducto);
 router.post('/editarProducto', ProductoController.editarProducto);
 router.get('/productos',ProductoController.listarProducto);
 
-<<<<<<< HEAD
 router.get('/rutas', function (req, res) {
     res.render('rutas', {title: 'Rutas'});
 });
@@ -61,23 +60,18 @@ router.get('/ventas', function (req, res) {
 router.get('/pagos', function (req, res) {
     res.render('payments', {title: 'Pagos'});
 });
-router.get('/productos', function (req, res) {
-    res.render('producto', {title: 'Productos'});
-});
+
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 router.post('/iniciar_sesion', CuentaController.iniciarSesion);
 
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);
 router.get('/categorias', CategoriaController.listarCategoria);
 
-<<<<<<< HEAD
 router.post('/registrarCliente', ClienteController.guardarCliente);
 //router.post('/guardar_imagen', ProductoController.guardarImagen);
-=======
+
 router.post('/registrarCliente', CuentaController.guardarCliente);
 
->>>>>>> 344107f8029086a953e6dd3924c3f8ba8adaf140
-=======
 /*router.post('/registrarProducto', upload.array('base', 6), function(req, res, next) {
     for(var x=0;x<req.files.length;x++) {
        //copiamos el archivo a la carpeta definitiva de fotos
@@ -91,5 +85,4 @@ router.post('/registrarCliente', CuentaController.guardarCliente);
       res.send(pagina);     
 });*/
 
->>>>>>> test
 module.exports = router;
