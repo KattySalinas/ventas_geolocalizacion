@@ -34,10 +34,10 @@ class CategoriaController {
         console.log('aqui estoy ...');
         Categoria.findAll({}).then(function (listaCategoria) {            
             //res.render('categoria', {title: 'Categorias', categoria: listaCategoria});
-            
+            console.log('aqui estoy tambien ...');
             res.render('main',
                     {titulo: 'Administracion de Categorías',
-                        fragmento: 'fragmentos/categoria/frm_categoria',
+                        partial: 'partials/categoria/frm_categoria',
                         categoria: listaCategoria
                     });
         });
