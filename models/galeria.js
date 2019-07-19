@@ -7,7 +7,7 @@ module.exports = function (sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        foto: {
+        base: {
             type: Sequelize.STRING(50)
         },
         external_id: {
