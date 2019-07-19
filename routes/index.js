@@ -30,7 +30,6 @@ router.get('/registrarCuenta', function (req, res) {
     res.render('registrarCuenta', {title: 'Cuenta', mensaje: req.flash('info')});
 });
 
-
 router.get('/clientes', ClienteController.listarCLientes); 
 
 
@@ -39,10 +38,6 @@ router.get('/ventas', function (req, res) {
 }); 
 
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
-
-router.post('/registrarCategoria', CategoriaController.guardarCategoria);
-router.post('/editarCategoria', CategoriaController.editarCategoria);
-router.get('/categorias',CategoriaController.listarCategoria);
 
 router.post('/registrarProducto', ProductoController.guardarProducto);
 router.post('/editarProducto', ProductoController.editarProducto);
