@@ -16,7 +16,7 @@ var producto = require('../controllers/ProductoController');
 var ProductoController = new producto();
 
 var cliente = require('../controllers/ClienteController');
-var ClienteController = new cliente;
+var ClienteController = new cliente();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -39,11 +39,6 @@ router.get('/rutas', function (req, res) {
 //HOME
 router.get('/home', function (req, res) {
     res.render('home', {title: 'Inicio'});
-});
-
-//VENTAS
-router.get('/ventas', function (req, res) {
-    res.render('venta', {title: 'Ventas'});
 });
 
 //PAYMENTS
