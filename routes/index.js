@@ -1,22 +1,25 @@
 var express = require('express');
 var router = express.Router();
+var multer = require('multer') ({
+        dest: 'public/uploads'
+    });
 
-var multer = require('multer');
-var upload = multer ({dest: './uploads/'});
+//var multer = require('multer');
+//var upload = multer ({dest: './uploads/'});
 
 var fs = require ('fs');
 
 var cuenta = require('../controllers/CuentaController');
-var CuentaController = new cuenta;
+var CuentaController = new cuenta();
 
 var categoria = require('../controllers/CategoriaController');
-var CategoriaController = new categoria;
+var CategoriaController = new categoria();
 
 var producto = require('../controllers/ProductoController');
-var ProductoController = new producto;
+var ProductoController = new producto();
 
 var cliente = require('../controllers/ClienteController');
-var ClienteController = new cliente;
+var ClienteController = new cliente();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -39,9 +42,10 @@ router.get('/ventas', function (req, res) {
 
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 
-router.post('/registrarProducto', ProductoController.guardarProducto);
-router.post('/editarProducto', ProductoController.editarProducto);
-router.get('/productos',ProductoController.listarProducto);
+//router.post('/registrarProducto', ProductoController.guardarProducto);
+//router.post('/editarProducto', ProductoController.editarProducto);
+//router.get('/productos',ProductoController.listarProducto);
+
 
 router.get('/rutas', function (req, res) {
     res.render('rutas', {title: 'Rutas'});
@@ -79,5 +83,10 @@ router.post('/registrarCliente', CuentaController.guardarCliente);
                '<br><a href="/">Retornar</a></body></html>';
       res.send(pagina);     
 });*/
+// Productos
+
+router.post('/productos', multer.any(), ProductoController.guardarProducto);
+
+router.post('/image', multer.single('image'), ProductoController.guardarImagen);
 
 module.exports = router;
