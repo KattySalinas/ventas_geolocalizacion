@@ -1,4 +1,3 @@
-
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,7 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var multer = require('multer')({
+    dest: 'public/uploads',
+    limites: {fieldSize: 25 * 1024 * 1024}
+});
 
 var app = express();
 var session = require('express-session');
@@ -29,10 +31,10 @@ app.use(session({
 
 app.use(flash());
 
-var models = require('./models/');
-models.sequelize.sync().then( () => {
-    console.log('Se ha conectado a Sarita');
-}).catch(err => {console.log(err, "Hubo un error");});
+//var models = require('./models/');
+//models.sequelize.sync().then( () => {
+//    console.log('Se ha conectado a Sarita');
+//}).catch(err => {console.log(err, "Hubo un error");});
 
 
 //load passport strategies
@@ -96,10 +98,10 @@ app.use(session({
 
 app.use(flash(app));
 
-var models = require('./models/');
-models.sequelize.sync().then( () => {
-    console.log('Se ha conectado a Sarita');
-}).catch(err => {console.log(err, "Hubo un error");});
+//var models = require('./models/');
+//models.sequelize.sync().then( () => {
+//    console.log('Se ha conectado a Sarita');
+//}).catch(err => {console.log(err, "Hubo un error");});
 
 
 //load passport strategies
