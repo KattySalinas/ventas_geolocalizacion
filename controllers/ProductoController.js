@@ -5,24 +5,10 @@ var Producto = models.articulo;
 var Categoria = models.categoria;
 var Galeria = models.galeria;
 const uuidv4 = require('uuid/v4');
-//para subir archivos
 var fs = require('fs');
-var maxFileSize = 1 * 1024 * 1024;
-var extensiones = ["jpg", "png"];
-var formidable = require('formidable');
-
-//Subir imagenes 
-  /*  
-const fs = require('fs-extra');
-const path = require('path');
-
-const md5 = require('md5');
-
-const ctrl = {};
-
-const sidebar = require('../helpers/sidebar');
-const { randomNumber } = require('../helpers/libs');
-const { Image, Comment } = require('../models');*/
+const Sequelize = require('sequelize');
+var base64ToImage = require('base64-to-image');
+var uuid = require('uuid');
 
 class ProductoController {
     guardarProducto(req, res) {
@@ -35,138 +21,50 @@ class ProductoController {
             precio: req.body.precio,
             estado: req.body.estado,
             external_id: uuidv4()
+        }).then(producto => {
+            var data = [];
+           var path = "public/uploads/";
+            //console.log(producto);
+            // res.redirect('/productos');
+            console.log("***");
+            console.log(req.body.base[1]);
+            console.log("***");
+            // console.log(req.files);
+            console.log("*-------**");
+            req.body.base.forEach(element => {
+                console.log("*///////**");
+                if (element.length > 0) {
+                    var base64Str = element;
+                    var name = uuid();
+                    var optionalObj = {'fileName': uuid(), 'type': 'png'};
 
-        }).then(function (newProducto, created) {
-            console.log(newProducto);
-            if (newProducto) {
-                Galeria.create({
-                    id_articulo: newProducto.id,
-                    foto: '8.jpg',
-                    external_id: uuidv4()
-                }).then(function (newfoto, created) {
-                    if (newfoto) {
-                        req.flash('info', 'Se ha creado correctamente');
-                        console.log('se ha creado producto');
-                        res.redirect('/productos');
-                    }
-                });
-
-            }
-        });
-
-    }
-    editarProducto(req, res) {
-        Producto.update({
-            id_categoria: req.body.categoria1,
-            nombre: req.body.nombre1,
-            marca: req.body.marca1,
-            descripcion: req.body.descripcion1,
-            cantidad: req.body.cantidad1,
-            precio: req.body.precio1,
-            estado: req.body.estado1
-        }, {where: {external_id: req.body.external}}).then(function (updatedcategoria, created) {
-            if (updatedcategoria) {
-                
-            }
-            }).then(function (newProducto, created) {
-                if (newProducto) {
-                    console.log(newProducto);
-                    Galeria.create({
-                        base: req.body.base,
-                        external_id: uuidv4(),
-                        id_articulo: newProducto.id
-                    }).then(function (newGaleria) {
-                        if (newGaleria) {
-                            res.redirect('/productos');
-                            console.log('Se guardo producto............');
-                        }
-                    });
+                    base64ToImage(base64Str, path, optionalObj);
+                    //  console.log(element);
+                    console.log("*///////**");
+                    data.push({foto: name + ".png", external_id: name, id_articulo: producto.id});
                 }
+//                var extension = element.originalname.split(".").pop();
+//                var name = uuidv4() + "." + extension;
+//                fs.renameSync(element.dest + "/" + element.filename, "public/uploads/" + name);
+
             });
-        };
-    
-    guardarImagen(req, res) {
-        var form = new formidable.IncomingForm();
-        form.parse(req, function (err, fields, files) {
-            console.log(files.archivo);
-            if (files.archivo.size <= maxFileSize) {
-                var extension = files.archivo.name.split(".").pop().toLowerCase();
-                if (extensiones.includes(extension)) {
-                    var nombre = fields.external + "." + extension;
-                    fs.rename(files.archivo.path, "public/img/" + nombre, function (err) {
-                        if (err)
-                            next(err);
-                        Galeria.update({
-                            foto: nombre
-                        }, {where: {external_id: fields.external}}).then(function (updatedImagen, created) {
-                            if (updatedImagen) {
-                                console.log("Segun yo guarde " + nombre);
-                                req.flash('info', 'Se ha subido correctamente', false);
-                                res.redirect('/productos');
-                            }
-                        });
-                    });
-                } else {
-                    ProductoController.eliminar(files.archivo.path);
-                    req.flash('error', 'Error de extension');
-                    res.redirect('/productos' + fields.external);
-                    console.log("error de extension");
-                }
-            } else {
-                ProductoController.eliminar(files.archivo.path);
-                req.flash('error', 'Error de tamanio se admite ' + maxFileSize, false);
-                res.redirect('/productosa' + fields.external);
-                console.log("error de tamanio solo se adminte " + maxFileSize);
-
+            if (data.length > 0) {
+                Galeria.bulkCreate(data).then(() => {
+                    //res.status(201).send();
+                    res.redirect('/productos');
+                }).catch(err => {
+                    console.log(err);
+                    res.status(500).json(err);
+                });
             }
-        });
+            // res.status(201).send();
+        })
+                .catch((err) => {
+                    console.log(err)
+                    res.status(500).json(err);
+                });
     }
-    static eliminar(link) {
-        fs.exists(link, function (exists) {
-            if (exists) {
-                console.log('File exists. Deleting now ...');
-                fs.unlinkSync(link);
-            } else {
-                console.log('No se borro ' + link);
-            }
-        });
-    }
-
-  /*  guardarImagen(req, res) {
-        ctrl.create = (req, res) => {
-            const saveImage = async () => {
-                const imgUrl = randomNumber();
-                const images = await Image.find({filename: imgUrl});
-                if (images.length > 0) {
-                    saveImage()
-                } else {
-                    // Image Location
-                    const imageTempPath = req.file.path;
-                    const ext = path.extname(req.file.originalname).toLowerCase();
-                    const targetPath = path.resolve(`src/public/upload/${imgUrl}${ext}`);
-
-                    // Validate Extension
-                    if (ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif') {
-                        // you wil need the public/temp path or this will throw an error
-                        await fs.rename(imageTempPath, targetPath);
-                        const newImg = new Image({
-                            title: req.body.title,
-                            filename: imgUrl + ext,
-                            description: req.body.description
-                        });
-                        const imageSaved = await newImg.save();
-                        res.redirect('/images/' + imageSaved.uniqueId);
-                    } else {
-                        await fs.unlink(imageTempPath);
-                        res.status(500).json({error: 'Only Images are allowed'});
-                    }
-                }
-            };
-
-            saveImage();
-        };
-    }
-*/
+ 
     listarProducto(req, res) {
         Categoria.findAll({}).then(function (categoria) {
             if (categoria) {
@@ -174,7 +72,7 @@ class ProductoController {
                     //console.log('producto...' + listaProducto);
                     if (listaProducto) {
                         Galeria.findAll({include: {model: Producto}}).then(function (Lgaleria) {
-                           // console.log('galeria...' + Lgaleria);
+                            // console.log('galeria...' + Lgaleria);
                             res.render('producto', {
                                 title: 'Productos',
                                 producto: listaProducto,
