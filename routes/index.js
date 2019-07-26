@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var multer = require('multer')({
     dest: 'public/uploads/',
-    limites: {fieldSize: 25 * 1024 * 1024}
+    limites: {fieldSize: 255 * 1024 * 1024}
 });
 
 //var multer = require('multer');
@@ -28,6 +28,10 @@ router.get('/', function (req, res, next) {
 });
 router.get('/demo', function (req, res, next) {
     res.render('demo', {title: 'Pagina de inicio'});
+});
+
+router.get('/modal', function (req, res, next) {
+    res.render('modal', {title: 'Pagina de inicio'});
 });
 
 router.get('/registrarCuenta', function (req, res) {

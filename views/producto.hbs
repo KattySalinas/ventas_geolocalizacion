@@ -10,6 +10,21 @@
 
         <script src="./geolocalizacion.js"></script>  
 
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <style>
+            .mySlides {display:none;}
+        </style>
+        <style type="text/css">
+            .mySlides {
+                width: 400px;
+                height: 400px;
+            }
+            .w3-display-container{
+                width: 400px;
+                height: 400px;
+            }
+        </style>
+
         <!-- demo -->
         <link id="bootstrap-styleshhet" href="css/w3.css" rel="stylesheet" type="text/css"/>
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -42,7 +57,7 @@
         <script src="./js/main.js"></script>
         <script src="jquery_validation.js"></script>
         <script>
-        $.material.init();
+            $.material.init();
         </script>
     </head>
     <body>
@@ -84,6 +99,22 @@
                     }
                 });
             });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('.carousel');
+                var instances = M.Carousel.init(elems, options);
+            });
+
+            // Or with jQuery
+
+            $(document).ready(function () {
+                $('.carousel').carousel();
+            });
+
+
+
+
         </script>
         <!-- SideBar -->
         <section class="full-box cover dashboard-sideBar">
@@ -269,7 +300,8 @@
                                                 <th class="text-center">Marca</th>
                                                 <th class="text-center">Descripción</th>
                                                 <th class="text-center">Cantidad</th>
-                                                <th class="text-center">Precio</th>                                               
+                                                <th class="text-center">Precio</th>   
+                                                <th class="text-center">Galeria</th> 
                                                 <th class="text-center">Actualizar</th>
                                                 <th class="text-center">Estado</th> 
                                             </tr>
@@ -283,8 +315,60 @@
                                                 <td>{{item.marca}}</td>
                                                 <td>{{item.descripcion}}</td>
                                                 <td>{{item.cantidad}}</td>
-                                                <td>{{item.precio}}</td>                                                
+                                                <td>{{item.precio}}</td>                                                 
+                                                <td>
+                                                    <div class="w3-container">
+                                                        <a onclick="document.getElementById('id01').style.display = 'block'" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>
 
+                                                        <div id="id01" class="w3-modal">
+                                                            <div class="w3-modal-content">
+                                                                <header class="w3-container w3-teal"> 
+                                                                    <span onclick="document.getElementById('id01').style.display = 'none'" 
+                                                                          class="w3-button w3-display-topright">&times;</span>
+                                                                          <h2 style="font-size: 20px; font-family: 'RobotoCondensedLight'">Galería</h2>
+                                                                </header>
+                                                                <div class="w3-container">     
+                                                                    <div class="w3-content w3-display-container" >
+                                                                        <img class="mySlides" src="https://scontent.floh1-1.fna.fbcdn.net/v/t1.0-9/61159338_1993097710818699_5365801955421585408_n.jpg?_nc_cat=105&_nc_oc=AQncojwEG3SBOOCKBH3czmIjTwG4fxJ2XMEjogJKr9mXV29YupqcWN0Bio_0K7ngykQ&_nc_ht=scontent.floh1-1.fna&oh=db16f8693b9b8fda2bed492e0ff3bba4&oe=5DE80BD0" >
+                                                                        <img class="mySlides" src="https://scontent.floh1-1.fna.fbcdn.net/v/t1.0-9/16473400_1055469034581576_3350554266837692399_n.jpg?_nc_cat=109&_nc_oc=AQmMJgr0ICk1b9OC-s1te6AxS9krez1ab-r1R2DR90wOIt1KE7KufK_qSHWjjAqBGNQ&_nc_ht=scontent.floh1-1.fna&oh=d1b52d339653333449ce85a9c02ab086&oe=5DA73F39" >
+
+
+                                                                        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                                                                        <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                                                                    </div>
+
+                                                                    <script>
+                                                                        var slideIndex = 1;
+                                                                        showDivs(slideIndex);
+
+                                                                        function plusDivs(n) {
+                                                                            showDivs(slideIndex += n);
+                                                                        }
+
+                                                                        function showDivs(n) {
+                                                                            var i;
+                                                                            var x = document.getElementsByClassName("mySlides");
+                                                                            if (n > x.length) {
+                                                                                slideIndex = 1
+                                                                            }
+                                                                            if (n < 1) {
+                                                                                slideIndex = x.length
+                                                                            }
+                                                                            for (i = 0; i < x.length; i++) {
+                                                                                x[i].style.display = "none";
+                                                                            }
+                                                                            x[slideIndex - 1].style.display = "block";
+                                                                        }
+                                                                    </script>
+                                                                </div>
+                                                                <footer class="w3-container w3-teal">
+                                                                    <p style="font-size: 20px; font-family: 'RobotoCondensedLight'">Modal Footer</p>
+                                                                </footer>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </td>
                                                 <td>
                                                     <a href="#new" id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
                                                     <script>
