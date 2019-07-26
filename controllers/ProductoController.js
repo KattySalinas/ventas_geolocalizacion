@@ -57,7 +57,7 @@ class ProductoController {
         Categoria.findAll({}).then(function (categoria) {
             if (categoria) {
                 Producto.findAll({include: {model: Categoria}}).then(function (listaProducto) {
-                    console.log('producto...' + listaProducto);
+                    console.log('ESTOY AQUI ***********producto...' + listaProducto);
                     if (listaProducto) {
                         Galeria.findAll({include: {model: Producto}}).then(function (listaGaleria) {
                             console.log('galeria...' + listaGaleria);
