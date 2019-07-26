@@ -320,14 +320,14 @@
                                                         <div id="{{ i }}" class="w3-modal">
                                                             <div class="w3-modal-content">
                                                                 <header class="w3-container w3-teal"> 
-                                                                    <span onclick="document.getElementById('{{ i }}').style.display = 'none'" 
+                                                                    <span onclick="document.getElementById({{ i }}).style.display = 'none'" 
                                                                           class="w3-button w3-display-topright">&times;</span>
                                                                     <h2 style="font-size: 20px; font-family: 'RobotoCondensedLight'">Galería</h2>
                                                                 </header>
                                                                 <div class="w3-container">     
                                                                     <div class="w3-content w3-display-container">
-                                                                        {{#each this.listaGaleria as |items a|}}
-                                                                        <img class="mySlides" src="/uploads/{{items.foto}}">
+                                                                        {{#each this.galeria as |items i|}}
+                                                                        <img class="mySlides" src="./uploads/{{items.foto}}">
                                                                         {{/each }}
                                                                         <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
                                                                         <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
