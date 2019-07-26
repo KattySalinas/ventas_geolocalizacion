@@ -5,6 +5,19 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="./css/main.css">
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template -->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+        <!-- Custom styles for this template -->
+        <link href="css/agency.min.css" rel="stylesheet"> 
+
     </head>
     <body>
         <!-- SideBar -->
@@ -110,7 +123,7 @@
                     <h1 class="text-titles"> Sistema <small> TimeLine</small></h1>
                 </div>
             </div>
-            <div class="full-box text-center" style="padding: 30px 10px;">
+            <div class="full-box text-center">
                 <article class="full-box tile">
                     <div class="full-box tile-title text-center text-titles text-uppercase">
                         Clientes
@@ -148,67 +161,110 @@
                     </div>
                 </article>                
             </div>
+
+
+
             <div class="container-fluid">
                 <div class="page-header">
-                    <h1 class="text-titles">System <small>TimeLine</small></h1>
+                    <h1 class="text-titles"> Productos <small> TimeLine</small></h1>
                 </div>
-                <section id="cd-timeline" class="cd-container">
-                    <div class="cd-timeline-block">
-                        <div class="cd-timeline-img">
-                            <img src="./assets/img/avatar.jpg" alt="user-picture">
-                        </div>
-                        <div class="cd-timeline-content">
-                            <h4 class="text-center text-titles">1 - Name (Admin)</h4>
-                            <p class="text-center">
-                                <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
-                                <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
-                            </p>
-                            <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
-                        </div>
-                    </div>  
-                    <div class="cd-timeline-block">
-                        <div class="cd-timeline-img">
-                            <img src="./assets/img/avatar.jpg" alt="user-picture">
-                        </div>
-                        <div class="cd-timeline-content">
-                            <h4 class="text-center text-titles">2 - Name (Teacher)</h4>
-                            <p class="text-center">
-                                <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
-                                <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
-                            </p>
-                            <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
-                        </div>
-                    </div>
-                    <div class="cd-timeline-block">
-                        <div class="cd-timeline-img">
-                            <img src="./assets/img/avatar.jpg" alt="user-picture">
-                        </div>
-                        <div class="cd-timeline-content">
-                            <h4 class="text-center text-titles">3 - Name (Student)</h4>
-                            <p class="text-center">
-                                <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
-                                <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
-                            </p>
-                            <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
-                        </div>
-                    </div>
-                    <div class="cd-timeline-block">
-                        <div class="cd-timeline-img">
-                            <img src="./assets/img/avatar.jpg" alt="user-picture">
-                        </div>
-                        <div class="cd-timeline-content">
-                            <h4 class="text-center text-titles">4 - Name (Personal Ad.)</h4>
-                            <p class="text-center">
-                                <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
-                                <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
-                            </p>
-                            <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
-                        </div>
-                    </div>   
-                </section>
-
-
             </div>
+            <div class="full-box text-center">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="card-group">
+
+
+
+                            {{#each this.producto as |item i|}}
+                            <div class="col-md-4 col-sm-6 portfolio-item">
+                                <h4 style="color: #009688">{{item.categorium.nombre}}</h4>
+
+                                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
+                                    <div class="portfolio-hover" >
+                                        <div class="portfolio-hover-content">
+                                            <i class="fas fa-plus fa-3x" ></i>
+                                        </div>
+                                    </div>
+                                    {{#each item.galeria as |itemG i|}}
+                                    <img class="img-fluid" src="./uploads/{{itemG.foto}}" alt />
+                                    {{/each}}
+                                </a>
+                                
+                                <div class="portfolio-caption">
+                                    <h4>{{ item.nombre }}</h4>
+                                    <p class="text-muted">Illustration</p>
+                                </div>
+                            </div>  
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="container-fluid">
+                    <div class="page-header">
+                        <h1 class="text-titles">System <small>TimeLine</small></h1>
+                    </div>
+                    <section id="cd-timeline" class="cd-container">
+                        <div class="cd-timeline-block">
+                            <div class="cd-timeline-img">
+                                <img src="./assets/img/avatar.jpg" alt="user-picture">
+                            </div>
+                            <div class="cd-timeline-content">
+                                <h4 class="text-center text-titles">1 - Name (Admin)</h4>
+                                <p class="text-center">
+                                    <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
+                                    <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
+                                </p>
+                                <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
+                            </div>
+                        </div>  
+                        <div class="cd-timeline-block">
+                            <div class="cd-timeline-img">
+                                <img src="./assets/img/avatar.jpg" alt="user-picture">
+                            </div>
+                            <div class="cd-timeline-content">
+                                <h4 class="text-center text-titles">2 - Name (Teacher)</h4>
+                                <p class="text-center">
+                                    <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
+                                    <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
+                                </p>
+                                <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
+                            </div>
+                        </div>
+                        <div class="cd-timeline-block">
+                            <div class="cd-timeline-img">
+                                <img src="./assets/img/avatar.jpg" alt="user-picture">
+                            </div>
+                            <div class="cd-timeline-content">
+                                <h4 class="text-center text-titles">3 - Name (Student)</h4>
+                                <p class="text-center">
+                                    <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
+                                    <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
+                                </p>
+                                <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
+                            </div>
+                        </div>
+                        <div class="cd-timeline-block">
+                            <div class="cd-timeline-img">
+                                <img src="./assets/img/avatar.jpg" alt="user-picture">
+                            </div>
+                            <div class="cd-timeline-content">
+                                <h4 class="text-center text-titles">4 - Name (Personal Ad.)</h4>
+                                <p class="text-center">
+                                    <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
+                                    <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
+                                </p>
+                                <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
+                            </div>
+                        </div>   
+                    </section>
+
+
+                </div>
         </section>
 
         <!-- Notifications area -->
@@ -295,7 +351,8 @@
         <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="./js/main.js"></script>
         <script>
-            $.material.init();
+$.material.init();
         </script>
+
     </body>
 </html>

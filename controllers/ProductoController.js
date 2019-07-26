@@ -36,7 +36,7 @@ class ProductoController {
                 if (element.length > 0) {
                     var base64Str = element;
                     var name = uuid();
-                    var optionalObj = {'fileName': uuid(), 'type': 'png'};
+                    var optionalObj = {'fileName': name, 'type': 'png'};
 
                     base64ToImage(base64Str, path, optionalObj);
                     //  console.log(element);

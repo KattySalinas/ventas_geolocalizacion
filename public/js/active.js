@@ -69,7 +69,7 @@
         $('.portfolio-menu button').removeClass('active');
         $(this).addClass('active');
     })
-    
+
     // Dishes Menu Active Code
     if ($.fn.imagesLoaded) {
         $('.caviar-portfolio').imagesLoaded(function () {
@@ -90,7 +90,7 @@
             });
         });
     }
-    
+
     // Btn ScrollDown Active Code
     $("#menubtn").on('click', function () {
         $('html, body').animate({
@@ -124,7 +124,7 @@
     if ($.fn.init) {
         new WOW().init();
     }
-    
+
     var $window = $(window);
 
     // Sticky Active JS

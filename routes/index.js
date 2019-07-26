@@ -13,6 +13,12 @@ var ProductoController = new producto;
 var cliente = require('../controllers/ClienteController');
 var ClienteController = new cliente;
 
+var home = require('../controllers/homeController');
+var homeController = new home;
+
+var venta = require('../controllers/VentaController');
+var VentaController = new venta;
+
 var multer = require('multer')({
     dest: 'public/uploads/',
     limites: {fieldSize: 25 * 1024 * 1024}
@@ -34,9 +40,7 @@ router.get('/clientes', ClienteController.listarCLientes);
 router.post('/registrarCliente', ClienteController.guardarCliente);
 
 
-router.get('/ventas', function (req, res) {
-    res.render('venta', {title: 'Venta'});
-});
+router.get('/ventas', VentaController.listarCLientes);
 
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 
@@ -47,12 +51,8 @@ router.post('/registrarProducto', multer.any(), ProductoController.guardarProduc
 router.get('/rutas', function (req, res) {
     res.render('rutas', {title: 'Rutas'});
 });
-router.get('/home', function (req, res) {
-    res.render('home', {title: 'Inicio'});
-});
-router.get('/ventas', function (req, res) {
-    res.render('venta', {title: 'Ventas'});
-});
+router.get('/home', homeController.listarProducto);
+
 router.get('/pagos', function (req, res) {
     res.render('payments', {title: 'Pagos'});
 });

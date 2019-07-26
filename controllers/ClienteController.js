@@ -8,7 +8,7 @@ var uuidv4 = require('uuid/v4');
 var Geolocalizacion = models.geolocalizacion;
 class ClienteController {
     guardarCliente(req, res) {
-        if (req.body.external1 == 0) {
+        if (req.body.external == 0) {
             Persona.create({
                 nombre: req.body.nombre,
                 external_id: uuidv4(),
