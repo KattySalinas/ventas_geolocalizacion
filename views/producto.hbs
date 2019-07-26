@@ -5,11 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" href="./css/main.css">
-        <!-- mapa -->        
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"></script>
-
-        <script src="./geolocalizacion.js"></script>  
-
+        <!-- modal slider image -->
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <style>
             .mySlides {display:none;}
@@ -24,8 +20,9 @@
                 height: 400px;
             }
         </style>
+        <!-- Fin modal slider image -->
 
-        <!-- demo -->
+        <!-- Demo -->
         <link id="bootstrap-styleshhet" href="css/w3.css" rel="stylesheet" type="text/css"/>
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.min.css" rel="stylesheet" type="text/css"/>
@@ -238,7 +235,7 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-10 col-md-offset-1">
-                                            <form action="/registrarProducto" method="post" id="producto" enctype="multipart/form-data">
+                                            <form action="/registrarProducto" method="post" id="producto" enctype="multipart/form-data" style="font-size: 16px; font-family: 'RobotoCondensed'">
                                                 <input type="hidden" name="external" value="0" id="external"/>
                                                 <div class="form-group label-floating ">
                                                     <label class="control-label">Categoría</label>
@@ -292,7 +289,7 @@
                             <div class="tab-pane fade" id="list">
                                 <div class="table-responsive">
                                     <table class="table table-hover text-center">
-                                        <thead>
+                                        <thead style="font-size: 16px; font-family: 'RobotoCondensed'">
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th class="text-center">Categoría</th>
@@ -306,7 +303,7 @@
                                                 <th class="text-center">Estado</th> 
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody style="font-size: 16px; font-family: 'RobotoCondensed'">
                                             {{#each this.producto as |item i|}}
                                             <tr>
                                                 <td>{{i}}</td>
@@ -318,21 +315,20 @@
                                                 <td>{{item.precio}}</td>                                                 
                                                 <td>
                                                     <div class="w3-container">
-                                                        <a onclick="document.getElementById('id01').style.display = 'block'" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>
+                                                        <a onclick="document.getElementById({{ i }}).style.display = 'block'" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>
 
-                                                        <div id="id01" class="w3-modal">
+                                                        <div id="{{ i }}" class="w3-modal">
                                                             <div class="w3-modal-content">
                                                                 <header class="w3-container w3-teal"> 
-                                                                    <span onclick="document.getElementById('id01').style.display = 'none'" 
+                                                                    <span onclick="document.getElementById('{{ i }}').style.display = 'none'" 
                                                                           class="w3-button w3-display-topright">&times;</span>
-                                                                          <h2 style="font-size: 20px; font-family: 'RobotoCondensedLight'">Galería</h2>
+                                                                    <h2 style="font-size: 20px; font-family: 'RobotoCondensedLight'">Galería</h2>
                                                                 </header>
                                                                 <div class="w3-container">     
-                                                                    <div class="w3-content w3-display-container" >
-                                                                        <img class="mySlides" src="https://scontent.floh1-1.fna.fbcdn.net/v/t1.0-9/61159338_1993097710818699_5365801955421585408_n.jpg?_nc_cat=105&_nc_oc=AQncojwEG3SBOOCKBH3czmIjTwG4fxJ2XMEjogJKr9mXV29YupqcWN0Bio_0K7ngykQ&_nc_ht=scontent.floh1-1.fna&oh=db16f8693b9b8fda2bed492e0ff3bba4&oe=5DE80BD0" >
-                                                                        <img class="mySlides" src="https://scontent.floh1-1.fna.fbcdn.net/v/t1.0-9/16473400_1055469034581576_3350554266837692399_n.jpg?_nc_cat=109&_nc_oc=AQmMJgr0ICk1b9OC-s1te6AxS9krez1ab-r1R2DR90wOIt1KE7KufK_qSHWjjAqBGNQ&_nc_ht=scontent.floh1-1.fna&oh=d1b52d339653333449ce85a9c02ab086&oe=5DA73F39" >
-
-
+                                                                    <div class="w3-content w3-display-container">
+                                                                        {{#each this.listaGaleria as |items a|}}
+                                                                        <img class="mySlides" src="/uploads/{{items.foto}}">
+                                                                        {{/each }}
                                                                         <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
                                                                         <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
                                                                     </div>
