@@ -24,23 +24,26 @@ class ProductoController {
         }).then(producto => {
             var data = [];
             var path = "public/uploads/";
-            console.log("*********");
-            console.log(req.body.base[1]);
-            console.log("*********");
-            console.log("****-------*****");
+            //console.log("*********");
+            //console.log(req.body);
+            //console.log("*********");
+            //console.log("****-------*****");
+            var i = 0;
             req.body.base.forEach(element => {
                 console.log("***///////******");
                 if (element.length > 0) {
+                    i++;
                     var base64Str = element;
-                    var name = uuid();
-                    var optionalObj = {'fileName': uuid(), 'type': 'png'};
+                    var external = uuid();
+                    var name = req.body.nombre+"_"+i;
+                    var optionalObj = {'fileName': name, 'type': 'png'};
                     base64ToImage(base64Str, path, optionalObj);
                     console.log("***///////******");
-                    data.push({foto: name + ".png", external_id: name, id_articulo: producto.id});
+                    data.push({foto: name + ".png", external_id: external, id_articulo: producto.id});
                 }
             });
             if (data.length > 0) {
-                Galeria.bulkCreate(data).then(() => {                    
+                Galeria.bulkCreate(data).then(() => {
                     res.redirect('/productos');
                 }).catch(err => {
                     console.log(err);
@@ -56,23 +59,39 @@ class ProductoController {
     listarProducto(req, res) {
         Categoria.findAll({}).then(function (categoria) {
             if (categoria) {
-                Producto.findAll({include: {model: Categoria}}).then(function (listaProducto) {
-                    console.log('ESTOY AQUI ***********producto...' + listaProducto);
-                    if (listaProducto) {
-                        Galeria.findAll({include: {model: Producto}}).then(function (listaGaleria) {
-                            console.log('galeria...' + listaGaleria);
-                            res.render('producto', {
-                                title: 'Productos',
-                                producto: listaProducto,
-                                categoria: categoria,
-                                galeria: listaGaleria
-                            });
+                Producto.findAll({include: {model: Galeria}}).then(function (listaProducto) {
+                    console.log(listaProducto[0].galeria);
+                    /*Galeria.findAll({include: {model: Producto}}).then(function (listaGaleria) {
+                        //console.log(listaGaleria);
+                        res.render('producto', {
+                            title: 'Productos',
+                            producto: listaProducto,
+                            categoria: categoria,
+                            galeria: listaGaleria
                         });
-                    }
+                    });*/
+                    
+                            res.render('producto', {
+                            title: 'Productos',
+                            producto: listaProducto,
+                            categoria: categoria
+                        });
+
 
                 });
             }
         });
     }
+
+    lista(req, res) {
+        Galeria.findAll({}).then(function (listaGaleria) {
+            console.log(listaGaleria);
+            res.render('modal', {
+                title: 'Modal',            
+                galeria: listaGaleria
+            });
+        });
+    }
+
 }
 module.exports = ProductoController;

@@ -29,11 +29,13 @@ router.get('/', function (req, res, next) {
 router.get('/demo', function (req, res, next) {
     res.render('demo', {title: 'Pagina de inicio'});
 });
+router.get('/slider', function (req, res, next) {
+    res.render('slider', {title: 'Pagina de inicio'});
+});
 
 router.get('/modal', function (req, res, next) {
     res.render('modal', {title: 'Pagina de inicio'});
 });
-
 router.get('/registrarCuenta', function (req, res) {
     res.render('registrarCuenta', {title: 'Cuenta', mensaje: req.flash('info')});
 });
@@ -50,6 +52,8 @@ router.post('/registrarComerciante', CuentaController.guardarComerciante);
 //router.post('/registrarProducto', ProductoController.guardarProducto);
 //router.post('/editarProducto', ProductoController.editarProducto);
 router.get('/productos', ProductoController.listarProducto);
+router.get('/imagemodal', ProductoController.lista);
+
 
 
 router.get('/rutas', function (req, res) {

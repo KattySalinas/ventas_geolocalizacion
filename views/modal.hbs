@@ -20,6 +20,20 @@
     </style>
     <script src="./css/geolocalizacion.js"></script>  
     <body>
+        <div class="w3-container">
+            <h2>W3.CSS Modal Image</h2>
+            <p>Click on the image to display it in full size:</p>
+
+            <img src="slider_jquery/img/4.jpg" style="width:30%;cursor:zoom-in"
+                 onclick="document.getElementById('modal01').style.display='block'">
+
+            <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+                <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+                <div class="w3-modal-content w3-animate-zoom">
+                    <img src="slider_jquery/img/4.jpg" style="width:100%">
+                </div>
+            </div>
+        </div>
 
         <div class="w3-container">
             <button onclick="document.getElementById('id01').style.display = 'block'" class="w3-button w3-black">Open Modal</button>
@@ -33,10 +47,11 @@
                     </header>
                     <div class="w3-container">     
                         <div class="w3-content w3-display-container" >
-                            <img class="mySlides" src="https://scontent.floh1-1.fna.fbcdn.net/v/t1.0-9/61159338_1993097710818699_5365801955421585408_n.jpg?_nc_cat=105&_nc_oc=AQncojwEG3SBOOCKBH3czmIjTwG4fxJ2XMEjogJKr9mXV29YupqcWN0Bio_0K7ngykQ&_nc_ht=scontent.floh1-1.fna&oh=db16f8693b9b8fda2bed492e0ff3bba4&oe=5DE80BD0" >
-                            <img class="mySlides" src="https://scontent.floh1-1.fna.fbcdn.net/v/t1.0-9/16473400_1055469034581576_3350554266837692399_n.jpg?_nc_cat=109&_nc_oc=AQmMJgr0ICk1b9OC-s1te6AxS9krez1ab-r1R2DR90wOIt1KE7KufK_qSHWjjAqBGNQ&_nc_ht=scontent.floh1-1.fna&oh=d1b52d339653333449ce85a9c02ab086&oe=5DA73F39" >
-
-
+                            <img class="mySlides" src="slider_jquery/img/1.jpg" >
+                            <img class="mySlides" src="slider_jquery/img/2.jpg" >
+                            <img class="mySlides" src="slider_jquery/img/3.jpg" >
+                            <img class="mySlides" src="slider_jquery/img/4.jpg" >
+                            
                             <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
                             <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
                         </div>
@@ -71,7 +86,7 @@
                 </div>
             </div>
         </div>
-
+        
 
         <a onclick="document.getElementById('id01').style.display = 'block'" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>
 

@@ -31,18 +31,19 @@
         <script src="js/uploadHBR.min.js"></script>
         <script>
             $(document).ready(function () {
-                uploadHBR.init({
-                    "target": "#uploads",
+            uploadHBR.init({
+            "target": "#uploads",
                     "max": 6,
                     "textNew": "...",
                     "textTitle": "Haga clic aquí o arrastre para subir una imagen",
                     "textTitleRemove": "Click here remove the imagem"
-                });
-                $('#reset').click(function () {
-                    uploadHBR.reset('#uploads');
-                });
+            });
+            $('#reset').click(function () {
+            uploadHBR.reset('#uploads');
+            });
             });
         </script>
+
 
         <!--====== Scripts -->
         <script src="./js/jquery-3.1.1.min.js"></script>
@@ -53,65 +54,58 @@
         <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="./js/main.js"></script>
         <script src="jquery_validation.js"></script>
+        <!-- Compiled and minified CSS -->
         <script>
             $.material.init();
         </script>
     </head>
     <body>
+
+
         <script>
 
             $().ready(function () {
-                $("#producto").validate({
-                    rules: {
-                        categoria: {
-                            required: true
-                        },
-                        nombre: {
-                            required: true,
+            $("#producto").validate({
+            rules: {
+            categoria: {
+            required: true
+            },
+                    nombre: {
+                    required: true,
                             minlength: 3
-                        },
-                        marca: {
-                            required: true,
-                            minlength: 2
-                        },
-                        estado: {
-                            required: true
-                        }
                     },
-                    messages: {
-                        categoria: {
-                            required: "Ingrese la categoria por favor"
-                        },
-                        nombre: {
-                            required: "Ingrese el nombre por favor",
-                            minlength: "Minimo 3 caracteres"
-                        },
-                        marca: {
-                            required: "Ingrese la marca por favor",
-                            minlength: "Minimo 2 caracteres"
-                        },
-                        estado: {
-                            required: "Ingrese el estado por favor"
-                        }
+                    marca: {
+                    required: true,
+                            minlength: 2
+                    },
+                    estado: {
+                    required: true
                     }
-                });
+            },
+                    messages: {
+                    categoria: {
+                    required: "Ingrese la categoria por favor"
+                    },
+                            nombre: {
+                            required: "Ingrese el nombre por favor",
+                                    minlength: "Minimo 3 caracteres"
+                            },
+                            marca: {
+                            required: "Ingrese la marca por favor",
+                                    minlength: "Minimo 2 caracteres"
+                            },
+                            estado: {
+                            required: "Ingrese el estado por favor"
+                            }
+                    }
+            });
             });
         </script>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var elems = document.querySelectorAll('.carousel');
-                var instances = M.Carousel.init(elems, options);
-            });
-
-            // Or with jQuery
-
             $(document).ready(function () {
-                $('.carousel').carousel();
+            //$('.carousel').carousel();
+            //$('.slider').slider();
             });
-
-
-
-
         </script>
         <!-- SideBar -->
         <section class="full-box cover dashboard-sideBar">
@@ -315,48 +309,27 @@
                                                 <td>{{item.precio}}</td>                                                 
                                                 <td>
                                                     <div class="w3-container">
-                                                        <a onclick="document.getElementById({{ i }}).style.display = 'block'" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>
-
-                                                        <div id="{{ i }}" class="w3-modal">
+                                                        <a data-toggle="modal" onclick="document.getElementById({{ i }}).style.display = 'block'" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>
+                                                       
+                                                        <div id="{{ i }}" class="w3-modal" data-toggle="modal">
                                                             <div class="w3-modal-content">
                                                                 <header class="w3-container w3-teal"> 
                                                                     <span onclick="document.getElementById({{ i }}).style.display = 'none'" 
                                                                           class="w3-button w3-display-topright">&times;</span>
-                                                                          <h2 style="font-size: 20px; font-family: 'RobotoCondensedLight'">{{item.categorium.nombre}}</h2>
+                                                                    <h2 style="font-size: 20px; font-family: 'RobotoCondensedLight'">{{item.nombre}}</h2>
                                                                 </header>
-                                                                <div class="w3-container">     
-                                                                    <div class="w3-content w3-display-container">
-                                                                        {{#each this.galeria as |items i|}}
-                                                                        <img class="mySlides" src="./uploads/{{items.foto}}">
+                                                                <div class="w3-container"> 
+                                                                    <!-- Slider images-->
+                                                                    <div class="row">
+                                                                        {{#each item.galeria as |items i|}}
+                                                                            <div class="col-md-4">
+                                                                                <img src="/uploads/{{items.foto}}" style="width:100%;height:15vw;"> <!-- random image -->
+                                                                            </div>
                                                                         {{/each }}
-                                                                        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                                                                        <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
                                                                     </div>
-
-                                                                    <script>
-                                                                        var slideIndex = 1;
-                                                                        showDivs(slideIndex);
-
-                                                                        function plusDivs(n) {
-                                                                            showDivs(slideIndex += n);
-                                                                        }
-
-                                                                        function showDivs(n) {
-                                                                            var i;
-                                                                            var x = document.getElementsByClassName("mySlides");
-                                                                            if (n > x.length) {
-                                                                                slideIndex = 1
-                                                                            }
-                                                                            if (n < 1) {
-                                                                                slideIndex = x.length
-                                                                            }
-                                                                            for (i = 0; i < x.length; i++) {
-                                                                                x[i].style.display = "none";
-                                                                            }
-                                                                            x[slideIndex - 1].style.display = "block";
-                                                                        }
-                                                                    </script>
+                                                                    <!-- FIN SLIDER -->
                                                                 </div>
+
                                                                 <footer class="w3-container w3-teal">
                                                                     <p style="font-size: 20px; font-family: 'RobotoCondensedLight'">{{item.marca}}</p>
                                                                 </footer>
@@ -366,20 +339,20 @@
 
                                                 </td>
                                                 <td>
-                                                    <a href="#new" id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
+                                                    <a href="#new" id="btn-{{i}}" data-toggle="tab"  class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
                                                     <script>
-                                                        $("#{{i}}").click(function () {
-                                                            $("#categoria").val("{{item.categorium.id}}");
-                                                            $("#nombre").val("{{item.nombre}}");
-                                                            $("#marca").val("{{item.marca}}");
-                                                            $("#descripcion").val("{{item.descripcion}}");
-                                                            $("#cantidad").val("{{item.cantidad}}");
-                                                            $("#precio").val("{{item.precio}}");
-                                                            $("#external").val("{{item.external_id}}");
+                                                        $("#btn-{{i}}").click(function () {
+                                                        $("#categoria").val("{{item.categorium.id}}");
+                                                        $("#nombre").val("{{item.nombre}}");
+                                                        $("#marca").val("{{item.marca}}");
+                                                        $("#descripcion").val("{{item.descripcion}}");
+                                                        $("#cantidad").val("{{item.cantidad}}");
+                                                        $("#precio").val("{{item.precio}}");
+                                                        $("#external").val("{{item.external_id}}");
                                                         });
                                                     </script>
                                                 </td>
-                                                <td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                                <td><a href="#list" data-toggle="tab" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
                                             </tr>
                                             {{/each}}
                                         </tbody>                                   
