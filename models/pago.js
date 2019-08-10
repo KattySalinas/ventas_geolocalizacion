@@ -9,21 +9,17 @@ module.exports = function (sequelize, Sequelize) {
         },
         valor: {
             type: Sequelize.DOUBLE
+        },
+        entrada: {
+            type: Sequelize.DOUBLE
+        },
+        saldo: {
+            type: Sequelize.DOUBLE
         }
     }, {freezeTableName: true,
         createdAt: 'fecha_registro',
         updatedAt: 'fecha_modificacion'
-    });
-    
-    Pago.associate = function (models) {
-        models.pago.hasOne(models.contado, {
-            foreignKey: 'id_pago'
-        });
-        models.pago.hasMany(models.plazo, {
-            foreignKey: 'id_pago'
-        });
-    };
-        
+    });  
     Pago.belongsTo(Venta, {
         foreignKey: 'id_venta',
         constraints: false

@@ -13,11 +13,12 @@ var ProductoController = new producto;
 var cliente = require('../controllers/ClienteController');
 var ClienteController = new cliente;
 
-var home = require('../controllers/homeController');
-var homeController = new home;
-
 var venta = require('../controllers/VentaController');
 var VentaController = new venta;
+
+var pagos = require('../controllers/PagosController');
+var PagosController = new pagos;
+
 
 var multer = require('multer')({
     dest: 'public/uploads/',
@@ -44,23 +45,28 @@ router.get('/ventas', VentaController.listarCLientes);
 
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 
-
 router.get('/productos', ProductoController.listarProducto);
 router.post('/registrarProducto', multer.any(), ProductoController.guardarProducto);
 
 router.get('/rutas', function (req, res) {
     res.render('rutas', {title: 'Rutas'});
 });
-router.get('/home', homeController.listarProducto);
-
-router.get('/pagos', function (req, res) {
-    res.render('payments', {title: 'Pagos'});
+router.get('/home', function (req, res) {
+    res.render('home', {title: 'Home'});
 });
+
+router.get('/pagos', PagosController.listarPagos);
 
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 router.post('/iniciar_sesion', CuentaController.iniciarSesion);
 
 router.get('/categorias', CategoriaController.listarCategoria);
 router.post('/registrarCategoria', CategoriaController.guardarCategoria);
+
+router.get('/compra/carrito/listado', VentaController.mostrarCarrito);
+router.get('/mostrar_carrito/:external', VentaController.cargarCarro);
+router.get('/quitar_carrito/:external', VentaController.quitar_item);
+router.get('/agregar_carrito/:external', VentaController.agregar_item);
+router.post('/guardar_venta', VentaController.guardar);
 
 module.exports = router;

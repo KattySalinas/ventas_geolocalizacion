@@ -58,7 +58,7 @@ class ClienteController {
                         id_persona: newPersona.id
                     }, {where: {external_id: req.body.externalc}}).then(function (newCliente) {
                         if (newCliente) {
-                            console.log('se creo cliente');
+                            console.log('se modifico');
                             // res.redirect("/registrarCliente");
                             // req.flash('info', 'Se ha registrado ');
                         }

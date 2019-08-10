@@ -18,12 +18,17 @@
         <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="./js/main.js"></script>
         <script src="jquery_validation.js"></script>
+        <script src="../js/utiles.js"></script>
         <script>
             $.material.init();
         </script>
     </head>
     <body>
         <script>
+
+            $.validator.addMethod("cedula", function (value) {
+                return validarCedula(value);
+            }, 'Ingrese una cedula valida');
 
             $().ready(function () {
                 $("#cliente").validate({
@@ -42,7 +47,9 @@
                             maxlength: 10
                         },
                         cedula: {
-                            required: true
+                            required: true,
+                            minlength: 10,
+                            maxlength: 10
                         },
                         referencias: {
                             required: true
@@ -66,7 +73,8 @@
                             required: "Ingrese un telefono"
                         },
                         cedula: {
-                            required: "Ingrese un numero de cedula"
+                            required: "Ingrese un numero de cedula", 
+                            cedula: "Ingrese una cedula valida"
                         },
                         referencias: {
                             required: "Ingrese una referencia"
@@ -264,9 +272,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             {{#each this.clientes as |item i|}} 
+                                            {{#each this.clientes as |item i|}} 
                                             <tr>
-                                               
+
                                                 <td>{{i}}</td>
                                                 <td>{{item.persona.nombre}}</td>
                                                 <td>{{item.persona.apellido}}</td>
@@ -290,7 +298,7 @@
                                                             $("#external").val("{{item.external_id}}");
                                                             $("#externalp").val("{{item.persona.external_id}}");
                                                             $("#externalc").val("{{item.persona.cliente.external_id}}");
-                                                        });  
+                                                        });
                                                     </script>
                                                 </td>
                                                 <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>

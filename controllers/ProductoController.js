@@ -37,7 +37,6 @@ class ProductoController {
                     var base64Str = element;
                     var name = uuid();
                     var optionalObj = {'fileName': name, 'type': 'png'};
-
                     base64ToImage(base64Str, path, optionalObj);
                     //  console.log(element);
                     console.log("*///////**");
@@ -46,7 +45,6 @@ class ProductoController {
 //                var extension = element.originalname.split(".").pop();
 //                var name = uuidv4() + "." + extension;
 //                fs.renameSync(element.dest + "/" + element.filename, "public/uploads/" + name);
-
             });
             if (data.length > 0) {
                 Galeria.bulkCreate(data).then(() => {
