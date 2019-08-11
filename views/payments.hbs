@@ -19,11 +19,44 @@
         <script src="./css/bootstrap.min.css"></script>
         <script src="../public/vendor/bootstrap/css/bootstrap.css"></script>
         <script src="../public/vendor/bootstrap/css/bootstrap.min.css"></script>
-
-
-
     </head>
     <body>
+        <script>
+$(document).ready(function () {
+   
+});
+
+function MostrarPagos(id) {
+    $.ajax({
+        url: 'http://localhost:3000/listar_pagos/' + id,
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (data, textStatus, jqXHR) {
+            var html = "";
+            console.log(data);
+            $.each(data, function (i, item) {
+                html += '<tr>';
+                if (item.entrada !== 0) {
+                html += '<td>' + (i) + '</td>';
+                html += ' <td>' + item.fecha + '</td>';
+                html += '<td>' + item.valor + '</td>';
+                html += '<td>' + item.entrada + '</td>';
+                html += '<td>$ ' + item.saldo + '</td>';
+                 }
+            });
+            html += '</tr>';
+            
+            $("#tabla").html(html);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+
+        </script>
+
 
 
         <!-- SideBar -->
@@ -134,11 +167,10 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                            <li class="active"><a href="#new" data-toggle="tab"> Clientes</a></li>
-                            <li><a href="#list" data-toggle="tab"> Pagos a plazos</a></li>
+                            <li class="active"><a href="#pago" data-toggle="tab"> Pagos pendientes</a></li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
-                            <div class="tab-pane fade active in" id="new">
+                            <div class="tab-pane fade active in" id="pago">
                                 <div class="container-fluid">
                                     <div class="row">
 
@@ -155,9 +187,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{#each this.ventas as |item i|}} 
+                                                {{#each this.ventas as |item a|}} 
                                                 <tr>
-                                                    <td>{{i}}</td>
+                                                    <td>{{a}}</td>
                                                     <td>{{item.cliente.persona.nombre}}</td>
                                                     {{#each item.cliente.persona.geolocalizacions as |itemG |}}
                                                     <td>{{itemG.ciudad}}</td>
@@ -166,21 +198,25 @@
                                                         {{itemAR.articulo.categorium.nombre}} {{itemAR.articulo.nombre}} -
                                                         {{/each}}
                                                     </td>
-                                                    <td>{{item.fecha}}</td>
-                                                    <td>$ {{item.valor_total}}</td>
+                                                    <td>{{item.pago.fecha}}</td>
+                                                    <td>$ {{item.pago.saldo}}</td>
                                                     <td>
-                                                        <a a href="#new" id="{{ i }}" class="btn btn-success btn-raised btn-xs" data-toggle="modal" data-target="#modalModificar"><i class="zmdi zmdi-money"></i></a>                                                  
+                                                        
+                                                        <a a href="#new" id="{{ a }}" class="btn btn-success btn-raised btn-xs" data-toggle="modal" data-target="#modalModificar"><i class="zmdi zmdi-money"></i></a> 
+                                                        <a a href="#" id="{{ item.external_id }}" class="btn btn-info btn-raised btn-xs" data-toggle="modal" data-target="#modalPago"><i class="zmdi zmdi-attachment-alt"></i></a>
                                                     </td>
                                                 </tr>
                                             <script>
-$('#{{i}}').click(function () {
-    $('#valor').val('{{item.valor_total}}');
-
-});
-
-
+                                                $('#{{a}}').click(function () {
+                                                    $('#id_venta').val('{{item.id}}');
+                                                    $('#valor').val('{{item.pago.saldo}}');
+                                                });
+                                                $('#{{item.external_id}}').click(function() {
+                                                    MostrarPagos('{{item.id}}');                                              
+                                                    });
                                             </script>
-                                            {{/each}}                                      
+                                            {{/each}}
+
                                             </tbody>
                                         </table>
                                         <ul class="pagination pagination-sm">
@@ -201,28 +237,15 @@ $('#{{i}}').click(function () {
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
-                                                <th class="text-center">Student</th>
-                                                <th class="text-center">Amount</th>
-                                                <th class="text-center">Subscription</th>
-                                                <th class="text-center">Pending</th>
-                                                <th class="text-center">Date</th>
-                                                <th class="text-center">Period</th>
-                                                <th class="text-center">Update</th>
-                                                <th class="text-center">Delete</th>
+                                                <th class="text-center">Cliente</th>
+                                                <th class="text-center">Ciudad</th>
+                                                <th class="text-center">Articulo</th>
+                                                <th class="text-center">Fecha</th>
+                                                <th class="text-center">Saldo</th>
+                                                <th class="text-center">Cancela</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Carlos Alfaro</td>
-                                                <td>$40</td>
-                                                <td>$40</td>
-                                                <td>$0</td>
-                                                <td>01/01/2017</td>
-                                                <td>Period 1</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
 
                                         </tbody>
                                     </table>
@@ -333,28 +356,71 @@ $('#{{i}}').click(function () {
                 </button>
                 <h2 class="modal-title text-center" id="exampleModalLongTitle">Forma de pago</h2>
             </div>
-            <form id="RegistroVinos" name="sentMessage" action="/guardar/imagen" method="POST">
+            <form id="pago" name="sentMessage" action="/guardar_pago" method="POST">
                 <div class="modal-body ">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class=" label-floating" >
-                                <h5>Valor</h5>
-                                <input class="form-control" type="number" name="valor" id="valor">
+                        <input type="hidden" name="id_venta" value="0" id="id_venta"/>
+                        <div class="col-xs-8" style="margin-left: 100px;">
+                            <div class="form-group " style="margin: auto">
+                                <label class="control-label">Fecha</label>
+                                <input class="form-control text-center" type="date" name="fecha" id="fecha">
                             </div>
-
-                            <div class="form-group label-floating ">
-                                <input class="form-control" type="number" name="entrada" id="entrada" placeholder="Entrada">
+                            <div class="form-group " style="margin: auto">
+                                <label class="control-label">Valor $</label>
+                                <input class="form-control text-center" type="text" name="valor" id="valor">
                             </div>
-                            <div class="form-group label-floating ">
-                                <input class="form-control" type="number" name="saldo" id="saldo" placeholder="Saldo">
+                            <div class="form-group ">
+                                <label class="control-label" style="margin: auto">Entrada $</label>
+                                <input class="form-control text-center" type="text" name="entra" id="entrada">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="margin: auto">Saldo $</label>
+                                <input class="form-control text-center" type="text" name="saldo" id="saldo">
                             </div>
 
                         </div>
                     </div>
                 </div>
                 <div class="text-center" style="margin-bottom: 50px;">
-                    <button type="submit" class="btn btn-primary btn-raised">Modificar</button>
-                    <button type="button" class="btn btn-secondary btn-raised" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary btn-raised">Guardar <i class="zmdi zmdi-floppy"></i></button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- modal pago-->
+<div class="modal fade" id="modalPago"  role="dialog" aria-labelledby="modalPago" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title text-center" id="exampleModalLongTitle">Historial de pagos</h2>
+            </div>
+            <form id="pago" name="sentMessage" action="/guardar_pago" method="POST">
+                <div class="modal-body ">
+                    <div class="row">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">Entrada</th>
+                                    <th scope="col">Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla">
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> Ok</button>
                 </div>
             </form>
         </div>
@@ -365,20 +431,20 @@ $('#{{i}}').click(function () {
 <script>
     function ObtenerSaldo() {
         var valor = $("#valor").val();
-        console.log(valor);
-       // alert(valor);
+        // alert(valor);
         var entrada = $("#entrada").val();
         var saldo = valor - entrada;
+        saldo = saldo.toFixed(2);
         $("#saldo").val(saldo);
     }
-   
+
     $("#entrada").keyup(function () {
         ObtenerSaldo();
     });
     $("#valor").change(function () {
         ObtenerSaldo();
     });
-   
+
     $(document).ready(function () {
         ObtenerSaldo();
     });

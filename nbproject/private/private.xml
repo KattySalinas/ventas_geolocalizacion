@@ -5,8 +5,10 @@
         <group>
             <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/views/venta.hbs</file>
             <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/routes/index.js</file>
+            <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/controllers/PagosController.js</file>
             <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/controllers/VentaController.js</file>
-            <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/views/categoria.hbs</file>
+            <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/models/pago.js</file>
+            <file>file:/C:/Users/use´/Desktop/Katty%20Salinas%20U/5%20ciclo/Programacion%20avanzada/Proyecto/views/payments.hbs</file>
         </group>
     </open-files>
 </project-private>

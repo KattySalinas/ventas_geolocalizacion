@@ -10,23 +10,35 @@ var Cliente = models.cliente;
 var Persona = models.persona;
 var Venta = models.venta;
 var Detalle = models.detalle_articulo;
+var Pago = models.pago;
 
 class VentaController {
     listarCLientes(req, res) {
-        
+
         Producto.findAll({include: [{model: Galeria}, {model: Categoria}]}).then(function (productos) {
             // console.log(productos);
             Geolocalizacion.findAll({include: [{model: Persona, include: [Cliente]}]}).then(function (Lclientes) {
-                req.session.carrito = [];
-                res.render('venta', {
-                    title: 'Ventas',
-                    clientes: Lclientes,
-                    productos: productos
+                Venta.findAll({include: [
+                        {model: Cliente, include:
+                                    [{model: Persona,
+                                            include: [Geolocalizacion]}]},
+                        {model: Detalle, include:
+                                    [{model: Producto, include: [Categoria]}]},
+                        {model: Pago}
+                    ]}).then(function (ventas) {
+                    req.session.carrito = [];
+                    res.render('venta', {
+                        title: 'Ventas',
+                        clientes: Lclientes,
+                        productos: productos,
+                        ventas: ventas
+                    });
                 });
+
             });
         });
     }
-     mostrarCarrito(req, res) {
+    mostrarCarrito(req, res) {
         res.status(200).json(req.session.carrito);
 
     }
@@ -102,7 +114,7 @@ class VentaController {
         req.session.carrito = carrito;
         res.status(200).json(req.session.carrito);
     }
-   
+
     guardar(req, res) {
         var carrito = req.session.carrito;
         Venta.create({
@@ -110,7 +122,7 @@ class VentaController {
             fecha: req.body.fecha,
             valor_total: req.body.total,
             id_cliente: req.body.cliente
-        }).then(function (newVenta, created) { 
+        }).then(function (newVenta, created) {
             if (newVenta) {
                 var detalle = [];
                 for (var i = 0; i < carrito.length; i++) {
@@ -118,6 +130,14 @@ class VentaController {
                     var item = {external_id: uuidv4(), cantidad: aux.cant, precio_unitario: aux.pu, precio_total: aux.pt, id_venta: newVenta.id, id_articulo: aux.id};
                     detalle[i] = item;
                 }
+                Pago.create({
+                    external_id: uuidv4(),
+                    valor: req.body.total,
+                    entrada: 0,
+                    saldo: req.body.total,
+                    fecha:req.body.fecha,
+                    id_venta: newVenta.id
+                });
                 Detalle.bulkCreate(detalle).then(() => {
                     return Detalle.findAll({where: {id_venta: newVenta.id}});
                 }).then(detalles => {

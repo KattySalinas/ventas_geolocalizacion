@@ -56,6 +56,8 @@ router.get('/home', function (req, res) {
 });
 
 router.get('/pagos', PagosController.listarPagos);
+router.post('/guardar_pago', PagosController.guardar);
+router.get('/listar_pagos/:id', PagosController.listarPago);
 
 router.post('/registrarComerciante', CuentaController.guardarComerciante);
 router.post('/iniciar_sesion', CuentaController.iniciarSesion);

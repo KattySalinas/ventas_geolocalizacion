@@ -15,6 +15,13 @@ module.exports = function (sequelize, Sequelize) {
         },
         saldo: {
             type: Sequelize.DOUBLE
+        },
+        external_id: {
+            type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4
+        },
+        fecha: {
+            type: Sequelize.DATEONLY
         }
     }, {freezeTableName: true,
         createdAt: 'fecha_registro',
