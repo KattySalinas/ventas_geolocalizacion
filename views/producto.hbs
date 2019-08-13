@@ -293,7 +293,7 @@
                                                 <th class="text-center">Cantidad</th>
                                                 <th class="text-center">Precio</th>   
                                                 <th class="text-center">Galeria</th> 
-                                                <th class="text-center">Actualizar</th>
+                                                <th class="text-center">Modificar</th>
                                                 <th class="text-center">Estado</th> 
                                             </tr>
                                         </thead>
@@ -327,7 +327,7 @@
                                                                             </div>
                                                                         {{/each }}
                                                                     </div>
-                                                                    <!-- FIN SLIDER -->
+                                                                    <!-- Fin Slider -->
                                                                 </div>
 
                                                                 <footer class="w3-container w3-teal">
@@ -349,6 +349,24 @@
                                                         $("#cantidad").val("{{item.cantidad}}");
                                                         $("#precio").val("{{item.precio}}");
                                                         $("#external").val("{{item.external_id}}");
+                                                        {{#each item.galeria as |obj i|}}
+                                                            //alert("{{obj.foto}}");
+                                                            $('#prev_{{i}} img').attr('src', '/uploads/{{obj.foto}}');
+                                                            $('#prev_{{i}}').removeClass("hidden");
+                                                            $('#new_{{i}}').addClass("hidden");
+                                                             function getBase64Image(img) {
+                                                                var canvas = document.createElement("canvas");
+                                                                canvas.width = 520;
+                                                                canvas.height = 480;
+                                                                var ctx = canvas.getContext("2d");
+                                                                ctx.drawImage(img, 0, 0);
+                                                                var dataURL = canvas.toDataURL("image/png");
+                                                                return dataURL;
+                                                            }
+
+                                                            if(getBase64Image(document.getElementById("img_{{i}}")) != null)        
+                                                                $('#base64_{{i}}').val(getBase64Image(document.getElementById("img_{{i}}"))).change();
+                                                        {{/each }}
                                                         });
                                                     </script>
                                                 </td>

@@ -52,7 +52,7 @@ router.post('/registrarComerciante', CuentaController.guardarComerciante);
 //router.post('/registrarProducto', ProductoController.guardarProducto);
 //router.post('/editarProducto', ProductoController.editarProducto);
 router.get('/productos', ProductoController.listarProducto);
-router.get('/imagemodal', ProductoController.lista);
+router.post('/registrarProducto', multer.any(), ProductoController.guardarProducto);
 
 
 
@@ -92,11 +92,5 @@ router.post('/registrarCliente', CuentaController.guardarCliente);
  '<br><a href="/">Retornar</a></body></html>';
  res.send(pagina);     
  });*/
-// Productos
-
-
-router.post('/registrarProducto', multer.any(), ProductoController.guardarProducto);
-
-//router.post('/addimage', multer.single('name'), ProductoController.guardarImagen);
 
 module.exports = router;
