@@ -30,10 +30,7 @@ module.exports = function (sequelize, Sequelize) {
     Comerciante.associate = function (models) {
         models.comerciante.hasMany(models.venta, {
             foreignKey: 'id_comerciante'
-        });
-        models.comerciante.hasMany(models.cronograma, {
-            foreignKey: 'id_comerciante'
-        });
+        });        
     };
 
 

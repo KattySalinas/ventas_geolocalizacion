@@ -89,8 +89,17 @@ class ClienteController {
             });
         });
     }
-    editarCliente() {
 
+    buscarCliente(req, res) {
+        var nombre = req.params.nombre;
+        Cliente.findAll({include:[{model: Persona, where: {nombre: {$like: '' + nombre + '%'}}}]}).then(function (cliente) {
+            if (cliente) {             
+                res.status(200).json(cliente);
+                console.log(cliente);
+            }
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
     }
 
 }

@@ -1,13 +1,13 @@
 module.exports = function (sequelize, Sequelize) {
-    var comerciante = require('../models/comerciante');
-    var Comerciante = new comerciante(sequelize, Sequelize);
+    var pago = require('../models/pago');
+    var Pago = new pago(sequelize, Sequelize);
     var Cronograma = sequelize.define('cronograma', {
         id: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        fecha: {
+        fechaVisita: {
             type: Sequelize.DATEONLY
         },
         external_id: {
@@ -22,9 +22,10 @@ module.exports = function (sequelize, Sequelize) {
         freezeTableName: true
     });
     
-    Cronograma.belongsTo(Comerciante, {
-        foreignKey: 'id_comerciante'
-    }); 
+    Cronograma.belongsTo(Pago, {
+        foreignKey: 'id_pago'
+    });
+    
     
     return Cronograma;
 };

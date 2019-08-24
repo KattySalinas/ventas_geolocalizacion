@@ -42,6 +42,7 @@ router.get('/home', HomeController.contarClientes);
 //CLIENTE
 router.get('/clientes', ClienteController.listarCLientes);
 router.post('/registrarCliente', ClienteController.guardarCliente);
+router.get('/buscarCliente/:nombre', ClienteController.buscarCliente);
 
 //CUENTA
 router.post('/registrarComerciante', CuentaController.guardarComerciante);

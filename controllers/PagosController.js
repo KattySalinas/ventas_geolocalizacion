@@ -9,6 +9,7 @@ var Venta = models.venta;
 var Detalle = models.detalle_articulo;
 var Categoria = models.categoria;
 var Pago = models.pago;
+var Cronograma = models.cronograma;
 class PagosController {
     listarPagos(req, res) {
 
@@ -40,6 +41,15 @@ class PagosController {
             fecha: req.body.fecha,
             id_venta: req.body.id_venta
         }).then(function (newPago) {
+            if(newPago.saldo>0){
+                Cronograma.create({
+                    external_id: uuidv4(),
+                    fechaVisita: req.body.fechaVisita,
+                    id_pago: newPago.id 
+                }).then(function (newCronograma) {                
+                    console.log('se creo cronograma');
+                });
+            }
             console.log('se creo pago');
             res.redirect("/pagos");
         });

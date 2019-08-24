@@ -22,7 +22,7 @@ module.exports = function (sequelize, Sequelize) {
         },
         fecha: {
             type: Sequelize.DATEONLY
-        }
+        }                                                                                                                                                                           
     }, {freezeTableName: true,
         createdAt: 'fecha_registro',
         updatedAt: 'fecha_modificacion'
@@ -31,6 +31,12 @@ module.exports = function (sequelize, Sequelize) {
         foreignKey: 'id_venta',
         constraints: false
     });
+    Pago.associate = function (models) {
+        models.pago.hasMany(models.cronograma, {
+            foreignKey: 'id_pago'
+        });
+    };
+
 
     return Pago;
 };
