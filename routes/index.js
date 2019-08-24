@@ -1,66 +1,100 @@
 var express = require('express');
 var router = express.Router();
-
-var cuenta = require('../controllers/CuentaController');
-var CuentaController = new cuenta;
-
-var categoria = require('../controllers/CategoriaController');
-var CategoriaController = new categoria;
-
-var producto = require('../controllers/ProductoController');
-var ProductoController = new producto;
-
-var cliente = require('../controllers/ClienteController');
-var ClienteController = new cliente;
-
-var home = require('../controllers/homeController');
-var homeController = new home;
-
-var venta = require('../controllers/VentaController');
-var VentaController = new venta;
+var passport = require('passport');
 
 var multer = require('multer')({
     dest: 'public/uploads/',
     limites: {fieldSize: 25 * 1024 * 1024}
 });
+var auth = function middleWare(req, res, next) {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        req.flash('error', 'Inicia sesion!!!');
+        res.redirect('/');
+    }
+}
+
+var cuenta = require('../controllers/CuentaController');
+var CuentaController = new cuenta();
+
+var categoria = require('../controllers/CategoriaController');
+var CategoriaController = new categoria();
+
+var producto = require('../controllers/ProductoController');
+var ProductoController = new producto();
+
+var cliente = require('../controllers/ClienteController');
+var ClienteController = new cliente();
+
+var venta = require('../controllers/VentaController');
+var VentaController = new venta();
+
+var pagos = require('../controllers/PagosController');
+var PagosController = new pagos();
+
+var home = require('../controllers/HomeController');
+var HomeController = new home();
+
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Pagina de inicio'});
-});
-router.get('/demo', function (req, res, next) {
-    res.render('demo', {title: 'Pagina de inicio'});
+    res.render('index', {title: 'Pagina de inicio', message: req.flash('error')});
 });
 
 router.get('/registrarCuenta', function (req, res) {
-    res.render('registrarCuenta', {title: 'Cuenta', mensaje: req.flash('info')});
+    res.render('registrarCuenta', {title: 'Cuenta'});
 });
 
-router.get('/clientes', ClienteController.listarCLientes);
-router.post('/registrarCliente', ClienteController.guardarCliente);
+//HOME
+router.get('/home', HomeController.contarClientes);
 
+//CLIENTE
+router.get('/clientes', auth, ClienteController.listarCLientes);
+router.post('/registrarCliente', auth, ClienteController.guardarCliente);
+router.get('/buscarCliente/:nombre', ClienteController.buscarCliente);
 
-router.get('/ventas', VentaController.listarCLientes);
+//CATEGORIA
+router.get('/categorias', auth, CategoriaController.listarCategoria);
+router.post('/registrarCategoria', auth, CategoriaController.guardarCategoria);
+router.get('/buscarCategoria/:nombre', CategoriaController.buscarCategoria);
 
-router.post('/registrarComerciante', CuentaController.guardarComerciante);
-
-
-router.get('/productos', ProductoController.listarProducto);
+//PRODUCTO
+router.get('/productos', auth, ProductoController.listarProducto);
 router.post('/registrarProducto', multer.any(), ProductoController.guardarProducto);
+router.get('/buscarProducto/:nombre', auth, ProductoController.buscarProducto);
 
-router.get('/rutas', function (req, res) {
+//VENTA
+router.get('/compra/carrito/listado', auth, VentaController.mostrarCarrito);
+router.get('/mostrar_carrito/:external', auth, VentaController.cargarCarro);
+router.get('/quitar_carrito/:external', auth, VentaController.quitar_item);
+router.get('/agregar_carrito/:external', VentaController.agregar_item);
+router.post('/guardar_venta', auth, VentaController.guardar);
+router.get('/ventas', VentaController.listarCLientes);
+router.get('/buscarProductoVenta/:nombre', VentaController.buscarProductoVenta);
+router.get('/buscarVenta/:nombre', VentaController.buscarVenta);
+
+//PAGO
+router.get('/pagos', auth, PagosController.listarPagos);
+router.post('/guardar_pago', auth, PagosController.guardar);
+router.get('/listar_pagos/:id', auth, PagosController.listarPago);
+
+//SESION COMERCIANTE
+router.post('/registro_comerciante',
+        passport.authenticate('local-signup', {successRedirect: '/',
+            failureRedirect: '/registrarCuenta', failureFlash: true}
+        ));
+router.post('/iniciar_sesion',
+        passport.authenticate('local-signin',
+                {successRedirect: 'home',
+                    failureRedirect: '/', failureFlash: true}
+        ));
+
+router.get('/cerrar_sesion', CuentaController.cerrar);
+
+//RUTAS
+router.get('/rutas', function (req, res, next) {
     res.render('rutas', {title: 'Rutas'});
 });
-router.get('/home', homeController.listarProducto);
-
-router.get('/pagos', function (req, res) {
-    res.render('payments', {title: 'Pagos'});
-});
-
-router.post('/registrarComerciante', CuentaController.guardarComerciante);
-router.post('/iniciar_sesion', CuentaController.iniciarSesion);
-
-router.get('/categorias', CategoriaController.listarCategoria);
-router.post('/registrarCategoria', CategoriaController.guardarCategoria);
 
 module.exports = router;

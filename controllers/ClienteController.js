@@ -58,7 +58,7 @@ class ClienteController {
                         id_persona: newPersona.id
                     }, {where: {external_id: req.body.externalc}}).then(function (newCliente) {
                         if (newCliente) {
-                            console.log('se creo cliente');
+                            console.log('se modifico');
                             // res.redirect("/registrarCliente");
                             // req.flash('info', 'Se ha registrado ');
                         }
@@ -85,12 +85,22 @@ class ClienteController {
         Geolocalizacion.findAll({include: [{model: Persona, include: [Cliente]}]}).then(function (Lclientes) {
             res.render('cliente', {
                 title: 'Clientes',
-                clientes: Lclientes
+                clientes: Lclientes,
+                comerciante: req.user.nombre
             });
         });
     }
-    editarCliente() {
 
+    buscarCliente(req, res) {
+        var nombre = req.params.nombre;
+        Cliente.findAll({include:[{model: Persona, where: {nombre: {$like: '' + nombre + '%'}}}]}).then(function (cliente) {
+            if (cliente) {             
+                res.status(200).json(cliente);
+                console.log(cliente);
+            }
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
     }
 
 }

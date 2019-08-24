@@ -4,13 +4,25 @@
         <title>Subject</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <link rel="stylesheet" href="/css/main.css">
-        <!-- mapa -->        
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"></script>
+        <link rel="stylesheet" href="./css/main.css">
+        <!-- modal slider image -->
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <style>
+            .mySlides {display:none;}
+        </style>
+        <style type="text/css">
+            .mySlides {
+                width: 400px;
+                height: 400px;
+            }
+            .w3-display-container{
+                width: 400px;
+                height: 400px;
+            }
+        </style>
+        <!-- Fin modal slider image -->
 
-        <script src="./geolocalizacion.js"></script>  
-
-        <!-- demo -->
+        <!-- Demo -->
         <link id="bootstrap-styleshhet" href="css/w3.css" rel="stylesheet" type="text/css"/>
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.min.css" rel="stylesheet" type="text/css"/>
@@ -19,18 +31,19 @@
         <script src="js/uploadHBR.min.js"></script>
         <script>
             $(document).ready(function () {
-                uploadHBR.init({
-                    "target": "#uploads",
+            uploadHBR.init({
+            "target": "#uploads",
                     "max": 6,
                     "textNew": "...",
                     "textTitle": "Haga clic aquí o arrastre para subir una imagen",
                     "textTitleRemove": "Click here remove the imagem"
-                });
-                $('#reset').click(function () {
-                    uploadHBR.reset('#uploads');
-                });
+            });
+            $('#reset').click(function () {
+            uploadHBR.reset('#uploads');
+            });
             });
         </script>
+
 
         <!--====== Scripts -->
         <script src="./js/jquery-3.1.1.min.js"></script>
@@ -41,48 +54,92 @@
         <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="./js/main.js"></script>
         <script src="jquery_validation.js"></script>
+        <!-- Compiled and minified CSS -->
         <script>
-        $.material.init();
+            $.material.init();
         </script>
     </head>
     <body>
         <script>
-
             $().ready(function () {
-                $("#producto").validate({
-                    rules: {
-                        categoria: {
-                            required: true
-                        },
-                        nombre: {
-                            required: true,
-                            minlength: 3
-                        },
-                        marca: {
-                            required: true,
-                            minlength: 2
-                        },
-                        estado: {
-                            required: true
+            console.log("*****************");
+            $("#buscarProducto").keyup(function () {
+                var busqueda = $("#buscarProducto").val();
+                buscarProducto(busqueda);                
+            }); 
+            function buscarProducto(busqueda) {
+                $.ajax({
+                    url: '/buscarProducto/' + busqueda,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        var html="";
+                        for (var i = 0; i < data.length; i++) {
+                            html += '<tr>';
+                                html += '<td>'+i+'</td>';
+                                html += '<td>'+data[i].producto.categorium.nombre+'</td>';
+                                html += '<td>'+data[i].producto.nombre+'</td>';
+                                html += '<td>'+data[i].producto.marca+'</td>';
+                                html += '<td>'+data[i].producto.descripcion+'</td>';
+                                html += '<td>'+data[i].producto.cantidad+'</td>';
+                                html += '<td>'+data[i].producto.precio+'</td>';     
+                                html += '<td>';
+                                    html += '<a data-toggle="modal" onclick="document.getElementById('+ i +').style.display = "block"" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>';
+                                html += '</td>';
+                                html += '<td>';
+                                    html += '<a href="#new" id="btn-'+i+'" data-toggle="tab"  class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>';
+                                html += '</td>';  
+                                html += '<td><a href="#list" data-toggle="tab" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>';
+                                                              
+                            html += '</tr>';
                         }
-                    },
-                    messages: {
-                        categoria: {
-                            required: "Ingrese la categoria por favor"
-                        },
-                        nombre: {
-                            required: "Ingrese el nombre por favor",
-                            minlength: "Minimo 3 caracteres"
-                        },
-                        marca: {
-                            required: "Ingrese la marca por favor",
-                            minlength: "Minimo 2 caracteres"
-                        },
-                        estado: {
-                            required: "Ingrese el estado por favor"
-                        }
+                        $("tbody").empty();
+                        $("tbody").html(html);
+                    }, error: function (jqXHR, textStatus, errorThrown) {
                     }
                 });
+            }   
+            $("#producto").validate({
+            rules: {
+            categoria: {
+            required: true
+            },
+                    nombre: {
+                    required: true,
+                            minlength: 3
+                    },
+                    marca: {
+                    required: true,
+                            minlength: 2
+                    },
+                    estado: {
+                    required: true
+                    }
+            },
+                    messages: {
+                    categoria: {
+                    required: "Ingrese la categoria por favor"
+                    },
+                            nombre: {
+                            required: "Ingrese el nombre por favor",
+                                    minlength: "Minimo 3 caracteres"
+                            },
+                            marca: {
+                            required: "Ingrese la marca por favor",
+                                    minlength: "Minimo 2 caracteres"
+                            },
+                            estado: {
+                            required: "Ingrese el estado por favor"
+                            }
+                    }
+            });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+            //$('.carousel').carousel();
+            //$('.slider').slider();
             });
         </script>
         <!-- SideBar -->
@@ -195,14 +252,14 @@
                     <div class="col-xs-12">
                         <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                             <li class="active"><a href="#new" data-toggle="tab"> Nuevo</a></li>
-                            <li><a href="#list" data-toggle="tab"> Lista</a></li>
+                            <li ><a href="#list" data-toggle="tab"> Lista</a></li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="new">
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-xs-12 col-md-10 col-md-offset-1">
-                                            <form action="/registrarProducto" method="post" id="producto" enctype="multipart/form-data">
+                                            <form action="/registrarProducto" method="post" id="producto" enctype="multipart/form-data" style="font-size: 16px; font-family: 'RobotoCondensed'">
                                                 <input type="hidden" name="external" value="0" id="external"/>
                                                 <div class="form-group label-floating ">
                                                     <label class="control-label">Categoría</label>
@@ -253,10 +310,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="list">
+                            <div class="tab-pane fade" id="list">     
+                                <!-- Buscar  -->
+                                <input class="form-control" type="text"  id="buscarProducto"  placeholder="¿Qué producto estas buscando?" style="width:500px">
+                                <!-- Fin Buscar  -->    
                                 <div class="table-responsive">
                                     <table class="table table-hover text-center">
-                                        <thead>
+                                        <thead style="font-size: 16px; font-family: 'RobotoCondensed'">
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th class="text-center">Categoría</th>
@@ -264,12 +324,13 @@
                                                 <th class="text-center">Marca</th>
                                                 <th class="text-center">Descripción</th>
                                                 <th class="text-center">Cantidad</th>
-                                                <th class="text-center">Precio</th>                                               
-                                                <th class="text-center">Actualizar</th>
+                                                <th class="text-center">Precio</th>   
+                                                <th class="text-center">Galeria</th> 
+                                                <th class="text-center">Modificar</th>
                                                 <th class="text-center">Estado</th> 
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody style="font-size: 16px; font-family: 'RobotoCondensed'" id="nombreBuscado">
                                             {{#each this.producto as |item i|}}
                                             <tr>
                                                 <td>{{i}}</td>
@@ -278,23 +339,71 @@
                                                 <td>{{item.marca}}</td>
                                                 <td>{{item.descripcion}}</td>
                                                 <td>{{item.cantidad}}</td>
-                                                <td>{{item.precio}}</td>                                                
-
+                                                <td>{{item.precio}}</td>                                                 
                                                 <td>
-                                                    <a href="#new" id="{{ i }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
+                                                    <div class="w3-container">
+                                                        <a data-toggle="modal" onclick="document.getElementById({{ i }}).style.display = 'block'" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>
+                                                       
+                                                        <div id="{{ i }}" class="w3-modal" data-toggle="modal">
+                                                            <div class="w3-modal-content">
+                                                                <header class="w3-container w3-teal"> 
+                                                                    <span onclick="document.getElementById({{ i }}).style.display = 'none'" 
+                                                                          class="w3-button w3-display-topright">&times;</span>
+                                                                    <h2 style="font-size: 20px; font-family: 'RobotoCondensedLight'">{{item.nombre}}</h2>
+                                                                </header>
+                                                                <div class="w3-container"> 
+                                                                    <!-- Slider images-->
+                                                                    <div class="row">
+                                                                        {{#each item.galeria as |items i|}}
+                                                                            <div class="col-md-4">
+                                                                                <img src="/uploads/{{items.foto}}" style="width:100%;height:15vw;"> <!-- random image -->
+                                                                            </div>
+                                                                        {{/each }}
+                                                                    </div>
+                                                                    <!-- Fin Slider -->
+                                                                </div>
+
+                                                                <footer class="w3-container w3-teal">
+                                                                    <p style="font-size: 20px; font-family: 'RobotoCondensedLight'">{{item.marca}}</p>
+                                                                </footer>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </td>
+                                                <td>
+                                                    <a href="#new" id="btn-{{i}}" data-toggle="tab"  class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>
                                                     <script>
-                                                        $("#{{i}}").click(function () {
-                                                            $("#categoria").val("{{item.categorium.id}}");
-                                                            $("#nombre").val("{{item.nombre}}");
-                                                            $("#marca").val("{{item.marca}}");
-                                                            $("#descripcion").val("{{item.descripcion}}");
-                                                            $("#cantidad").val("{{item.cantidad}}");
-                                                            $("#precio").val("{{item.precio}}");
-                                                            $("#external").val("{{item.external_id}}");
+                                                        $("#btn-{{i}}").click(function () {
+                                                        $("#categoria").val("{{item.categorium.id}}");
+                                                        $("#nombre").val("{{item.nombre}}");
+                                                        $("#marca").val("{{item.marca}}");
+                                                        $("#descripcion").val("{{item.descripcion}}");
+                                                        $("#cantidad").val("{{item.cantidad}}");
+                                                        $("#precio").val("{{item.precio}}");
+                                                        $("#external").val("{{item.external_id}}");
+                                                        {{#each item.galeria as |obj i|}}
+                                                            //alert("{{obj.foto}}");
+                                                            $('#prev_{{i}} img').attr('src', '/uploads/{{obj.foto}}');
+                                                            $('#prev_{{i}}').removeClass("hidden");
+                                                            $('#new_{{i}}').addClass("hidden");
+                                                             function getBase64Image(img) {
+                                                                var canvas = document.createElement("canvas");
+                                                                canvas.width = 520;
+                                                                canvas.height = 480;
+                                                                var ctx = canvas.getContext("2d");
+                                                                ctx.drawImage(img, 0, 0);
+                                                                var dataURL = canvas.toDataURL("image/png");
+                                                                return dataURL;
+                                                            }
+
+                                                            if(getBase64Image(document.getElementById("img_{{i}}")) != null)        
+                                                                $('#base64_{{i}}').val(getBase64Image(document.getElementById("img_{{i}}"))).change();
+                                                        {{/each }}
                                                         });
                                                     </script>
                                                 </td>
-                                                <td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                                <td><a href="#list" data-toggle="tab" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
                                             </tr>
                                             {{/each}}
                                         </tbody>                                   
@@ -391,5 +500,7 @@
                 </div>
             </div>
         </div>
+        
+       
     </body>
 </html>

@@ -28,12 +28,12 @@ module.exports = function (sequelize, Sequelize) {
         foreignKey: 'id_persona'
     });
     Comerciante.associate = function (models) {
+         models.comerciante.hasOne(models.cuenta, {
+            foreignKey: 'id_comerciante'
+        });
         models.comerciante.hasMany(models.venta, {
             foreignKey: 'id_comerciante'
-        });
-        models.comerciante.hasMany(models.cronograma, {
-            foreignKey: 'id_comerciante'
-        });
+        });        
     };
 
 

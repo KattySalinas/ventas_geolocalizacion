@@ -8,7 +8,7 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
         foto: {
-            type: Sequelize.STRING(50)
+            type: Sequelize.STRING
         },
         external_id: {
             type: Sequelize.UUID

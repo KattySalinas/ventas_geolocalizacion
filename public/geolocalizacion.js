@@ -102,7 +102,7 @@ function cargarDireccion(geocoder, latlng, map) {
                  });*/
 
                 direccion.value = results[0].formatted_address.split(",")[0];
-                console.log(results[0]);
+                //console.log(results[0]);
                 //if(latlng['lat'] == 'function(){return a}' || latlng['lat'] == 'function(){return b}') {
                 if (txt_lat != null && txt_long != null) {
                     if (isNaN(latlng['lat']) || isNaN(latlng['lat'])) {
