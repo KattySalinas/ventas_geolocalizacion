@@ -15,9 +15,6 @@ module.exports = function (sequelize, Sequelize) {
         valor_total: {
             type: Sequelize.DOUBLE
         },
-        descuento: {
-            type: Sequelize.DOUBLE
-        },
         external_id: {
             type: Sequelize.UUID
         },
@@ -25,7 +22,6 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.BOOLEAN,
             defaultValue: true
         }
-
     },{timestamps: false,
         freezeTableName: true
     });

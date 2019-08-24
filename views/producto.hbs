@@ -60,11 +60,39 @@
         </script>
     </head>
     <body>
-
-
         <script>
-
             $().ready(function () {
+            console.log("*****************");
+            $("#buscarProducto").keyup(function () {
+                var busqueda = $("#buscarProducto").val();
+                buscarProducto(busqueda);                
+            }); 
+            function buscarProducto(busqueda) {
+                $.ajax({
+                    url: '/buscarProducto/' + busqueda,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        var html="";
+                        for (var i = 0; i < data.length; i++) {
+                            html += '<tr>';
+                                html += '<td>'+i+'</td>';
+                                html += '<td>'+data[i].producto.categorium.nombre+'</td>';
+                                html += '<td>'+data[i].producto.nombre+'</td>';
+                                html += '<td>'+data[i].producto.marca+'</td>';
+                                html += '<td>'+data[i].producto.descripcion+'</td>';
+                                html += '<td>'+data[i].producto.cantidad+'</td>';
+                                html += '<td>'+data[i].producto.precio+'</td>';     
+                                html += '<td>';
+                            html += '</tr>';
+                        }
+                        $("tbody").empty();
+                        $("tbody").html(html);
+                    }, error: function (jqXHR, textStatus, errorThrown) {
+                    }
+                });
+            }   
             $("#producto").validate({
             rules: {
             categoria: {
@@ -170,14 +198,9 @@
                         </a>
                     </li>                    
                     <li>
-                        <a href="#!" class="btn-sideBar-SubMenu">
-                            <i class="zmdi zmdi-shield-security zmdi-hc-fw"></i> Settings School <i class="zmdi zmdi-caret-down pull-right"></i>
-                        </a>
-                        <ul class="list-unstyled full-box">
-                            <li>
-                                <a href="school.html"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> School Data</a>
-                            </li>
-                        </ul>
+                        <a href="/rutas" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-trending-up zmdi-hc-fw"></i> Rutas
+                        </a>                        
                     </li>
                 </ul>
             </div>
@@ -221,8 +244,8 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                            <li class="active"><a href="#new" data-toggle="tab"> Nuevo</a></li>
-                            <li><a href="#list" data-toggle="tab"> Lista</a></li>
+                            <li ><a href="#new" data-toggle="tab"> Nuevo</a></li>
+                            <li class="active"><a href="#list" data-toggle="tab"> Lista</a></li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="new">
@@ -280,7 +303,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="list">
+                            <div class="tab-pane fade" id="list">     
+                                <!-- Buscar  -->
+                                <input class="form-control" type="text"  id="buscarProducto"  placeholder="¿Qué estás buscando?" style="width:500px">
+                                <!-- Fin Buscar  -->    
                                 <div class="table-responsive">
                                     <table class="table table-hover text-center">
                                         <thead style="font-size: 16px; font-family: 'RobotoCondensed'">
@@ -297,7 +323,7 @@
                                                 <th class="text-center">Estado</th> 
                                             </tr>
                                         </thead>
-                                        <tbody style="font-size: 16px; font-family: 'RobotoCondensed'">
+                                        <tbody style="font-size: 16px; font-family: 'RobotoCondensed'" id="nombreBuscado">
                                             {{#each this.producto as |item i|}}
                                             <tr>
                                                 <td>{{i}}</td>
@@ -467,5 +493,7 @@
                 </div>
             </div>
         </div>
+        
+       
     </body>
 </html>

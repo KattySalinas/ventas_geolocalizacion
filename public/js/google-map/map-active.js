@@ -1,12 +1,12 @@
 var map;
 var latlng = new google.maps.LatLng(51.5074, 0.1278);
 var stylez = [{
-    featureType: "all",
-    elementType: "all",
-    stylers: [{
-        saturation: -100
+        featureType: "all",
+        elementType: "all",
+        stylers: [{
+                saturation: -100
             }]
-        }];
+    }];
 var mapOptions = {
     zoom: 15,
     center: latlng,

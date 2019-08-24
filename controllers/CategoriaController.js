@@ -35,5 +35,16 @@ class CategoriaController {
             res.render('categoria', {title: 'Categorias', categoria: listaCategoria});
         });
     }
+
+    buscarCategoria(req, res) {
+        var nombre = req.params.nombre;
+        Categoria.findAll({where: {nombre: {$like: '' + nombre + '%'}}}).then(function (categoria) {
+            if (categoria) {             
+                res.status(200).json(categoria);
+            }
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
+    }
 }
 module.exports = CategoriaController;
