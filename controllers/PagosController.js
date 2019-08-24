@@ -27,7 +27,8 @@ class PagosController {
 
             res.render('payments', {
                 title: 'Pagos',
-                ventas: ventas
+                ventas: ventas,
+                comerciante: req.user.nombre
             });
         });
 

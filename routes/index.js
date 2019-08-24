@@ -1,9 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
+
 var multer = require('multer')({
     dest: 'public/uploads/',
-    limites: {fieldSize: 255 * 1024 * 1024}
+    limites: {fieldSize: 25 * 1024 * 1024}
 });
+var auth = function middleWare(req, res, next) {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        req.flash('error', 'Inicia sesion!!!');
+        res.redirect('/');
+    }
+}
 
 var cuenta = require('../controllers/CuentaController');
 var CuentaController = new cuenta();
@@ -29,58 +39,62 @@ var HomeController = new home();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Pagina de inicio'});
+    res.render('index', {title: 'Pagina de inicio', message: req.flash('error')});
 });
 
 router.get('/registrarCuenta', function (req, res) {
-    res.render('registrarCuenta', {title: 'Cuenta', mensaje: req.flash('info')});
+    res.render('registrarCuenta', {title: 'Cuenta'});
 });
 
 //HOME
 router.get('/home', HomeController.contarClientes);
 
 //CLIENTE
-router.get('/clientes', ClienteController.listarCLientes);
-router.post('/registrarCliente', ClienteController.guardarCliente);
+router.get('/clientes', auth, ClienteController.listarCLientes);
+router.post('/registrarCliente', auth, ClienteController.guardarCliente);
 router.get('/buscarCliente/:nombre', ClienteController.buscarCliente);
 
-//CUENTA
-router.post('/registrarComerciante', CuentaController.guardarComerciante);
-router.post('/iniciar_sesion', CuentaController.iniciarSesion);
-
 //CATEGORIA
-router.get('/categorias', CategoriaController.listarCategoria);
-router.post('/registrarCategoria', CategoriaController.guardarCategoria);
+router.get('/categorias', auth, CategoriaController.listarCategoria);
+router.post('/registrarCategoria', auth, CategoriaController.guardarCategoria);
 router.get('/buscarCategoria/:nombre', CategoriaController.buscarCategoria);
 
 //PRODUCTO
-router.get('/productos', ProductoController.listarProducto);
+router.get('/productos', auth, ProductoController.listarProducto);
 router.post('/registrarProducto', multer.any(), ProductoController.guardarProducto);
-router.get('/buscarProducto/:nombre', ProductoController.buscarProducto);
+router.get('/buscarProducto/:nombre', auth, ProductoController.buscarProducto);
 
 //VENTA
-router.get('/compra/carrito/listado', VentaController.mostrarCarrito);
-router.get('/mostrar_carrito/:external', VentaController.cargarCarro);
-router.get('/quitar_carrito/:external', VentaController.quitar_item);
+router.get('/compra/carrito/listado', auth, VentaController.mostrarCarrito);
+router.get('/mostrar_carrito/:external', auth, VentaController.cargarCarro);
+router.get('/quitar_carrito/:external', auth, VentaController.quitar_item);
 router.get('/agregar_carrito/:external', VentaController.agregar_item);
-router.post('/guardar_venta', VentaController.guardar);
+router.post('/guardar_venta', auth, VentaController.guardar);
 router.get('/ventas', VentaController.listarCLientes);
 router.get('/buscarProductoVenta/:nombre', VentaController.buscarProductoVenta);
 router.get('/buscarVenta/:nombre', VentaController.buscarVenta);
 
 //PAGO
-router.get('/pagos', PagosController.listarPagos);
-router.post('/guardar_pago', PagosController.guardar);
-router.get('/listar_pagos/:id', PagosController.listarPago);
+router.get('/pagos', auth, PagosController.listarPagos);
+router.post('/guardar_pago', auth, PagosController.guardar);
+router.get('/listar_pagos/:id', auth, PagosController.listarPago);
 
-router.get('/rutas', function (req, res) {
+//SESION COMERCIANTE
+router.post('/registro_comerciante',
+        passport.authenticate('local-signup', {successRedirect: '/',
+            failureRedirect: '/registrarCuenta', failureFlash: true}
+        ));
+router.post('/iniciar_sesion',
+        passport.authenticate('local-signin',
+                {successRedirect: 'home',
+                    failureRedirect: '/', failureFlash: true}
+        ));
+
+router.get('/cerrar_sesion', CuentaController.cerrar);
+
+//RUTAS
+router.get('/rutas', function (req, res, next) {
     res.render('rutas', {title: 'Rutas'});
 });
-router.get('/home', function (req, res) {
-    res.render('home', {title: 'Home'});
-});
-
-
-
 
 module.exports = router;

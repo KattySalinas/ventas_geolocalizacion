@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var passport  = require('passport');
 
 var app = express();
 var session = require('express-session');
@@ -32,9 +33,10 @@ models.sequelize.sync().then( () => {
 console.log('Se ha conectado a Sarita');
 }).catch(err => {console.log(err, "Hubo un error");});
 
-
+require('./config/pasaporte/passport')(passport, models.cuenta, models.persona, models.comerciante);
 //load passport strategies
-//require('./config/pasaporte/passport')(passport, models.cuenta, models.persona, models.rol);
+app.use(passport.initialize()); 
+app.use(passport.session());
 
 app.use(logger('dev'));
 app.use(express.json());

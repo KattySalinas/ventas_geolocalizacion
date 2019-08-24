@@ -16,8 +16,6 @@
         <script src="./js/ripples.min.js"></script>
         <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="./js/main.js"></script>
-        
-
 
     </head>
     <body>
@@ -136,169 +134,204 @@
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane fade active in" id="new">
                                 <div class="container-fluid">
-                                    <div class="row">
-                                        <form action="action" >
-                                            <div class="col-xs-12 col-md-10 col-md-offset-1" >
-                                                <div id="map" style="width:850vw; height:500vw;" ></div>  
-                                            </div>
-                                            <div class="col-xs-12 col-md-10 col-md-offset-1">
-                                                <input type="text" class="form-control" placeholder="Longitud" name="longitud" id="txt_long" readonly>
-                                            </div>
-                                            <div class="col-xs-12 col-md-10 col-md-offset-1" >
-                                                <input type="text" class="form-control" placeholder="Latitud" name="latitud" id="txt_lat" readonly>
-                                            </div>
-                                        </form>
 
+                                    <div class="container">
+                                        <div class="row">    
+                                            <div class="col-xs-8 col-xs-offset-2">
+                                                <div class="input-group">
+                                                    <div class="input-group-btn search-panel">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                            <span id="search_concept">Filter by</span> <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="#contains">Contains</a></li>
+                                                            <li><a href="#its_equal">It's equal</a></li>
+                                                            <li><a href="#greather_than">Greather than</a></li>
+                                                            <li><a href="#less_than">Less than </a></li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#all">Anything</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <input type="hidden" name="search_param" value="all" id="search_param">         
+                                                    <input type="text" class="form-control" name="x" placeholder="Search term...">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <form action="action" >
+                                        <div class="col-xs-12 col-md-10 col-md-offset-1" >
+                                            <div id="map" style="width:850px; height:500px;" ></div>  
+                                        </div>
+                                        <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                            <input type="text" class="form-control" placeholder="Longitud" name="longitud" id="txt_long" readonly>
+                                        </div>
+                                        <div class="col-xs-12 col-md-10 col-md-offset-1" >
+                                            <input type="text" class="form-control" placeholder="Latitud" name="latitud" id="txt_lat" readonly>
+                                        </div>
+                                    </form>
+
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="list">
-                                <div class="table-responsive">
-                                    <table class="table table-hover text-center">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">Name</th>
-                                                <th class="text-center">Status</th>
-                                                <th class="text-center">Start Date</th>
-                                                <th class="text-center">End Date</th>
-                                                <th class="text-center">Amount</th>
-                                                <th class="text-center">year</th>
-                                                <th class="text-center">Update</th>
-                                                <th class="text-center">Delete</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>First</td>
-                                                <td>Active</td>
-                                                <td>07/01/2017</td>
-                                                <td>06/04/2017</td>
-                                                <td>$40</td>
-                                                <td>2017</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Second</td>
-                                                <td>Active</td>
-                                                <td>07/04/2017</td>
-                                                <td>06/08/2017</td>
-                                                <td>$40</td>
-                                                <td>2017</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Third</td>
-                                                <td>Active</td>
-                                                <td>07/08/2017</td>
-                                                <td>06/12/2017</td>
-                                                <td>$40</td>
-                                                <td>2017</td>
-                                                <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-                                                <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <ul class="pagination pagination-sm">
-                                        <li class="disabled"><a href="#!">«</a></li>
-                                        <li class="active"><a href="#!">1</a></li>
-                                        <li><a href="#!">2</a></li>
-                                        <li><a href="#!">3</a></li>
-                                        <li><a href="#!">4</a></li>
-                                        <li><a href="#!">5</a></li>
-                                        <li><a href="#!">»</a></li>
-                                    </ul>
-                                </div>
+                        </div>
+                        <div class="tab-pane fade" id="list">
+                            <div class="table-responsive">
+                                <table class="table table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Start Date</th>
+                                            <th class="text-center">End Date</th>
+                                            <th class="text-center">Amount</th>
+                                            <th class="text-center">year</th>
+                                            <th class="text-center">Update</th>
+                                            <th class="text-center">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>First</td>
+                                            <td>Active</td>
+                                            <td>07/01/2017</td>
+                                            <td>06/04/2017</td>
+                                            <td>$40</td>
+                                            <td>2017</td>
+                                            <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                            <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Second</td>
+                                            <td>Active</td>
+                                            <td>07/04/2017</td>
+                                            <td>06/08/2017</td>
+                                            <td>$40</td>
+                                            <td>2017</td>
+                                            <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                            <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Third</td>
+                                            <td>Active</td>
+                                            <td>07/08/2017</td>
+                                            <td>06/12/2017</td>
+                                            <td>$40</td>
+                                            <td>2017</td>
+                                            <td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
+                                            <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ul class="pagination pagination-sm">
+                                    <li class="disabled"><a href="#!">«</a></li>
+                                    <li class="active"><a href="#!">1</a></li>
+                                    <li><a href="#!">2</a></li>
+                                    <li><a href="#!">3</a></li>
+                                    <li><a href="#!">4</a></li>
+                                    <li><a href="#!">5</a></li>
+                                    <li><a href="#!">»</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+    </section>
 
-        <!-- Notifications area -->
-        <section class="full-box Notifications-area">
-            <div class="full-box Notifications-bg btn-Notifications-area"></div>
-            <div class="full-box Notifications-body">
-                <div class="Notifications-body-title text-titles text-center">
-                    Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
-                </div>
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <div class="row-action-primary">
-                            <i class="zmdi zmdi-alert-triangle"></i>
-                        </div>
-                        <div class="row-content">
-                            <div class="least-content">17m</div>
-                            <h4 class="list-group-item-heading">Tile with a label</h4>
-                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-                        </div>
-                    </div>
-                    <div class="list-group-separator"></div>
-                    <div class="list-group-item">
-                        <div class="row-action-primary">
-                            <i class="zmdi zmdi-alert-octagon"></i>
-                        </div>
-                        <div class="row-content">
-                            <div class="least-content">15m</div>
-                            <h4 class="list-group-item-heading">Tile with a label</h4>
-                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-                        </div>
-                    </div>
-                    <div class="list-group-separator"></div>
-                    <div class="list-group-item">
-                        <div class="row-action-primary">
-                            <i class="zmdi zmdi-help"></i>
-                        </div>
-                        <div class="row-content">
-                            <div class="least-content">10m</div>
-                            <h4 class="list-group-item-heading">Tile with a label</h4>
-                            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
-                        </div>
-                    </div>
-                    <div class="list-group-separator"></div>
-                    <div class="list-group-item">
-                        <div class="row-action-primary">
-                            <i class="zmdi zmdi-info"></i>
-                        </div>
-                        <div class="row-content">
-                            <div class="least-content">8m</div>
-                            <h4 class="list-group-item-heading">Tile with a label</h4>
-                            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
-                        </div>
-                    </div>
-                </div>
-
+    <!-- Notifications area -->
+    <section class="full-box Notifications-area">
+        <div class="full-box Notifications-bg btn-Notifications-area"></div>
+        <div class="full-box Notifications-body">
+            <div class="Notifications-body-title text-titles text-center">
+                Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
             </div>
-        </section>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <div class="row-action-primary">
+                        <i class="zmdi zmdi-alert-triangle"></i>
+                    </div>
+                    <div class="row-content">
+                        <div class="least-content">17m</div>
+                        <h4 class="list-group-item-heading">Tile with a label</h4>
+                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                    </div>
+                </div>
+                <div class="list-group-separator"></div>
+                <div class="list-group-item">
+                    <div class="row-action-primary">
+                        <i class="zmdi zmdi-alert-octagon"></i>
+                    </div>
+                    <div class="row-content">
+                        <div class="least-content">15m</div>
+                        <h4 class="list-group-item-heading">Tile with a label</h4>
+                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                    </div>
+                </div>
+                <div class="list-group-separator"></div>
+                <div class="list-group-item">
+                    <div class="row-action-primary">
+                        <i class="zmdi zmdi-help"></i>
+                    </div>
+                    <div class="row-content">
+                        <div class="least-content">10m</div>
+                        <h4 class="list-group-item-heading">Tile with a label</h4>
+                        <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                    </div>
+                </div>
+                <div class="list-group-separator"></div>
+                <div class="list-group-item">
+                    <div class="row-action-primary">
+                        <i class="zmdi zmdi-info"></i>
+                    </div>
+                    <div class="row-content">
+                        <div class="least-content">8m</div>
+                        <h4 class="list-group-item-heading">Tile with a label</h4>
+                        <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Dialog help -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Help</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> Ok</button>
-                    </div>
+        </div>
+    </section>
+
+    <!-- Dialog help -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Help</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> Ok</button>
                 </div>
             </div>
         </div>
-
-        <script>
-            $.material.init();
-        </script>
-    </body>
+    </div>
+    <script>
+        $(document).ready(function (e) {
+            $('.search-panel .dropdown-menu').find('a').click(function (e) {
+                e.preventDefault();
+                var param = $(this).attr("href").replace("#", "");
+                var concept = $(this).text();
+                $('.search-panel span#search_concept').text(concept);
+                $('.input-group #search_param').val(param);
+            });
+        });
+    </script>
+    <script>
+        $.material.init();
+    </script>
+</body>
 </html>
