@@ -18,7 +18,7 @@ $(document).ready(function () {
             showCancelButton: true,
             confirmButtonColor: '#03A9F4',
             cancelButtonColor: '#F44336',
-            confirmButtonText: '<i class="zmdi zmdi-run"></i> Yes, Exit!',
+            confirmButtonText: '<a style="color:white" href="/cerrar_sesion"><i class="zmdi zmdi-run"></i> Yes, Exit!</a>',
             cancelButtonText: '<i class="zmdi zmdi-close-circle"></i> No, Cancel!'
         }).then(function () {
             window.location.href = "index.html";

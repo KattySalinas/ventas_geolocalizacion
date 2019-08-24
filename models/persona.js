@@ -29,9 +29,6 @@ module.exports = function (sequelize, Sequelize) {
     });
     
     Persona.associate = function (models) {
-        models.persona.hasOne(models.cuenta, {
-            foreignKey: 'id_persona'
-        });
         models.persona.hasMany(models.geolocalizacion, {
             foreignKey: 'id_persona'
         });

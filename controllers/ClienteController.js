@@ -85,7 +85,8 @@ class ClienteController {
         Geolocalizacion.findAll({include: [{model: Persona, include: [Cliente]}]}).then(function (Lclientes) {
             res.render('cliente', {
                 title: 'Clientes',
-                clientes: Lclientes
+                clientes: Lclientes,
+                comerciante: req.user.nombre
             });
         });
     }

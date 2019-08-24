@@ -11,6 +11,7 @@ var Persona = models.persona;
 var Venta = models.venta;
 var Detalle = models.detalle_articulo;
 var Pago = models.pago;
+var Comerciante = models.comerciante;
 
 class VentaController {
     listarCLientes(req, res) {
@@ -29,9 +30,11 @@ class VentaController {
                     req.session.carrito = [];
                     res.render('venta', {
                         title: 'Ventas',
+                        comerciante: req.user.comerciante,
                         clientes: Lclientes,
                         productos: productos,
                         ventas: ventas
+                        
                     });
                 });
 
@@ -117,40 +120,46 @@ class VentaController {
 
     guardar(req, res) {
         var carrito = req.session.carrito;
-        Venta.create({
-            external_id: uuidv4(),
-            fecha: req.body.fecha,
-            valor_total: req.body.total,
-            id_cliente: req.body.cliente
-        }).then(function (newVenta, created) {
-            if (newVenta) {
-                var detalle = [];
-                for (var i = 0; i < carrito.length; i++) {
-                    var aux = carrito[i];
-                    var item = {external_id: uuidv4(), cantidad: aux.cant, precio_unitario: aux.pu, precio_total: aux.pt, id_venta: newVenta.id, id_articulo: aux.id};
-                    detalle[i] = item;
-                }
-                Pago.create({
-                    external_id: uuidv4(),
-                    valor: req.body.total,
-                    entrada: 0,
-                    saldo: req.body.total,
-                    fecha:req.body.fecha,
-                    id_venta: newVenta.id
-                });
-                Detalle.bulkCreate(detalle).then(() => {
-                    return Detalle.findAll({where: {id_venta: newVenta.id}});
-                }).then(detalles => {
-                    detalles.forEach(function (item) {
-                        Producto.findOne({where: {id: item.id_articulo}}).then(function (articulo) {
-                            Producto.update({cantidad: articulo.cantidad - item.cantidad},
-                                    {where: {id: item.id_articulo}});
-                        });
-                        req.session.carrito = [];
-                        res.redirect("/pagos");
+        console.log('...'+ req.user.id_comerciante);
+        Comerciante.findOne({where: {external_id: req.user.id_comerciante}}).then(function (comerciante) {
+            console.log('comerciante');
+            console.log(comerciante);
+            Venta.create({
+                external_id: uuidv4(),
+                fecha: req.body.fecha,
+                valor_total: req.body.total,
+                id_cliente: req.body.cliente,
+                id_comerciante: comerciante.id
+            }).then(function (newVenta, created) {
+                if (newVenta) {
+                    var detalle = [];
+                    for (var i = 0; i < carrito.length; i++) {
+                        var aux = carrito[i];
+                        var item = {external_id: uuidv4(), cantidad: aux.cant, precio_unitario: aux.pu, precio_total: aux.pt, id_venta: newVenta.id, id_articulo: aux.id};
+                        detalle[i] = item;
+                    }
+                    Pago.create({
+                        external_id: uuidv4(),
+                        valor: req.body.total,
+                        entrada: 0,
+                        saldo: req.body.total,
+                        fecha: req.body.fecha,
+                        id_venta: newVenta.id
                     });
-                });
-            }
+                    Detalle.bulkCreate(detalle).then(() => {
+                        return Detalle.findAll({where: {id_venta: newVenta.id}});
+                    }).then(detalles => {
+                        detalles.forEach(function (item) {
+                            Producto.findOne({where: {id: item.id_articulo}}).then(function (articulo) {
+                                Producto.update({cantidad: articulo.cantidad - item.cantidad},
+                                        {where: {id: item.id_articulo}});
+                            });
+                            req.session.carrito = [];
+                            res.redirect("/pagos");
+                        });
+                    });
+                }
+            });
         });
     }
 

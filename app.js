@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var passport  = require('passport');
 
 var app = express();
 var session = require('express-session');
@@ -17,14 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.use(session({
-    secret: 'Cuarto A',
-    resave: true,
-    saveUninitialized: true
-}));
+
 
 app.use(flash());
 
@@ -70,7 +63,6 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 var session = require('express-session');
-var flash = require('express-flash-notification');
 
 var bodyParser = require('body-parser');
 
@@ -82,7 +74,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(session({
-    secret: 'Cuarto A',
+    secret: 'Quinto B',
     resave: true,
     saveUninitialized: true
 }));
@@ -94,9 +86,10 @@ models.sequelize.sync().then( () => {
     console.log('Se ha conectado a Sarita');
 }).catch(err => {console.log(err, "Hubo un error");});
 
-
+require('./config/pasaporte/passport')(passport, models.cuenta, models.persona, models.comerciante);
 //load passport strategies
-//require('./config/pasaporte/passport')(passport, models.cuenta, models.persona, models.rol);
+app.use(passport.initialize()); 
+app.use(passport.session());
 
 
 app.use(logger('dev'));

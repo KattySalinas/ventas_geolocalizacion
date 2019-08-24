@@ -1,6 +1,6 @@
 module.exports = function (sequelize, Sequelize) {
-    var persona = require('../models/persona');
-    var Persona = new persona(sequelize, Sequelize);
+    var comerciante = require('../models/comerciante');
+    var Comerciante = new comerciante(sequelize, Sequelize);
     var Cuenta = sequelize.define('cuenta', {
         id: {
             autoIncrement: true,
@@ -26,8 +26,8 @@ module.exports = function (sequelize, Sequelize) {
         freezeTableName: true
     });
     
-    Cuenta.belongsTo(Persona, {
-        foreignKey: 'id_persona',
+    Cuenta.belongsTo(Comerciante, {
+        foreignKey: 'id_comerciante',
         constraints: false
     });
     
