@@ -23,6 +23,9 @@ var VentaController = new venta();
 var pagos = require('../controllers/PagosController');
 var PagosController = new pagos();
 
+var home = require('../controllers/HomeController');
+var HomeController = new home();
+
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -32,6 +35,9 @@ router.get('/', function (req, res, next) {
 router.get('/registrarCuenta', function (req, res) {
     res.render('registrarCuenta', {title: 'Cuenta', mensaje: req.flash('info')});
 });
+
+//HOME
+router.get('/home', HomeController.contarClientes);
 
 //CLIENTE
 router.get('/clientes', ClienteController.listarCLientes);
