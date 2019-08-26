@@ -21,7 +21,7 @@ module.exports = function (passport, cuenta, persona, comerciante) {
                     nombre: cuenta.comerciante.persona.apellido + " " + cuenta.comerciante.persona.nombre,
                     comerciante: cuenta.comerciante.id
                 };
-                 console.log(userinfo);
+                // console.log(userinfo);
                 done(null, userinfo);
             } else {
                 done(cuenta.errors, null);

@@ -36,6 +36,8 @@ var PagosController = new pagos();
 var home = require('../controllers/HomeController');
 var HomeController = new home();
 
+var rutas = require('../controllers/RutasController');
+var RutasController = new rutas();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -93,8 +95,10 @@ router.post('/iniciar_sesion',
 router.get('/cerrar_sesion', CuentaController.cerrar);
 
 //RUTAS
-router.get('/rutas', function (req, res, next) {
+router.get('/rutas', auth, function (req, res, next) {
     res.render('rutas', {title: 'Rutas'});
 });
+router.get('/buscarPorFecha/:fecha', auth, RutasController.BuscarFechaPago);
+
 
 module.exports = router;

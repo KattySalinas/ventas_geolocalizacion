@@ -138,7 +138,7 @@ function pintar(puntos) {
     //console.log("xxxx "+map);
     deleteMarkers(null);
     for (var i = 0; i < puntos.length; i++) {
-        var url_icono = 'http://maps.google.com/mapfiles/ms/icons/blue-pushpin.png';
+        var url_icono = 'http://maps.google.com/mapfiles/ms/micons/green-dot.png';
         var punto = puntos[i];
         var pos = {
             lat: punto["lat"] * 1,
