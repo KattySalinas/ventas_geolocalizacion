@@ -35,7 +35,9 @@ var PagosController = new pagos();
 
 var home = require('../controllers/HomeController');
 var HomeController = new home();
-
+ 
+var rutas = require('../controllers/RutasController');
+var RutasController = new rutas();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -47,22 +49,24 @@ router.get('/registrarCuenta', function (req, res) {
 });
 
 //HOME
-router.get('/home', HomeController.contarClientes);
+router.get('/home', auth, HomeController.contarClientes);
 
 //CLIENTE
 router.get('/clientes', auth, ClienteController.listarCLientes);
 router.post('/registrarCliente', auth, ClienteController.guardarCliente);
 router.get('/buscarCliente/:nombre', ClienteController.buscarCliente);
-
+router.get('/listar_clientes', ClienteController.listarClientes);
 //CATEGORIA
 router.get('/categorias', auth, CategoriaController.listarCategoria);
 router.post('/registrarCategoria', auth, CategoriaController.guardarCategoria);
 router.get('/buscarCategoria/:nombre', CategoriaController.buscarCategoria);
+router.get('/buscarCategoria', CategoriaController.listarCategorias);
 
 //PRODUCTO
 router.get('/productos', auth, ProductoController.listarProducto);
 router.post('/registrarProducto', multer.any(), ProductoController.guardarProducto);
 router.get('/buscarProducto/:nombre', auth, ProductoController.buscarProducto);
+router.get('/listar_productos', auth, ProductoController.listarProductos);
 
 //VENTA
 router.get('/compra/carrito/listado', auth, VentaController.mostrarCarrito);
@@ -70,9 +74,10 @@ router.get('/mostrar_carrito/:external', auth, VentaController.cargarCarro);
 router.get('/quitar_carrito/:external', auth, VentaController.quitar_item);
 router.get('/agregar_carrito/:external', VentaController.agregar_item);
 router.post('/guardar_venta', auth, VentaController.guardar);
-router.get('/ventas', VentaController.listarCLientes);
+router.get('/ventas', auth, VentaController.listarCLientes);
 router.get('/buscarProductoVenta/:nombre', VentaController.buscarProductoVenta);
 router.get('/buscarVenta/:nombre', VentaController.buscarVenta);
+router.get('/mostrar_producto', VentaController.mostrarProductoVenta);
 
 //PAGO
 router.get('/pagos', auth, PagosController.listarPagos);
@@ -93,8 +98,8 @@ router.post('/iniciar_sesion',
 router.get('/cerrar_sesion', CuentaController.cerrar);
 
 //RUTAS
-router.get('/rutas', function (req, res, next) {
-    res.render('rutas', {title: 'Rutas'});
-});
-
+router.get('/buscarPorFecha/:fecha', RutasController.BuscarFechaPago);
+router.get('/rutas', auth, function(req, res, next) {
+    res.render('rutas', {titulo: 'Rutas', comerciante: req.user.nombre});
+  });
 module.exports = router;

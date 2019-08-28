@@ -55,12 +55,12 @@ class PagosController {
             res.redirect("/pagos");
         });
     }
-   listarPago(req, res){
+    listarPago(req, res){
        var id = req.params.id;
        Pago.findAll({where: {id_venta: id}}).then(function (pagos) {
             res.status(200).json(pagos);
         });
-   }
+    }
 
 }
 module.exports = PagosController;

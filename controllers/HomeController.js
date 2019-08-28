@@ -21,7 +21,8 @@ class HomeController {
                         title: 'Home', 
                         clientesCount: clientesCount,
                         ventasCount: ventasCount,
-                        productosCount: productosCount
+                        productosCount: productosCount,
+                        comerciante: req.user.nombre
                     });
                 });
             });            

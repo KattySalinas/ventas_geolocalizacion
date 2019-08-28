@@ -31,15 +31,20 @@ class CategoriaController {
     }
 
     listarCategoria(req, res) {
-        Categoria.findAll({}).then(function (listaCategoria) {            
-            res.render('categoria', {title: 'Categorias', categoria: listaCategoria});
+        Categoria.findAll({}).then(function (listaCategoria) {
+            res.render('categoria', {title: 'Categorias', categoria: listaCategoria, comerciante: req.user.nombre});
+        });
+    }
+    listarCategorias(req, res) {
+        Categoria.findAll({}).then(function (listaCategoria) {
+            res.status(200).json(listaCategoria);
         });
     }
 
     buscarCategoria(req, res) {
         var nombre = req.params.nombre;
         Categoria.findAll({where: {nombre: {$like: '' + nombre + '%'}}}).then(function (categoria) {
-            if (categoria) {             
+            if (categoria) {
                 res.status(200).json(categoria);
             }
         }).catch(function (err) {
