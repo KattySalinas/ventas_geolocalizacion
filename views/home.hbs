@@ -178,64 +178,44 @@
                         <div class="container-fluid">
                             <div class="page-header">
                                 <h1 class="text-titles">Visita <small>Hoy !</small></h1>
-                            </>
+                            </div>
                             <section id="cd-timeline" class="cd-container">
-                                {{#each this.cronograma as |item i|}}
-                                    <div class="cd-timeline-block">
-                                        <div class="cd-timeline-img">
-                                            <img src="./assets/img/avatar.jpg" alt="user-picture">
-                                        </div> 
-                                        <div class="cd-timeline-content">
-                                            {{#each item.pago.venta.cliente.persona as |iten i|}}
-                                            <h4 class="text-center text-titles">{{iten.nombre}}</h4>
-                                            {{/each}}
-                                            <p class="text-center">
-                                                <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>{{item.fechaVisita}}</em> &nbsp;&nbsp;&nbsp; 
-                                                <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
-                                            </p>
-                                            <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
-                                        </div>
-                                    </div>  
-                                {{/each}}
-                                <div class="cd-timeline-block">
-                                    <div class="cd-timeline-img">
-                                        <img src="./assets/img/avatar.jpg" alt="user-picture">
-                                    </div>
-                                    <div class="cd-timeline-content">
-                                        <h4 class="text-center text-titles">2 - Name (Teacher)</h4>
-                                        <p class="text-center">
-                                            <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
-                                            <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
-                                        </p>
-                                        <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
-                                    </div>
-                                </div>
-                                <div class="cd-timeline-block">
-                                    <div class="cd-timeline-img">
-                                        <img src="./assets/img/avatar.jpg" alt="user-picture">
-                                    </div>
-                                    <div class="cd-timeline-content">
-                                        <h4 class="text-center text-titles">3 - Name (Student)</h4>
-                                        <p class="text-center">
-                                            <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
-                                            <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
-                                        </p>
-                                        <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
-                                    </div>
-                                </div>
-                                <div class="cd-timeline-block">
-                                    <div class="cd-timeline-img">
-                                        <img src="./assets/img/avatar.jpg" alt="user-picture">
-                                    </div>
-                                    <div class="cd-timeline-content">
-                                        <h4 class="text-center text-titles">4 - Name (Personal Ad.)</h4>
-                                        <p class="text-center">
-                                            <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
-                                            <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
-                                        </p>
-                                        <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
-                                    </div>
-                                </div>   
+                                <script>
+                                    let d = new Date();
+                                    let ano = d.getFullYear();
+                                    let mes = ((d.getMonth() + 1) < 10) ? '0'+(d.getMonth() + 1) : (d.getMonth() + 1);
+                                    let dia = d.getDate();
+                                    let fecha = ano+'-'+mes+'-'+dia;
+                                    //alert('La fecha actual es: ' + fecha);
+                                    $.ajax({
+                                        url: '/buscarPorFecha/' + fecha,
+                                        type: 'GET',
+                                        dataType: 'json',
+                                        success: function (data, textStatus, jqXHR) {
+                                            console.log(data);
+
+                                            for (var i = 0; i < data.length; i++) {
+                                                let fecha = data[i].fechaVisita;
+                                                let persona = data[i].pago.ventum.cliente.persona;
+                                                let html  = '<div class="cd-timeline-block">';
+                                                    html += '   <div class="cd-timeline-img">';
+                                                    html += '       <img src="./assets/img/avatar.jpg" alt="user-picture">';
+                                                    html += '   </div>';
+                                                    html += '   <div class="cd-timeline-content">';
+                                                    html += '       <h4 class="text-center text-titles">'+persona.nombre+'</h4>';
+                                                    html += '       <h4 class="text-center text-titles">'+persona.apellido+'</h4>';
+                                                    html += '       <h4 class="text-center text-titles">'+persona.geolocalizacions[i].ciudad+'</h4>';
+                                                    html += '       <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i>'+fecha+'</span>';
+                                                    html += '   </div>';
+                                                    html += '</div>';
+
+                                                $('#cd-timeline').append(html);
+                                            }
+                                        }, error: function (jqXHR, textStatus, errorThrown) {
+                                            cosole.log(errorThrown);
+                                        }
+                                    });
+                                </script> 
                             </section>
 
 
