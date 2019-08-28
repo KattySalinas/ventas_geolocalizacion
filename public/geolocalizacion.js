@@ -101,6 +101,7 @@ function cargarDireccion(geocoder, latlng, map) {
                  map: map
                  });*/
 
+                 
                 direccion.value = results[0].formatted_address.split(",")[0];
                 //console.log(results[0]);
                 //if(latlng['lat'] == 'function(){return a}' || latlng['lat'] == 'function(){return b}') {
@@ -137,24 +138,24 @@ function deleteMarkers(map) {
 function pintar(puntos) {
     //console.log("xxxx "+map);
     deleteMarkers(null);
-    for (var i = 0; i < puntos.length; i++) {
-        var url_icono = 'http://maps.google.com/mapfiles/ms/micons/green-dot.png';
-        var punto = puntos[i];
-        var pos = {
-            lat: punto["lat"] * 1,
-            lng: punto["lng"] * 1,
-        };
-        marker = new google.maps.Marker({
-            map: map,
-            draggable: false,
-            position: pos,
-            icon: {
-                url: url_icono
-            }
-        });
-        marcadores.push(marker);
-    }
-    map.setZoom(14);
+        for (var i = 0; i < puntos.length; i++) {
+            var url_icono = 'http://maps.google.com/mapfiles/ms/micons/green-dot.png';
+            var punto = puntos[i];
+            var pos = {
+                lat: punto["lat"] * 1,
+                lng: punto["lng"] * 1,
+            };
+            marker = new google.maps.Marker({
+                map: map,
+                draggable: false,
+                position: pos,
+                icon: {
+                    url: url_icono
+                }
+            });
+            marcadores.push(marker);
+        }
+        map.setZoom(14);
 }
 
 // Adds a marker to the map.

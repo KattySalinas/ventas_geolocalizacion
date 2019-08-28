@@ -162,7 +162,7 @@
 
             <div class="container-fluid">
                 <div class="page-header">
-                    <h1 class="text-titles"> Productos <small> TimeLine</small></h1>
+                    <h1 class="text-titles"> Cronograma Rutas <small> TimeLine</small></h1>
                 </div>
             </div>
             <div class="full-box text-center">
@@ -177,22 +177,26 @@
 
                         <div class="container-fluid">
                             <div class="page-header">
-                                <h1 class="text-titles">System <small>TimeLine</small></h1>
-                            </div>
+                                <h1 class="text-titles">Visita <small>Hoy !</small></h1>
+                            </>
                             <section id="cd-timeline" class="cd-container">
-                                <div class="cd-timeline-block">
-                                    <div class="cd-timeline-img">
-                                        <img src="./assets/img/avatar.jpg" alt="user-picture">
-                                    </div>
-                                    <div class="cd-timeline-content">
-                                        <h4 class="text-center text-titles">1 - Name (Admin)</h4>
-                                        <p class="text-center">
-                                            <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>7:00 AM</em> &nbsp;&nbsp;&nbsp; 
-                                            <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
-                                        </p>
-                                        <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
-                                    </div>
-                                </div>  
+                                {{#each this.cronograma as |item i|}}
+                                    <div class="cd-timeline-block">
+                                        <div class="cd-timeline-img">
+                                            <img src="./assets/img/avatar.jpg" alt="user-picture">
+                                        </div> 
+                                        <div class="cd-timeline-content">
+                                            {{#each item.pago.venta.cliente.persona as |iten i|}}
+                                            <h4 class="text-center text-titles">{{iten.nombre}}</h4>
+                                            {{/each}}
+                                            <p class="text-center">
+                                                <i class="zmdi zmdi-timer zmdi-hc-fw"></i> Start: <em>{{item.fechaVisita}}</em> &nbsp;&nbsp;&nbsp; 
+                                                <i class="zmdi zmdi-time zmdi-hc-fw"></i> End: <em>7:17 AM</em>
+                                            </p>
+                                            <span class="cd-date"><i class="zmdi zmdi-calendar-note zmdi-hc-fw"></i> 07/07/2016</span>
+                                        </div>
+                                    </div>  
+                                {{/each}}
                                 <div class="cd-timeline-block">
                                     <div class="cd-timeline-img">
                                         <img src="./assets/img/avatar.jpg" alt="user-picture">

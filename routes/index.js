@@ -49,7 +49,11 @@ router.get('/registrarCuenta', function (req, res) {
 });
 
 //HOME
+router.get('/estadHome', function (req, res) {
+    res.render('home', {title: 'Home'});
+});
 router.get('/home', HomeController.contarClientes);
+router.get('/homeClientes', HomeController.listarCronogramaRuta);
 
 //CLIENTE
 router.get('/clientes', auth, ClienteController.listarCLientes);
@@ -72,7 +76,7 @@ router.get('/mostrar_carrito/:external', auth, VentaController.cargarCarro);
 router.get('/quitar_carrito/:external', auth, VentaController.quitar_item);
 router.get('/agregar_carrito/:external', VentaController.agregar_item);
 router.post('/guardar_venta', auth, VentaController.guardar);
-router.get('/ventas', VentaController.listarCLientes);
+router.get('/ventas', auth, VentaController.listarCLientes);
 router.get('/buscarProductoVenta/:nombre', VentaController.buscarProductoVenta);
 router.get('/buscarVenta/:nombre', VentaController.buscarVenta);
 
@@ -99,6 +103,7 @@ router.get('/rutas', auth, function (req, res, next) {
     res.render('rutas', {title: 'Rutas'});
 });
 router.get('/buscarPorFecha/:fecha', auth, RutasController.BuscarFechaPago);
+
 
 
 module.exports = router;

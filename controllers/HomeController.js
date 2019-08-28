@@ -8,6 +8,7 @@ var Persona = models.persona;
 var Venta = models.venta;
 var Detalle = models.detalle_articulo;
 var Pago = models.pago;
+var Cronograma = models.cronograma;
 
 class HomeController {
     contarClientes(req, res){
@@ -27,6 +28,24 @@ class HomeController {
             });            
         });
     }
+
+    listarCronogramaRuta(req, res) {
+        console.log("Estoy en cronograma");
+        Cronograma.findAll({include: 
+            [{model: Pago, include: 
+                [{model: Venta, include:
+                    [{model:Cliente, include: 
+                        [{model: Persona}]}]}]}]
+            }).then(function (cronograma) {
+                res.render('home', {
+                    title: 'Home',
+                    cronograma: cronograma                    
+                });
+                console.log(cronograma +"cronogrma");
+            });
+
+    }
+
 }
 
 module.exports = HomeController;

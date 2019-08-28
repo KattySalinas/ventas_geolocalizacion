@@ -11,11 +11,7 @@
         .form-group{padding-bottom:7px;margin: auto}
         
     </style>
-    <!-- mapa -->
-    <script src="./geolocalizacion.js"></script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"
-        type="text/javascript"></script>
+    
     <!--====== Scripts -->
     <script src="./js/jquery-3.1.1.min.js"></script>
     <script src="./js/sweetalert2.min.js"></script>
@@ -25,6 +21,11 @@
     <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="./js/main.js"></script>
     <script src="jquery_validation.js"></script>
+    <!-- mapa -->
+    <script src="./geolocalizacion.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"
+        type="text/javascript"></script>
 
 </head>
 
@@ -32,23 +33,30 @@
     <script>
         $(document).ready(function () {
             var puntos = [];
+            var contador = 0;
+            var cordinates = [];
 
             $("#buscarPorFecha").change(function () {
                 var busqueda = $("#buscarPorFecha").val();
                 buscarPorFecha(busqueda);
                 console.log(busqueda);
             }); 
+            
             $("body").on("click", ".btn_ruta", function () {
+                directionsDisplay.setMap(map);
                 console.log("****************");
                 let distancias = calcularDistancias();
                 //Se dibuja con todos esos puntos
-                let waypts = [];
-                waypts.push(coordenadasmias);
+                
+               
+                //waypts.push(coordenadasmias);
+                cordinates.push(coordenadasmias);
                 distancias.forEach(function(d){
-                    waypts.push(d.punto);
+                    cordinates.push(d.punto);
                 });
-                console.log(waypts);
-                console.log( waypts[waypts.length - 1]); 
+                console.log(cordinates);
+                //console.log(waypts);
+                /*console.log( waypts[waypts.length - 1]); 
                  var flightPath = new google.maps.Polyline({
                     path: waypts,
                     geodesic: true,
@@ -57,11 +65,33 @@
                     strokeWeight: 2
                 });
 
-                flightPath.setMap(map); 
+                
+
+                flightPath.setMap(map);*/
+                
+                //alert('aqui' + cordinates.length);
+                if(contador < cordinates.length - 1){
+                    let origin = cordinates[contador];
+                    contador = contador + 1; 
+                    let final = cordinates[contador];
+                    console.log(final);
+                    directionsService.route({
+                        origin: origin,
+                        destination: final,
+                        travelMode: 'WALKING'
+                    }, function (response, status) {
+                        if (status === 'OK') {
+                            directionsDisplay.setDirections(response);
+                        } else {
+                            window.alert('Directions request failed due to ' + status);
+                        }
+                    });
+                }else{
+                    alert('Ya no hay mas rutas que recorrer');
+                }
             }); 
 
             function calcularDistancias() {
-                //Simi mi amor, 
                 let distancias = [];
                 for (let i = 0; i<puntos.length; i++){
                     let punto = puntos[i];
@@ -109,6 +139,10 @@
 
 
             function buscarPorFecha(busqueda) {
+                puntos = [];
+                contador = 0;
+                cordinates = [];
+                directionsDisplay.setMap(null);
                 $.ajax({
                     url: '/buscarPorFecha/' + busqueda,
                     type: 'GET',
@@ -293,8 +327,8 @@
                                     </p>
                                     <!-- boton cronograma -->
                                     <p class="text-center">
-                                        <button type="submit" class="btn btn-danger btn-raised btn-sm"><i
-                                                class="zmdi zmdi-time"></i> Ver Cronograma</button>
+                                        <a href="/home" class="btn btn-danger btn-raised btn-sm"><i
+                                                class="zmdi zmdi-time"></i> Ver Cronograma</a>
                                     </p>
                                 </form>
 

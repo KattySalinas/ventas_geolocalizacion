@@ -102,7 +102,7 @@ class ProductoController {
     listarProducto(req, res) {
         Categoria.findAll({}).then(function (categoria) {
             if (categoria) {
-                Producto.findAll({include: [{model: Galeria},{model:Categoria}]}).then(function (listaProducto) {
+                Producto.findAll({include: [{model: Galeria},{model:Categoria}]}).then(function (listaProducto) {                          
                     //console.log(listaProducto[0].galeria);                  
                     res.render('producto', {
                     title: 'Productos',

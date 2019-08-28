@@ -31,10 +31,19 @@ class CategoriaController {
     }
 
     listarCategoria(req, res) {
-        Categoria.findAll({}).then(function (listaCategoria) {            
+        Categoria.findAll({where:{estado: true}}).then(function (listaCategoria) {                 
             res.render('categoria', {title: 'Categorias', categoria: listaCategoria});
         });
     }
+
+    //metodo para elminar  
+    static eliminarCategoria(id) {
+        console.log("id****************");
+        console.log(id);
+        Categoria.destroy({where: [{estado: false}, {id: id_categoria}]}); //borrar reserva no pagada
+    }
+
+
 
     buscarCategoria(req, res) {
         var nombre = req.params.nombre;

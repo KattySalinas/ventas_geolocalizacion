@@ -279,15 +279,14 @@
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th class="text-center">Nombre</th>
-                                            <th class="text-center">Actualizar</th>
-                                            <th class="text-center">Eliminar</th>
+                                            <th class="text-center">Actualizar</th>                                            
                                         </tr>
                                     </thead>
                                     <tbody id="nombreBuscado">
                                         {{#each this.categoria as |item i|}}
                                         <tr>
                                             <td>{{i}}</td>
-                                            <td>{{item.nombre}}</td>
+                                            <td>{{item.nombre}}</td>                                            
                                             <td>
                                                 <a href="#new" data-toggle="tab" id="{{ i }}"
                                                     class="btn btn-success btn-raised btn-xs"><i
@@ -298,9 +297,7 @@
                                                         $("#external").val("{{item.external_id}}");
                                                     });
                                                 </script>
-                                            </td>
-                                            <td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i
-                                                        class="zmdi zmdi-delete"></i></a></td>
+                                            </td>                                            
                                         </tr>
                                         {{/each}}
                                     </tbody>

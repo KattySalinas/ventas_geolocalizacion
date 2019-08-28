@@ -29,9 +29,9 @@ app.use(session({
 app.use(flash());
 
 var models = require('./models/');
-models.sequelize.sync().then( () => {
-console.log('Se ha conectado a Sarita');
-}).catch(err => {console.log(err, "Hubo un error");});
+// models.sequelize.sync().then( () => {
+// console.log('Se ha conectado a Sarita');
+// }).catch(err => {console.log(err, "Hubo un error");});
 
 require('./config/pasaporte/passport')(passport, models.cuenta, models.persona, models.comerciante);
 //load passport strategies
