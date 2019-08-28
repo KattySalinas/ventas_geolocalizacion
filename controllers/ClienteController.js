@@ -90,10 +90,17 @@ class ClienteController {
             });
         });
     }
+      listarClientes(req, res) {
+        Geolocalizacion.findAll({include: [{model: Persona, include: {model: Cliente}}]}).then(function (Lclientes) {
+           if (Lclientes) {             
+                res.status(200).json(Lclientes);
+            }
+        });
+    }
 
     buscarCliente(req, res) {
         var nombre = req.params.nombre;
-        Cliente.findAll({include:[{model: Persona, where: {nombre: {$like: '' + nombre + '%'}}}]}).then(function (cliente) {
+        Geolocalizacion.findAll({include:[{model: Persona, where: {nombre: {$like: '' + nombre + '%'}}, include: [Cliente]}]}).then(function (cliente) {
             if (cliente) {             
                 res.status(200).json(cliente);
                 console.log(cliente);
@@ -102,7 +109,6 @@ class ClienteController {
             res.status(500).json(err);
         });
     }
-
 }
 module.exports = ClienteController;
 

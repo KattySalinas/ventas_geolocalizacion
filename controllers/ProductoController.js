@@ -107,8 +107,19 @@ class ProductoController {
                     res.render('producto', {
                     title: 'Productos',
                     producto: listaProducto,
-                    categoria: categoria
+                    categoria: categoria,
+                    comerciante: req.user.nombre
                     });
+                });
+            }
+        });
+    }
+     listarProductos(req, res) {
+        Categoria.findAll({}).then(function (categoria) {
+            if (categoria) {
+                Producto.findAll({include: [{model: Galeria},{model:Categoria}]}).then(function (listaProducto) {
+                    //console.log(listaProducto[0].galeria);                  
+                    res.status(200).json(listaProducto);
                 });
             }
         });

@@ -64,42 +64,74 @@
             $().ready(function () {
             console.log("*****************");
             $("#buscarProducto").keyup(function () {
-                var busqueda = $("#buscarProducto").val();
-                buscarProducto(busqueda);                
-            }); 
+            var busqueda = $("#buscarProducto").val();
+            buscarProducto(busqueda);
+            });
             function buscarProducto(busqueda) {
-                $.ajax({
-                    url: '/buscarProducto/' + busqueda,
+            if (busqueda !== '') {
+            $.ajax({
+            url: '/buscarProducto/' + busqueda,
                     type: 'GET',
                     dataType: 'json',
                     success: function (data, textStatus, jqXHR) {
-                        console.log(data);
-                        var html="";
-                        for (var i = 0; i < data.length; i++) {
-                            html += '<tr>';
-                                html += '<td>'+i+'</td>';
-                                html += '<td>'+data[i].producto.categorium.nombre+'</td>';
-                                html += '<td>'+data[i].producto.nombre+'</td>';
-                                html += '<td>'+data[i].producto.marca+'</td>';
-                                html += '<td>'+data[i].producto.descripcion+'</td>';
-                                html += '<td>'+data[i].producto.cantidad+'</td>';
-                                html += '<td>'+data[i].producto.precio+'</td>';     
-                                html += '<td>';
-                                    html += '<a data-toggle="modal" onclick="document.getElementById('+ i +').style.display = "block"" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>';
-                                html += '</td>';
-                                html += '<td>';
-                                    html += '<a href="#new" id="btn-'+i+'" data-toggle="tab"  class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>';
-                                html += '</td>';  
-                                html += '<td><a href="#list" data-toggle="tab" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>';
-                                                              
-                            html += '</tr>';
-                        }
-                        $("tbody").empty();
-                        $("tbody").html(html);
-                    }, error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(data);
+                    var html = "";
+                    for (var i = 0; i < data.length; i++) {
+                    html += '<tr>';
+                    html += '<td>' + i + '</td>';
+                    html += '<td>' + data[i].producto.categorium.nombre + '</td>';
+                    html += '<td>' + data[i].producto.nombre + '</td>';
+                    html += '<td>' + data[i].producto.marca + '</td>';
+                    html += '<td>' + data[i].producto.descripcion + '</td>';
+                    html += '<td>' + data[i].producto.cantidad + '</td>';
+                    html += '<td>' + data[i].producto.precio + '</td>';
+                    html += '<td>';
+                    html += '<a data-toggle="modal" onclick="document.getElementById(' + i + ').style.display = "block"" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>';
+                    html += '</td>';
+                    html += '<td>';
+                    html += '<a href="#new" id="btn-' + i + '" data-toggle="tab"  class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>';
+                    html += '</td>';
+                    html += '<td><a href="#list" data-toggle="tab" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>';
+                    html += '</tr>';
                     }
-                });
-            }   
+                    $("tbody").empty();
+                    $("tbody").html(html);
+                    }, error: function (jqXHR, textStatus, errorThrown) {
+            }
+            });
+            } else{
+            $.ajax({
+            url: '/listar_productos',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    var html = "";
+                    for (var i = 0; i < data.length; i++) {
+                    html += '<tr>';
+                    html += '<td>' + i + '</td>';
+                    html += '<td>' + data[i].categorium.nombre + '</td>';
+                    html += '<td>' + data[i].nombre + '</td>';
+                    html += '<td>' + data[i].marca + '</td>';
+                    html += '<td>' + data[i].descripcion + '</td>';
+                    html += '<td>' + data[i].cantidad + '</td>';
+                    html += '<td>' + data[i].precio + '</td>';
+                    html += '<td>';
+                    html += '<a data-toggle="modal" onclick="document.getElementById(' + i + ').style.display="block"" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>';
+                    html += '</td>';
+                    html += '<td>';
+                    html += '<a href="#new" id="btn-' + i + '" data-toggle="tab"  class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>';
+                    html += '</td>';
+                    html += '<td><a href="#list" data-toggle="tab" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>';
+                    html += '</tr>';
+                    }
+                    $("tbody").empty();
+                    $("tbody").html(html);
+                    }, error: function (jqXHR, textStatus, errorThrown) {
+            }
+            });
+            }
+            }
             $("#producto").validate({
             rules: {
             categoria: {
@@ -136,12 +168,7 @@
             });
             });
         </script>
-        <script>
-            $(document).ready(function () {
-            //$('.carousel').carousel();
-            //$('.slider').slider();
-            });
-        </script>
+
         <!-- SideBar -->
         <section class="full-box cover dashboard-sideBar">
             <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
@@ -154,11 +181,11 @@
                 <div class="full-box dashboard-sideBar-UserInfo">
                     <figure class="full-box">
                         <img src="./assets/img/avatar.jpg" alt="UserIcon">
-                        <figcaption class="text-center text-titles">User Name</figcaption>
+                        <figcaption class="text-center text-titles">{{comerciante}}</figcaption>
                     </figure>
                     <ul class="full-box list-unstyled text-center">
                         <li>
-                            <a href="#!">
+                            <a href="#!" title="Proximamente">
                                 <i class="zmdi zmdi-settings"></i>
                             </a>
                         </li>
@@ -224,7 +251,7 @@
                     <li>
                         <a href="#!" class="btn-Notifications-area">
                             <i class="zmdi zmdi-notifications-none"></i>
-                            <span class="badge">7</span>
+                            <span class="badge">1</span>
                         </a>
                     </li>
                     <li>
@@ -232,11 +259,7 @@
                             <i class="zmdi zmdi-search"></i>
                         </a>
                     </li>
-                    <li>
-                        <a href="#!" class="btn-modal-help">
-                            <i class="zmdi zmdi-help-outline"></i>
-                        </a>
-                    </li>
+                  
                 </ul>
             </nav>
             <!-- Content page -->
@@ -342,7 +365,7 @@
                                                 <td>
                                                     <div class="w3-container">
                                                         <a data-toggle="modal" onclick="document.getElementById({{ i }}).style.display = 'block'" class="btn btn-primary btn-raised btn-xs"><i class="zmdi zmdi-wallpaper"></i></a>
-                                                       
+
                                                         <div id="{{ i }}" class="w3-modal" data-toggle="modal">
                                                             <div class="w3-modal-content">
                                                                 <header class="w3-container w3-teal"> 
@@ -354,9 +377,9 @@
                                                                     <!-- Slider images-->
                                                                     <div class="row">
                                                                         {{#each item.galeria as |items i|}}
-                                                                            <div class="col-md-4">
-                                                                                <img src="/uploads/{{items.foto}}" style="width:100%;height:15vw;"> <!-- random image -->
-                                                                            </div>
+                                                                        <div class="col-md-4">
+                                                                            <img src="/uploads/{{items.foto}}" style="width:100%;height:15vw;"> <!-- random image -->
+                                                                        </div>
                                                                         {{/each }}
                                                                     </div>
                                                                     <!-- Fin Slider -->
@@ -381,22 +404,22 @@
                                                         $("#cantidad").val("{{item.cantidad}}");
                                                         $("#precio").val("{{item.precio}}");
                                                         $("#external").val("{{item.external_id}}");
-                                                        {{#each item.galeria as |obj i|}}
-                                                            //alert("{{obj.foto}}");
-                                                            $('#prev_{{i}} img').attr('src', '/uploads/{{obj.foto}}');
-                                                            $('#prev_{{i}}').removeClass("hidden");
-                                                            $('#new_{{i}}').addClass("hidden");
-                                                             function getBase64Image(img) {
-                                                                var canvas = document.createElement("canvas");
-                                                                canvas.width = 520;
-                                                                canvas.height = 480;
-                                                                var ctx = canvas.getContext("2d");
-                                                                ctx.drawImage(img, 0, 0);
-                                                                var dataURL = canvas.toDataURL("image/png");
-                                                                return dataURL;
-                                                            }
+                                                        {{#each item.galeria as | obj i | }}
+                                                        //alert("{{obj.foto}}");
+                                                        $('#prev_{{i}} img').attr('src', '/uploads/{{obj.foto}}');
+                                                        $('#prev_{{i}}').removeClass("hidden");
+                                                        $('#new_{{i}}').addClass("hidden");
+                                                        function getBase64Image(img) {
+                                                        var canvas = document.createElement("canvas");
+                                                        canvas.width = 520;
+                                                        canvas.height = 480;
+                                                        var ctx = canvas.getContext("2d");
+                                                        ctx.drawImage(img, 0, 0);
+                                                        var dataURL = canvas.toDataURL("image/png");
+                                                        return dataURL;
+                                                        }
 
-                                                            if(getBase64Image(document.getElementById("img_{{i}}")) != null)        
+                                                        if (getBase64Image(document.getElementById("img_{{i}}")) != null)
                                                                 $('#base64_{{i}}').val(getBase64Image(document.getElementById("img_{{i}}"))).change();
                                                         {{/each }}
                                                         });
@@ -429,43 +452,10 @@
                         </div>
                         <div class="row-content">
                             <div class="least-content">17m</div>
-                            <h4 class="list-group-item-heading">Tile with a label</h4>
-                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                            <h4 class="list-group-item-heading">Notificacion</h4>
+                            <p class="list-group-item-text">Proximamente</p>
                         </div>
-                    </div>
-                    <div class="list-group-separator"></div>
-                    <div class="list-group-item">
-                        <div class="row-action-primary">
-                            <i class="zmdi zmdi-alert-octagon"></i>
-                        </div>
-                        <div class="row-content">
-                            <div class="least-content">15m</div>
-                            <h4 class="list-group-item-heading">Tile with a label</h4>
-                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-                        </div>
-                    </div>
-                    <div class="list-group-separator"></div>
-                    <div class="list-group-item">
-                        <div class="row-action-primary">
-                            <i class="zmdi zmdi-help"></i>
-                        </div>
-                        <div class="row-content">
-                            <div class="least-content">10m</div>
-                            <h4 class="list-group-item-heading">Tile with a label</h4>
-                            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
-                        </div>
-                    </div>
-                    <div class="list-group-separator"></div>
-                    <div class="list-group-item">
-                        <div class="row-action-primary">
-                            <i class="zmdi zmdi-info"></i>
-                        </div>
-                        <div class="row-content">
-                            <div class="least-content">8m</div>
-                            <h4 class="list-group-item-heading">Tile with a label</h4>
-                            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
-                        </div>
-                    </div>
+                    </div>                                      
                 </div>
 
             </div>
@@ -481,7 +471,8 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione veritatis a unde autem!
+                            Si necesita ayuda comuniquese en este correo
+                            katty.jhaky@hotmail.es
                         </p>
                     </div>
                     <div class="modal-footer">
@@ -490,7 +481,7 @@
                 </div>
             </div>
         </div>
-        
-       
+
+
     </body>
 </html>

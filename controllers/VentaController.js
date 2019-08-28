@@ -26,7 +26,7 @@ class VentaController {
                     req.session.carrito = [];
                     res.render('venta', {
                         title: 'Ventas',
-                        comerciante: req.user.comerciante,
+                        comerciante: req.user.nombre,
                         clientes: Lclientes,
                         productos: productos,
                         ventas: ventas
@@ -174,13 +174,28 @@ class VentaController {
             res.status(500).json(err);
         });
     }
+    mostrarProductoVenta(req, res) {
+        Cliente.findAll({include: [{model: Persona, include: [{model: Geolocalizacion}]},
+                        {model: Venta, include: [{model: Producto, include: [Categoria]}]}
+                    ]}).then(function (productos) {
+            if (productos) {
+                console.log(productos.length);
+                getGalerias([], productos, 0, function (galerias){
+                    console.log('volvi');
+                    console.log(galerias);
+                    res.status(200).json(galerias);
+                });
+            }
+        }).catch(function (err) {
+            res.status(500).json(err);
+        });
+    }
 
     buscarVenta(req, res) {
         var nombre = req.params.nombre;
-        Persona.findAll({
-        where: {nombre: {$like: '' + nombre + '%'}},
-        include: [{ model: Cliente, include: { model: Venta,include: { model: Detalle, include: { model: Producto, attributes: ['nombre'] } } } }, { model: Geolocalizacion, attributes: ['ciudad'] }],                
-        }).then((venta) => {
+        Geolocalizacion.findAll({include: {model: Persona, where: {nombre: {$like: '' + nombre + '%'}},
+        include: [{ model: Cliente, include: { model: Venta,include: { model: Detalle, include: { model: Producto, attributes: ['nombre'], include: [Categoria]}}}}]             
+        }}).then((venta) => {
         console.log(venta);
         console.log(venta.length);
         res.status(200).send(venta);
