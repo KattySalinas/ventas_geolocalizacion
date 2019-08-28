@@ -122,11 +122,11 @@ module.exports = function (passport, cuenta, persona, comerciante) {
                 }
                 Cuenta.findOne({where: {correo: email}}).then(function (cuenta) {
                     if (!cuenta) {
-                        return done(null, false, {message: req.flash('err_cred', 'Cuenta no existe')});
+                        return done(null, false, {message: req.flash('error', 'Cuenta no existe')});
                     }
 
                     if (!isValidPassword(cuenta.clave, password)) {
-                        return done(null, false, {message: req.flash('err_cred', 'Clave incorrecta')});
+                        return done(null, false, {message: req.flash('error', 'Clave incorrecta')});
                     }
 
                     var userinfo = cuenta.get();
@@ -136,7 +136,7 @@ module.exports = function (passport, cuenta, persona, comerciante) {
 
                 }).catch(function (err) {
                     // console.log("Error:", err);
-                    return done(null, false, {message: req.flash('err_cred', 'Cuenta erronea')});
+                    return done(null, false, {message: req.flash('error', 'Cuenta erronea')});
                 });
             }
     ));

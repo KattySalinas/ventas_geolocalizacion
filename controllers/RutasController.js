@@ -12,6 +12,7 @@ var Pago = models.pago;
 
 class RutasController {
     BuscarFechaPago(req, res) {
+<<<<<<< HEAD
         var fecha = req.params.fecha        
         Cronograma.findAll({ where:{fechaVisita: fecha}, include: 
             [{model: Pago, include: 
@@ -25,6 +26,16 @@ class RutasController {
                 res.status(200).json(cronogramas);
             }
         });             
+=======
+        var fecha = req.params.fecha
+        Cronograma.findAll({where: {fechaVisita: fecha},
+             include: [{model: Pago, include: [{model: Venta, include: [{model:Cliente, include: [{model: Persona}]}]}]}]
+            }).then(function (fechas) {
+            res.status(200).json(fechas);
+            console.log(fechas.length);
+            console.log(fechas);
+        });
+>>>>>>> next
     }
 };   
 

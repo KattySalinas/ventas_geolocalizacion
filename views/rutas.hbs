@@ -27,6 +27,7 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"
         type="text/javascript"></script>
 
+<<<<<<< HEAD
 </head>
 
 <body>
@@ -181,6 +182,49 @@
                     <figcaption class="text-center text-titles">User Name</figcaption>
                 </figure>
                 <ul class="full-box list-unstyled text-center">
+=======
+    </head>
+    <body>
+        <!-- SideBar -->
+        <section class="full-box cover dashboard-sideBar">
+            <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
+            <div class="full-box dashboard-sideBar-ct">
+                <!--SideBar Title -->
+                <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
+                    company <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
+                </div>
+                <!-- SideBar User info -->
+                <div class="full-box dashboard-sideBar-UserInfo">
+                    <figure class="full-box">
+                        <img src="./assets/img/avatar.jpg" alt="UserIcon">
+                        <figcaption class="text-center text-titles">{{comerciante}}</figcaption>
+                    </figure>
+                    <ul class="full-box list-unstyled text-center">
+                        <li>
+                            <a href="#!" title="Proximamente">
+                                <i class="zmdi zmdi-settings"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!" class="btn-exit-system">
+                                <i class="zmdi zmdi-power"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- SideBar Menu -->
+                <ul class="list-unstyled full-box dashboard-sideBar-Menu">
+                    <li>
+                        <a href="/home">
+                            <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/ventas" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-case zmdi-hc-fw"></i> Ventas
+                        </a>					
+                    </li>
+>>>>>>> next
                     <li>
                         <a href="#!">
                             <i class="zmdi zmdi-settings"></i>
@@ -190,7 +234,12 @@
                         <a href="#!" class="btn-exit-system">
                             <i class="zmdi zmdi-power"></i>
                         </a>
+<<<<<<< HEAD
                     </li>
+=======
+                    </li>                    
+                
+>>>>>>> next
                 </ul>
             </div>
             <!-- SideBar Menu -->
@@ -238,6 +287,7 @@
         </div>
     </section>
 
+<<<<<<< HEAD
     <!-- Content page-->
     <section class="full-box dashboard-contentPage">
         <!-- NavBar -->
@@ -264,6 +314,34 @@
                 </li>
             </ul>
         </nav>
+=======
+        <!-- Content page-->
+        <section class="full-box dashboard-contentPage">
+            <!-- NavBar -->
+            <nav class="full-box dashboard-Navbar">
+                <ul class="full-box list-unstyled text-right">
+                    <li class="pull-left">
+                        <a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-Notifications-area">
+                            <i class="zmdi zmdi-notifications-none"></i>
+                            <span class="badge">1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-search">
+                            <i class="zmdi zmdi-search"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-modal-help">
+                            <i class="zmdi zmdi-help-outline"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+>>>>>>> next
 
         <!-- Content page -->
         <div class="container-fluid">
@@ -271,6 +349,7 @@
                 <h1 class="text-titles"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i> Rutas<small> Registro</small>
                 </h1>
             </div>
+<<<<<<< HEAD
             <p class="lead"></p>
         </div>
         <div class="container-fluid">
@@ -306,6 +385,37 @@
                                                 <div class="form-group">
                                                     <input type="text" class="form-control " name="x"
                                                         placeholder="Buscar..." id="buscarPorCiudad">
+=======
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                            <li class="active"><a href="#new" data-toggle="tab">Nuevo</a></li>
+                            <li><a href="#list" data-toggle="tab">Lista</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="new">
+                                <div class="container-fluid">
+
+                                    <div class="container">
+                                        <div class="row">    
+                                            <div class="col-xs-8 col-xs-offset-2">
+                                                <div class="input-group">
+                                                    <div class="input-group-btn search-panel">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                            <span id="search_concept">Filter by</span> <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="#contains">Ciudad</a></li>
+                                                            <li><a href="#its_equal">Fecha</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <input type="hidden" name="search_param" value="all" id="search_param">         
+                                                    <input type="text" class="form-control" name="x" placeholder="Search term...">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                                    </span>
+>>>>>>> next
                                                 </div>
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default" type="button"><span
@@ -406,61 +516,56 @@
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
         </div>
     </section>
+=======
+        </section>
+>>>>>>> next
 
-    <!-- Notifications area -->
-    <section class="full-box Notifications-area">
-        <div class="full-box Notifications-bg btn-Notifications-area"></div>
-        <div class="full-box Notifications-body">
-            <div class="Notifications-body-title text-titles text-center">
-                Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
+        <!-- Notifications area -->
+        <section class="full-box Notifications-area">
+            <div class="full-box Notifications-bg btn-Notifications-area"></div>
+            <div class="full-box Notifications-body">
+                <div class="Notifications-body-title text-titles text-center">
+                    Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
+                </div>
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row-action-primary">
+                            <i class="zmdi zmdi-alert-triangle"></i>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">17m</div>
+                            <h4 class="list-group-item-heading">Notificacion</h4>
+                            <p class="list-group-item-text">Proximamente</p>
+                        </div>
+                    </div>                                      
+                </div>
+
             </div>
-            <div class="list-group">
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-alert-triangle"></i>
+        </section>
+
+        <!-- Dialog help -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Help</h4>
                     </div>
-                    <div class="row-content">
-                        <div class="least-content">17m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                    <div class="modal-body">
+                        <p>
+                            Si necesita ayuda comuniquese en este correo
+                            katty.jhaky@hotmail.es
+                        </p>
                     </div>
-                </div>
-                <div class="list-group-separator"></div>
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-alert-octagon"></i>
-                    </div>
-                    <div class="row-content">
-                        <div class="least-content">15m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-                    </div>
-                </div>
-                <div class="list-group-separator"></div>
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-help"></i>
-                    </div>
-                    <div class="row-content">
-                        <div class="least-content">10m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
-                    </div>
-                </div>
-                <div class="list-group-separator"></div>
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-info"></i>
-                    </div>
-                    <div class="row-content">
-                        <div class="least-content">8m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> Ok</button>
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
 
         </div>
     </section>
@@ -522,4 +627,22 @@
 
 </body>
 
+=======
+        </div>
+        <script>
+            $(document).ready(function (e) {
+                $('.search-panel .dropdown-menu').find('a').click(function (e) {
+                    e.preventDefault();
+                    var param = $(this).attr("href").replace("#", "");
+                    var concept = $(this).text();
+                    $('.search-panel span#search_concept').text(concept);
+                    $('.input-group #search_param').val(param);
+                });
+            });
+        </script>
+        <script>
+            $.material.init();
+        </script>
+    </body>
+>>>>>>> next
 </html>

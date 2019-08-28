@@ -1,216 +1,212 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <title>{{title}}</title>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="./css/main.css">
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <head>
+        <title>{{title}}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="./css/main.css">
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-    <!--====== Scripts -->
-    <script src="./js/jquery-3.1.1.min.js"></script>
-    <script src="./js/sweetalert2.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/material.min.js"></script>
-    <script src="./js/ripples.min.js"></script>
-    <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="./js/main.js"></script>
-    <script src="./css/bootstrap-material-design.min.css"></script>
-    <script src="./css/bootstrap.min.css"></script>
-    <script src="../public/vendor/bootstrap/css/bootstrap.css"></script>
-    <script src="../public/vendor/bootstrap/css/bootstrap.min.css"></script>
-</head>
+        <!--====== Scripts -->
+        <script src="./js/jquery-3.1.1.min.js"></script>
+        <script src="./js/sweetalert2.min.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/material.min.js"></script>
+        <script src="./js/ripples.min.js"></script>
+        <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="./js/main.js"></script>
+        <script src="./css/bootstrap-material-design.min.css"></script>
+        <script src="./css/bootstrap.min.css"></script>
+        <script src="../public/vendor/bootstrap/css/bootstrap.css"></script>
+        <script src="../public/vendor/bootstrap/css/bootstrap.min.css"></script>
+    </head>
 
-<body>
-    <script>
-        $(document).ready(function () {
+    <body>
+        <script>
+$(document).ready(function () {
 
-        });
+});
 
-        function MostrarPagos(id) {
-            $.ajax({
-                url: 'http://localhost:3000/listar_pagos/' + id,
-                type: 'GET',
-                dataType: 'JSON',
-                success: function (data, textStatus, jqXHR) {
-                    var html = "";
-                    console.log(data);
-                    $.each(data, function (i, item) {
-                        html += '<tr>';
-                        if (item.entrada !== 0) {
-                            html += '<td>' + (i) + '</td>';
-                            html += ' <td>' + item.fecha + '</td>';
-                            html += '<td>' + item.valor + '</td>';
-                            html += '<td>' + item.entrada + '</td>';
-                            html += '<td>$ ' + item.saldo + '</td>';
-                        }
-                    });
-                    html += '</tr>';
-
-                    $("#tabla").html(html);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR.responseText);
+function MostrarPagos(id) {
+    $.ajax({
+        url: 'http://localhost:3000/listar_pagos/' + id,
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (data, textStatus, jqXHR) {
+            var html = "";
+            console.log(data);
+            $.each(data, function (i, item) {
+                html += '<tr>';
+                if (item.entrada !== 0) {
+                    html += '<td>' + (i) + '</td>';
+                    html += ' <td>' + item.fecha + '</td>';
+                    html += '<td>' + item.valor + '</td>';
+                    html += '<td>' + item.entrada + '</td>';
+                    html += '<td>$ ' + item.saldo + '</td>';
                 }
             });
+            html += '</tr>';
+
+            $("#tabla").html(html);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.responseText);
         }
-    </script>
-    <!-- SideBar -->
-    <section class="full-box cover dashboard-sideBar">
-        <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
-        <div class="full-box dashboard-sideBar-ct">
-            <!--SideBar Title -->
-            <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
-                company <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
-            </div>
-            <!-- SideBar User info -->
-            <div class="full-box dashboard-sideBar-UserInfo">
-                <figure class="full-box">
-                    <img src="./assets/img/avatar.jpg" alt="UserIcon">
-                    <figcaption class="text-center text-titles">{{comerciante}}</figcaption>
-                </figure>
-                <ul class="full-box list-unstyled text-center">
+    });
+}
+        </script>
+        <!-- SideBar -->
+        <section class="full-box cover dashboard-sideBar">
+            <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
+            <div class="full-box dashboard-sideBar-ct">
+                <!--SideBar Title -->
+                <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
+                    company <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
+                </div>
+                <!-- SideBar User info -->
+                <div class="full-box dashboard-sideBar-UserInfo">
+                    <figure class="full-box">
+                        <img src="./assets/img/avatar.jpg" alt="UserIcon">
+                        <figcaption class="text-center text-titles">{{comerciante}}</figcaption>
+                    </figure>
+                    <ul class="full-box list-unstyled text-center">
+                        <li>
+                            <a href="#!" title="Proximamente">
+                                <i class="zmdi zmdi-settings"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!" class="btn-exit-system">
+                                <i class="zmdi zmdi-power"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- SideBar Menu -->
+                <ul class="list-unstyled full-box dashboard-sideBar-Menu">
                     <li>
-                        <a href="#!">
-                            <i class="zmdi zmdi-settings"></i>
+                        <a href="/home">
+                            <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Inicio
                         </a>
                     </li>
                     <li>
-                        <a href="#!" class="btn-exit-system">
-                            <i class="zmdi zmdi-power"></i>
+                        <a href="/ventas" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-case zmdi-hc-fw"></i> Ventas
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/pagos" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-money zmdi-hc-fw"></i> Pagos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-sideBar-SubMenu">
+                            <i class=" zmdi zmdi-font zmdi-hc-fw "></i> Arcticulos <i
+                                class="zmdi zmdi-caret-down pull-right"></i>
+                        </a>
+                        <ul class="list-unstyled full-box">
+                            <li>
+                                <a href="/productos"><i class="zmdi zmdi-book zmdi-hc-fw "></i> Productos</a>
+                            </li>
+                            <li>
+                                <a href="/categorias"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Categorias</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/clientes" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-account zmdi-hc-fw"></i> Clientes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/rutas" class="btn-sideBar-SubMenu">
+                            <i class="zmdi zmdi-trending-up zmdi-hc-fw"></i> Rutas
                         </a>
                     </li>
                 </ul>
             </div>
-            <!-- SideBar Menu -->
-            <ul class="list-unstyled full-box dashboard-sideBar-Menu">
-                <li>
-                    <a href="/home">
-                        <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Inicio
-                    </a>
-                </li>
-                <li>
-                    <a href="/ventas" class="btn-sideBar-SubMenu">
-                        <i class="zmdi zmdi-case zmdi-hc-fw"></i> Ventas
-                    </a>
-                </li>
-                <li>
-                    <a href="/pagos" class="btn-sideBar-SubMenu">
-                        <i class="zmdi zmdi-money zmdi-hc-fw"></i> Pagos
-                    </a>
-                </li>
-                <li>
-                    <a href="#!" class="btn-sideBar-SubMenu">
-                        <i class=" zmdi zmdi-font zmdi-hc-fw "></i> Arcticulos <i
-                            class="zmdi zmdi-caret-down pull-right"></i>
-                    </a>
-                    <ul class="list-unstyled full-box">
-                        <li>
-                            <a href="/productos"><i class="zmdi zmdi-book zmdi-hc-fw "></i> Productos</a>
-                        </li>
-                        <li>
-                            <a href="/categorias"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Categorias</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="/clientes" class="btn-sideBar-SubMenu">
-                        <i class="zmdi zmdi-account zmdi-hc-fw"></i> Clientes
-                    </a>
-                </li>
-                <li>
-                    <a href="/rutas" class="btn-sideBar-SubMenu">
-                        <i class="zmdi zmdi-trending-up zmdi-hc-fw"></i> Rutas
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </section>
+        </section>
 
-    <!-- Content page-->
-    <section class="full-box dashboard-contentPage">
-        <!-- NavBar -->
-        <nav class="full-box dashboard-Navbar">
-            <ul class="full-box list-unstyled text-right">
-                <li class="pull-left">
-                    <a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
-                </li>
-                <li>
-                    <a href="#!" class="btn-Notifications-area">
-                        <i class="zmdi zmdi-notifications-none"></i>
-                        <span class="badge">7</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#!" class="btn-search">
-                        <i class="zmdi zmdi-search"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#!" class="btn-modal-help">
-                        <i class="zmdi zmdi-help-outline"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- Content page -->
-        <div class="container-fluid">
-            <div class="page-header">
-                <h1 class="text-titles"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Pagos <small>Registro</small></h1>
+        <!-- Content page-->
+        <section class="full-box dashboard-contentPage">
+            <!-- NavBar -->
+            <nav class="full-box dashboard-Navbar">
+                <ul class="full-box list-unstyled text-right">
+                    <li class="pull-left">
+                        <a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-Notifications-area">
+                            <i class="zmdi zmdi-notifications-none"></i>
+                            <span class="badge">1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-search">
+                            <i class="zmdi zmdi-search"></i>
+                        </a>
+                    </li>
+                
+                </ul>
+            </nav>
+            <!-- Content page -->
+            <div class="container-fluid">
+                <div class="page-header">
+                    <h1 class="text-titles"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Pagos <small>Registro</small></h1>
+                </div>
+                <p class="lead"></p>
             </div>
-            <p class="lead"></p>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12">
-                    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#pago" data-toggle="tab"> Pagos pendientes</a></li>
-                    </ul>
-                    <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane fade active in" id="pago">
-                            <div class="container-fluid">
-                                <div class="row">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                            <li class="active"><a href="#pago" data-toggle="tab"> Pagos pendientes</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="pago">
+                                <div class="container-fluid">
+                                    <div class="row">
 
-                                    <table class="table table-hover text-center">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">Cliente</th>
-                                                <th class="text-center">Ciudad</th>
-                                                <th class="text-center">Articulo</th>
-                                                <th class="text-center">Fecha</th>
-                                                <th class="text-center">Saldo Pendiente</th>
-                                                <th class="text-center">Pago</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{#each this.ventas as |item a|}}
-                                            <tr>
-                                                <td>{{a}}</td>
-                                                <td>{{item.cliente.persona.nombre}}</td>
-                                                {{#each item.cliente.persona.geolocalizacions as |itemG |}}
-                                                <td>{{itemG.ciudad}}</td>
-                                                {{/each}}
-                                                <td>{{#each item.detalle_articulos as |itemAR|}}
-                                                    {{itemAR.articulo.categorium.nombre}} {{itemAR.articulo.nombre}} -
+                                        <table class="table table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">Cliente</th>
+                                                    <th class="text-center">Ciudad</th>
+                                                    <th class="text-center">Articulo</th>
+                                                    <th class="text-center">Fecha ultimo pago</th>
+                                                    <th class="text-center">Saldo Pendiente</th>
+                                                    <th class="text-center">Pago</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#each this.ventas as |item a|}}
+                                                <tr>
+                                                    <td>{{a}}</td>
+                                                    <td>{{item.cliente.persona.nombre}}</td>
+                                                    {{#each item.cliente.persona.geolocalizacions as |itemG |}}
+                                                    <td>{{itemG.ciudad}}</td>
                                                     {{/each}}
-                                                </td>
-                                                <td>{{item.pago.fecha}}</td>
-                                                <td>$ {{item.pago.saldo}}</td>
-                                                <td>
+                                                    <td>{{#each item.detalle_articulos as |itemAR|}}
+                                                        {{itemAR.articulo.categorium.nombre}} {{itemAR.articulo.nombre}} -
+                                                        {{/each}}
+                                                    </td>
+                                                    <td>{{item.pago.fecha}}</td>
+                                                    <td>$ {{item.pago.saldo}}</td>
+                                                    <td>
 
-                                                    <a title="Nuevo Pago" href="#new" id="{{ a }}"
-                                                        class="btn btn-success btn-raised btn-xs" data-toggle="modal"
-                                                        data-target="#modalModificar"><i
-                                                            class="zmdi zmdi-money"></i></a>
-                                                    <a title="Historial de pagos" href="#" id="{{ item.external_id }}"
-                                                        class="btn btn-info btn-raised btn-xs" data-toggle="modal"
-                                                        data-target="#modalPago"><i
-                                                            class="zmdi zmdi-attachment-alt"></i></a>
-                                                </td>
-                                            </tr>
+                                                        <a title="Nuevo Pago" href="#new" id="{{ a }}"
+                                                           class="btn btn-success btn-raised btn-xs" data-toggle="modal"
+                                                           data-target="#modalModificar"><i
+                                                                class="zmdi zmdi-money"></i></a>
+                                                        <a title="Historial de pagos" href="#" id="{{ item.external_id }}"
+                                                           class="btn btn-info btn-raised btn-xs" data-toggle="modal"
+                                                           data-target="#modalPago"><i
+                                                                class="zmdi zmdi-attachment-alt"></i></a>
+                                                    </td>
+                                                </tr>
                                             <script>
                                                 $('#{{a}}').click(function () {
                                                     $('#id_venta').val('{{item.id}}');
@@ -222,217 +218,183 @@
                                             </script>
                                             {{/each}}
 
+                                            </tbody>
+                                        </table>
+                                        <ul class="pagination pagination-sm">
+                                            <li class="disabled"><a href="#!">«</a></li>
+                                            <li class="active"><a href="#!">1</a></li>
+                                            <li><a href="#!">2</a></li>
+                                            <li><a href="#!">3</a></li>
+                                            <li><a href="#!">4</a></li>
+                                            <li><a href="#!">5</a></li>
+                                            <li><a href="#!">»</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="list">
+                                <div class="table-responsive">
+                                    <table class="table table-hover text-center">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th class="text-center">Cliente</th>
+                                                <th class="text-center">Ciudad</th>
+                                                <th class="text-center">Articulo</th>
+                                                <th class="text-center">Fecha</th>
+                                                <th class="text-center">Saldo</th>
+                                                <th class="text-center">Cancela</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
                                         </tbody>
                                     </table>
                                     
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab-pane fade" id="list">
-                            <div class="table-responsive">
-                                <table class="table table-hover text-center">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">#</th>
-                                            <th class="text-center">Cliente</th>
-                                            <th class="text-center">Ciudad</th>
-                                            <th class="text-center">Articulo</th>
-                                            <th class="text-center">Fecha</th>
-                                            <th class="text-center">Saldo</th>
-                                            <th class="text-center">Cancela</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
 
-                                    </tbody>
-                                </table>
-                                <ul class="pagination pagination-sm">
-                                    <li class="disabled"><a href="#!">«</a></li>
-                                    <li class="active"><a href="#!">1</a></li>
-                                    <li><a href="#!">2</a></li>
-                                    <li><a href="#!">3</a></li>
-                                    <li><a href="#!">4</a></li>
-                                    <li><a href="#!">5</a></li>
-                                    <li><a href="#!">»</a></li>
-                                </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Notifications area -->
+<section class="full-box Notifications-area">
+    <div class="full-box Notifications-bg btn-Notifications-area"></div>
+    <div class="full-box Notifications-body">
+        <div class="Notifications-body-title text-titles text-center">
+            Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
+        </div>
+        <div class="list-group">
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="zmdi zmdi-alert-triangle"></i>
+                </div>
+                <div class="row-content">
+                    <div class="least-content">17m</div>
+                    <h4 class="list-group-item-heading">Notificacion</h4>
+                    <p class="list-group-item-text">Proximamente</p>
+                </div>
+            </div>                                      
+        </div>
+
+    </div>
+</section>
+
+<!-- Dialog help -->
+<div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Help</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Si necesita ayuda comuniquese en este correo
+                    katty.jhaky@hotmail.es
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i
+                        class="zmdi zmdi-thumb-up"></i> Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal -->
+<div class="modal fade" id="modalModificar" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title text-center" id="exampleModalLongTitle">Forma de pago</h2>
+            </div>
+            <form id="pago" name="sentMessage" action="/guardar_pago" method="POST">
+                <div class="modal-body ">
+                    <div class="row">
+                        <input type="hidden" name="id_venta" value="0" id="id_venta" />
+                        <div class="col-xs-8" style="margin-left: 100px;">
+                            <div class="form-group " style="margin: auto">
+                                <label class="control-label">Fecha</label>
+                                <input class="form-control text-center" type="date" name="fecha" id="fecha">
                             </div>
+                            <div class="form-group " style="margin: auto">
+                                <label class="control-label">Valor $</label>
+                                <input class="form-control text-center" type="text" name="valor" id="valor">
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label" style="margin: auto">Entrada $</label>
+                                <input class="form-control text-center" type="text" name="entra" id="entrada">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="margin: auto">Saldo pendiente $</label>
+                                <input class="form-control text-center" type="text" name="saldo" id="saldo">
+                            </div>
+                            <div class="form-group" id="fecha_visita">
+                                <label class="control-label" style="margin: auto">Fecha de siguiente pago</label>
+                                <input  class="form-control text-center" type="date" name="fechaVisita" id="fechaVisita">
+                            </div>
+
                         </div>
-
                     </div>
                 </div>
+                <div class="text-center" style="margin-bottom: 50px;">
+                    <button type="submit" class="btn btn-primary btn-raised">Guardar <i
+                            class="zmdi zmdi-floppy"></i></button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- modal pago-->
+<div class="modal fade" id="modalPago" role="dialog" aria-labelledby="modalPago" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title text-center" id="exampleModalLongTitle">Historial de pagos</h2>
             </div>
+            <form id="pago" name="sentMessage" action="/guardar_pago" method="POST">
+                <div class="modal-body ">
+                    <div class="row">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">Entrada</th>
+                                    <th scope="col">Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla">
 
+                            </tbody>
+                        </table>
 
-        </div>
-        </div>
-        </div>
-    </section>
-
-    <!-- Notifications area -->
-    <section class="full-box Notifications-area">
-        <div class="full-box Notifications-bg btn-Notifications-area"></div>
-        <div class="full-box Notifications-body">
-            <div class="Notifications-body-title text-titles text-center">
-                Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
-            </div>
-            <div class="list-group">
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-alert-triangle"></i>
                     </div>
-                    <div class="row-content">
-                        <div class="least-content">17m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-                    </div>
-                </div>
-                <div class="list-group-separator"></div>
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-alert-octagon"></i>
-                    </div>
-                    <div class="row-content">
-                        <div class="least-content">15m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-                    </div>
-                </div>
-                <div class="list-group-separator"></div>
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-help"></i>
-                    </div>
-                    <div class="row-content">
-                        <div class="least-content">10m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
-                    </div>
-                </div>
-                <div class="list-group-separator"></div>
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-info"></i>
-                    </div>
-                    <div class="row-content">
-                        <div class="least-content">8m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Dialog help -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Help</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt
-                        incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione
-                        veritatis a unde autem!
-                    </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i
                             class="zmdi zmdi-thumb-up"></i> Ok</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-    <!-- modal -->
-    <div class="modal fade" id="modalModificar" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h2 class="modal-title text-center" id="exampleModalLongTitle">Forma de pago</h2>
-                </div>
-                <form id="pago" name="sentMessage" action="/guardar_pago" method="POST">
-                    <div class="modal-body ">
-                        <div class="row">
-                            <input type="hidden" name="id_venta" value="0" id="id_venta" />
-                            <div class="col-xs-8" style="margin-left: 100px;">
-                                <div class="form-group " style="margin: auto">
-                                    <label class="control-label">Fecha</label>
-                                    <input class="form-control text-center" type="date" name="fecha" id="fecha">
-                                </div>
-                                <div class="form-group " style="margin: auto">
-                                    <label class="control-label">Valor $</label>
-                                    <input class="form-control text-center" type="text" name="valor" id="valor">
-                                </div>
-                                <div class="form-group ">
-                                    <label class="control-label" style="margin: auto">Entrada $</label>
-                                    <input class="form-control text-center" type="text" name="entra" id="entrada">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label" style="margin: auto">Saldo pendiente $</label>
-                                    <input class="form-control text-center" type="text" name="saldo" id="saldo">
-                                </div>
-                                <div class="form-group" id="fecha_visita">
-                                    <label class="control-label" style="margin: auto">Fecha de siguiente pago</label>
-                                    <input  class="form-control text-center" type="date" name="fechaVisita" id="fechaVisita">
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center" style="margin-bottom: 50px;">
-                        <button type="submit" class="btn btn-primary btn-raised">Guardar <i
-                                class="zmdi zmdi-floppy"></i></button>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- modal pago-->
-    <div class="modal fade" id="modalPago" role="dialog" aria-labelledby="modalPago" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h2 class="modal-title text-center" id="exampleModalLongTitle">Historial de pagos</h2>
-                </div>
-                <form id="pago" name="sentMessage" action="/guardar_pago" method="POST">
-                    <div class="modal-body ">
-                        <div class="row">
-                            <table class="table">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Valor</th>
-                                        <th scope="col">Entrada</th>
-                                        <th scope="col">Saldo</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tabla">
-
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i
-                                class="zmdi zmdi-thumb-up"></i> Ok</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+</div>
 
 </body>
 <script>
@@ -442,13 +404,13 @@
         var entrada = $("#entrada").val();
         var saldo = valor - entrada;
         saldo = saldo.toFixed(2);
-        
+
         $("#saldo").val(saldo);
-         if (saldo == 0) {
-        $("#fecha_visita").hide();
-    } else {
-        $("#fecha_visita").show();
-    }
+        if (saldo == 0) {
+            $("#fecha_visita").hide();
+        } else {
+            $("#fecha_visita").show();
+        }
     }
 
     $("#entrada").keyup(function () {
@@ -462,8 +424,8 @@
         ObtenerSaldo();
     });
 
-   
-    
+
+
 
     $.material.init();
 
