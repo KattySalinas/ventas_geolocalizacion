@@ -145,6 +145,7 @@ function pintar(puntos) {
                 lat: punto["lat"] * 1,
                 lng: punto["lng"] * 1,
             };
+            var infowindow = new google.maps.InfoWindow();
             marker = new google.maps.Marker({
                 map: map,
                 draggable: false,
@@ -152,6 +153,19 @@ function pintar(puntos) {
                 icon: {
                     url: url_icono
                 }
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.setContent(
+                    '<center>' +
+                    '   <div>' +
+                    '       <p><b>Nombre: </b>'+punto.persona.persona.nombre+' '+punto.persona.persona.apellido+'</p>' +
+                    '       <p><b>Dirección: </b> '+punto.geolocal.direccion+'</p>' +                            
+                    '       <p><b>Valor total: </b> $'+punto.pago.valor+'</p>' +
+                    '       <p><b>Saldo pendiente: </b> $'+punto.pago.saldo+'</p>' +
+                    '   </div>' +
+                    '</center>'
+                );
+                infowindow.open(map, this);
             });
             marcadores.push(marker);
         }

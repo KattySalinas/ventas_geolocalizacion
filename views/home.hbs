@@ -22,7 +22,7 @@
             <div class="full-box dashboard-sideBar-ct">
                 <!--SideBar Title -->
                 <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
-                    company <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
+                    COMPANY<i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
                 </div>
                 <!-- SideBar User info -->
                 <div class="full-box dashboard-sideBar-UserInfo">
@@ -101,11 +101,7 @@
                             <span class="badge">1</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#!" class="btn-search">
-                            <i class="zmdi zmdi-search"></i>
-                        </a>
-                    </li>
+                    
                    
                 </ul>
             </nav>
@@ -116,7 +112,7 @@
                 </div>
             </div>
             <div class="full-box text-center">
-                <article class="full-box tile">
+                <a href="/clientes"><article class="full-box tile">
                     <div class="full-box tile-title text-center text-titles text-uppercase">
                         Clientes
                     </div>
@@ -127,8 +123,8 @@
                         <p class="full-box">{{clientesCount}}</p>                        
                         <small>Registro</small>
                     </div>
-                </article>
-                <article class="full-box tile">
+                </article></a>
+                <a href="/ventas"><article class="full-box tile">
                     <div class="full-box tile-title text-center text-titles text-uppercase">
                         Ventas
                     </div>
@@ -139,8 +135,8 @@
                         <p class="full-box">{{ventasCount}}</p>
                         <small>Registro</small>
                     </div>
-                </article>
-                <article class="full-box tile">
+                </article></a>
+                <a href="/productos"><article class="full-box tile">
                     <div class="full-box tile-title text-center text-titles text-uppercase">
                         Productos
                     </div>
@@ -151,7 +147,7 @@
                         <p class="full-box">{{productosCount}}</p>
                         <small>Registro</small>
                     </div>
-                </article>                
+                </article></a>              
             </div>
 
 
@@ -168,9 +164,6 @@
                         <div class="card-group">
 
                         </div>
-
-
-
                         <div class="container-fluid">
                             <div class="page-header">
                                 <h1 class="text-titles">Visita <small>Hoy !</small></h1>
@@ -232,7 +225,7 @@
                                         </div>
                                         <div class="row-content">
                                             <div class="least-content">17m</div>
-                                            <h4 class="list-group-item-heading">Notificacion</h4>
+                                            <h4 class="list-group-item-heading">...</h4>
                                             <p class="list-group-item-text">Proximamente</p>
                                         </div>
                                     </div>                                      
@@ -264,7 +257,7 @@
                         <!--====== Scripts -->
 
                         <script>
-$.material.init();
+                            $.material.init();
                         </script>
 
                         </body>

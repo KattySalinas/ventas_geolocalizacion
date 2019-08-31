@@ -19,7 +19,8 @@ module.exports = function (passport, cuenta, persona, comerciante) {
                     id_cuenta: cuenta.external_id,
                     id_comerciante: cuenta.comerciante.external_id,
                     nombre: cuenta.comerciante.persona.apellido + " " + cuenta.comerciante.persona.nombre,
-                    comerciante: cuenta.comerciante.id
+                    comerciante: cuenta.comerciante.id,
+                    empresa: cuenta.comerciante.empresa
                 };
                 // console.log(userinfo);
                 done(null, userinfo);
@@ -69,6 +70,8 @@ module.exports = function (passport, cuenta, persona, comerciante) {
 
                                 Comerciante.create({
                                     ruc: req.body.ruc,
+                                    foto: 'user.jpg',
+                                    //empresa: 'req.body.empresa',
                                     id_persona: persona.id
                                 }).then(function (newComerciante, created) {
                                     console.log("Persona creada " + newComerciante);

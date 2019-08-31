@@ -31,10 +31,6 @@ class CategoriaController {
     }
 
     listarCategoria(req, res) {
-<<<<<<< HEAD
-        Categoria.findAll({where:{estado: true}}).then(function (listaCategoria) {                 
-            res.render('categoria', {title: 'Categorias', categoria: listaCategoria});
-=======
         Categoria.findAll({}).then(function (listaCategoria) {
             res.render('categoria', {title: 'Categorias', categoria: listaCategoria, comerciante: req.user.nombre});
         });
@@ -42,16 +38,14 @@ class CategoriaController {
     listarCategorias(req, res) {
         Categoria.findAll({}).then(function (listaCategoria) {
             res.status(200).json(listaCategoria);
->>>>>>> next
         });
     }
 
-    //metodo para elminar  
-    static eliminarCategoria(id) {
-        console.log("id****************");
-        console.log(id);
-        Categoria.destroy({where: [{estado: false}, {id: id_categoria}]}); //borrar reserva no pagada
-    }
+    // metodo para elminar  
+    // static eliminarCategoria(id) {
+    //     console.log(id);
+    //     Categoria.destroy({where: [{estado: false}, {id: id_categoria}]}); //borrar reserva no pagada
+    // }
 
 
 

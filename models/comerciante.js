@@ -10,6 +10,12 @@ module.exports = function (sequelize, Sequelize) {
         ruc: {
             type: Sequelize.STRING(50)
         },
+        foto: {
+            type: Sequelize.STRING
+        },
+        empresa: {
+            type: Sequelize.STRING
+        },
         external_id: {
             type: Sequelize.UUID,
             defaultValue: Sequelize.UUIDV4

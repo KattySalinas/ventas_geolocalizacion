@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-<<<<<<< HEAD
 
 <head>
     <title>Cliente</title>
@@ -8,34 +7,6 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
-=======
-    <head>
-        <title>Cliente</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <link rel="stylesheet" href="./css/main.css">
-
-        <!--====== Scripts -->
-        <script src="./js/jquery-3.1.1.min.js"></script>
-        <script src="./js/sweetalert2.min.js"></script>
-        <script src="./js/bootstrap.min.js"></script>
-        <script src="./js/material.min.js"></script>
-        <script src="./js/ripples.min.js"></script>
-        <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="./js/main.js"></script>
-        <script src="jquery_validation.js"></script>
-        <script src="../js/utiles.js"></script>
-        <script>
-            $.material.init();
-        </script>
-        <!-- mapa -->        
-        <script src="./geolocalizacion.js"></script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"></script>
-
-    </head>
-    <body>
-        <script>
->>>>>>> next
 
     <!--====== Scripts -->
     <script src="./js/jquery-3.1.1.min.js"></script>
@@ -55,15 +26,14 @@
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr02HawTiirnGeMn12Ayk1Hh4QkyctkH0&callback=initMap"></script>
 
-<<<<<<< HEAD
-</head>
+</head>    
 
-<body>
-    <script>
+    <body>
+        <script>
 
         $.validator.addMethod("cedula", function (value) {
             return validarCedula(value);
-        }, 'Ingrese una cedula valida');
+}, 'Ingrese una cedula valida');
 
         $().ready(function () {
 
@@ -120,182 +90,12 @@
                     },
                     txt_direccion: {
                         required: "No tiene una direccion"
-=======
-            $().ready(function () {
-                $("#buscar_cliente").keyup(function () {
-                    var busqueda = $("#buscar_cliente").val();
-                    buscarCategoria(busqueda);
-                    console.log("*****************");
-                });
-                function buscarCategoria(busqueda) {
-                    if (busqueda !== '') {
-                        $.ajax({
-                            url: '/buscarCliente/' + busqueda,
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function (data, textStatus, jqXHR) {
-                                console.log(data);
-                                var html = "";
-                                for (var i = 0; i < data.length; i++) {
-                                    html += '<tr>';
-                                    html += '<td>' + i + '</td>';
-                                    html += '<td>' + data[i].persona.nombre + '</td>';
-                                    html += '<td>' + data[i].persona.apellido + '</td>';
-                                    html += '<td>' + data[i].persona.telefono + '</td>';
-                                    html += '<td>' + data[i].persona.cliente.cedula + '</td>';
-                                    html += '<td>' + data[i].persona.cliente.referencias + '</td>';
-                                    html += '<td>' + data[i].ciudad + '</td>';
-                                    html += '<td><a href="#new" data-toggle="tab" id="' + i + '" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>';
-                                    html += '<script>';
-                                    html += '$("#' + i + '").click(function () {';
-                                    html += ' $("#nombre").val("' + data[i].persona.nombre + '");';
-                                    html += ' $("#apellido").val("' + data[i].persona.apellido + '");';
-                                    html += ' $("#telefono").val("' + data[i].persona.telefono + '");';
-                                    html += ' $("#referencias").val("' + data[i].persona.cliente.cedula + '");';
-                                    html += ' $("#cedula").val("' + data[i].persona.cliente.referencias + '");';
-                                    html += ' $("#txt_ciudad").val("' + data[i].ciudad + '");';
-                                    html += ' $("#txt_direccion").val("' + data[i].direccion + '");';
-                                    html += ' $("#txt_latitud").val("' + data[i].latitud + '");';
-                                    html += ' $("#txt_longitud").val("' + data[i].longitud + '");';
-                                    html += ' $("#external").val("' + data[i].external_id + '");';
-                                    html += ' $("#externalp").val("' + data[i].persona.external_id + '");';
-                                    html += ' $("#externalc").val("' + data[i].persona.cliente.external_id + '");';
-                                    html += '});';
-                                    html += '</scrip' + 't>';
-                                    html += '</td>';
-                                    html += '<td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>'
-                                    html += '</tr>';
-                                }
-                                $("tbody").empty();
-                                $("tbody").html(html);
-                            }, error: function (jqXHR, textStatus, errorThrown) {
-                            }
-                        });
-                    } else {
-                        $.ajax({
-                            url: '/listar_clientes',
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function (data, textStatus, jqXHR) {
-                                console.log(data);
-                                var html = "";
-                                for (var i = 0; i < data.length; i++) {
-                                    html += '<tr>';
-                                    html += '<td>' + i + '</td>';
-                                    html += '<td>' + data[i].persona.nombre + '</td>';
-                                    html += '<td>' + data[i].persona.apellido + '</td>';
-                                    html += '<td>' + data[i].persona.telefono + '</td>';
-                                    html += '<td>' + data[i].persona.cliente.cedula + '</td>';
-                                    html += '<td>' + data[i].persona.cliente.referencias + '</td>';
-                                    html += '<td>' + data[i].ciudad + '</td>';
-                                    html += '<td><a href="#new" data-toggle="tab" id="' + i + '" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a>';
-                                    html += '<script>';
-                                    html += '$("#' + i + '").click(function () {';
-                                    html += ' $("#nombre").val("' + data[i].persona.nombre + '");';
-                                    html += ' $("#apellido").val("' + data[i].persona.apellido + '");';
-                                    html += ' $("#telefono").val("' + data[i].persona.telefono + '");';
-                                    html += ' $("#referencias").val("' + data[i].persona.cliente.cedula + '");';
-                                    html += ' $("#cedula").val("' + data[i].persona.cliente.referencias + '");';
-                                    html += ' $("#txt_ciudad").val("' + data[i].ciudad + '");';
-                                    html += ' $("#txt_direccion").val("' + data[i].direccion + '");';
-                                    html += ' $("#txt_latitud").val("' + data[i].latitud + '");';
-                                    html += ' $("#txt_longitud").val("' + data[i].longitud + '");';
-                                    html += ' $("#external").val("' + data[i].external_id + '");';
-                                    html += ' $("#externalp").val("' + data[i].persona.external_id + '");';
-                                    html += ' $("#externalc").val("' + data[i].persona.cliente.external_id + '");';
-                                    html += '});';
-                                    html += '</scrip' + 't>';
-                                    html += '</td>';
-                                    html += '<td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>'
-                                    html += '</tr>';
-                                }
-                                $("tbody").empty();
-                                $("tbody").html(html);
-                            }, error: function (jqXHR, textStatus, errorThrown) {
-                            }
-                        });
-                    }
-
-                }
-
-                $("#cliente").validate({
-                    rules: {
-                        nombre: {
-                            required: true,
-                            minlength: 3
-                        },
-                        apellido: {
-                            required: true,
-                            minlength: 3
-                        },
-                        telefono: {
-                            required: true,
-                            minlength: 10,
-                            maxlength: 10
-                        },
-                        cedula: {
-                            required: true,
-                            minlength: 10,
-                            maxlength: 10
-                        },
-                        referencias: {
-                            required: true
-                        },
-                        txt_ciudad: {
-                            required: true
-                        },
-                        txt_direccion: {
-                            required: true
-                        }
-                    },
-                    messages: {
-                        nombre: {
-                            required: "Ingrese el nombre por favor",
-                            minlength: "Minimo 3 caracteres"
-                        },
-                        apellido: {
-                            required: "Ingrese el apellido"
-                        },
-                        telefono: {
-                            required: "Ingrese un telefono"
-                        },
-                        cedula: {
-                            required: "Ingrese un numero de cedula",
-                            cedula: "Ingrese una cedula valida"
-                        },
-                        referencias: {
-                            required: "Ingrese una referencia"
-                        },
-                        txt_ciudad: {
-                            required: "No tienen una ciudad"
-                        },
-                        txt_direccion: {
-                            required: "No tiene una direccion"
-                        }
->>>>>>> next
                     }
                 }
             });
-<<<<<<< HEAD
         });
-    </script>
-    <!-- SideBar -->
-    <section class="full-box cover dashboard-sideBar">
-        <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
-        <div class="full-box dashboard-sideBar-ct">
-            <!--SideBar Title -->
-            <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
-                company <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
-            </div>
-            <!-- SideBar User info -->
-            <div class="full-box dashboard-sideBar-UserInfo">
-                <figure class="full-box">
-                    <img src="./assets/img/avatar.jpg" alt="UserIcon">
-                    <figcaption class="text-center text-titles">{{comerciante}}</figcaption>
-                </figure>
-                <ul class="full-box list-unstyled text-center">
-=======
         </script>
+        <!-- SideBar -->
         <!-- SideBar -->
         <section class="full-box cover dashboard-sideBar">
             <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
@@ -333,35 +133,36 @@
                     <li>
                         <a href="/ventas" class="btn-sideBar-SubMenu">
                             <i class="zmdi zmdi-case zmdi-hc-fw"></i> Ventas
-                        </a>					
+                        </a>
                     </li>
                     <li>
                         <a href="/pagos" class="btn-sideBar-SubMenu">
-                            <i class="zmdi zmdi-money zmdi-hc-fw"></i> Pagos 
+                            <i class="zmdi zmdi-money zmdi-hc-fw"></i> Pagos
                         </a>
                     </li>
                     <li>
                         <a href="#!" class="btn-sideBar-SubMenu">
-                            <i class=" zmdi zmdi-font zmdi-hc-fw "></i> Arcticulos <i class="zmdi zmdi-caret-down pull-right"></i>
+                            <i class=" zmdi zmdi-font zmdi-hc-fw "></i> Arcticulos <i
+                                class="zmdi zmdi-caret-down pull-right"></i>
                         </a>
                         <ul class="list-unstyled full-box">
                             <li>
                                 <a href="/productos"><i class="zmdi zmdi-book zmdi-hc-fw "></i> Productos</a>
                             </li>
                             <li>
-                                <a href="/categorias"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Categorias</a>
+                                <a href="/categorias"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Categoria</a>
                             </li>
                         </ul>
-                    </li> 
+                    </li>
                     <li>
                         <a href="/clientes" class="btn-sideBar-SubMenu">
-                            <i class="zmdi zmdi-account zmdi-hc-fw"></i> Clientes 
+                            <i class="zmdi zmdi-account zmdi-hc-fw"></i> Clientes
                         </a>
-                    </li>                    
+                    </li>
                     <li>
                         <a href="/rutas" class="btn-sideBar-SubMenu">
                             <i class="zmdi zmdi-trending-up zmdi-hc-fw"></i> Rutas
-                        </a>                        
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -381,305 +182,152 @@
                             <span class="badge">1</span>
                         </a>
                     </li>
->>>>>>> next
-                    <li>
-                        <a href="#!">
-                            <i class="zmdi zmdi-settings"></i>
-                        </a>
-                    </li>
-<<<<<<< HEAD
-                    <li>
-                        <a href="#!" class="btn-exit-system">
-                            <i class="zmdi zmdi-power"></i>
-                        </a>
-                    </li>
-=======
-                   
->>>>>>> next
+
                 </ul>
+            </nav>
+            <!-- Content page -->
+            <div class="container-fluid">
+                <div class="page-header">
+                    <h1 class="text-titles"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Clientes <small>
+                            Registro</small>
+                    </h1>
+                </div>
+                <p class="lead"></p>
             </div>
-            <!-- SideBar Menu -->
-            <ul class="list-unstyled full-box dashboard-sideBar-Menu">
-                <li>
-                    <a href="/home">
-                        <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Inicio
-                    </a>
-                </li>
-                <li>
-                    <a href="/ventas" class="btn-sideBar-SubMenu">
-                        <i class="zmdi zmdi-case zmdi-hc-fw"></i> Ventas
-                    </a>
-                </li>
-                <li>
-                    <a href="/pagos" class="btn-sideBar-SubMenu">
-                        <i class="zmdi zmdi-money zmdi-hc-fw"></i> Pagos
-                    </a>
-                </li>
-                <li>
-                    <a href="#!" class="btn-sideBar-SubMenu">
-                        <i class=" zmdi zmdi-font zmdi-hc-fw "></i> Arcticulos <i
-                            class="zmdi zmdi-caret-down pull-right"></i>
-                    </a>
-                    <ul class="list-unstyled full-box">
-                        <li>
-                            <a href="/productos"><i class="zmdi zmdi-book zmdi-hc-fw "></i> Productos</a>
-                        </li>
-                        <li>
-                            <a href="/categorias"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Categorias</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="/clientes" class="btn-sideBar-SubMenu">
-                        <i class="zmdi zmdi-account zmdi-hc-fw"></i> Clientes
-                    </a>
-                </li>
-                <li>
-                    <a href="/rutas" class="btn-sideBar-SubMenu">
-                        <i class="zmdi zmdi-trending-up zmdi-hc-fw"></i> Rutas
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                            <li class="active"><a href="#new" data-toggle="tab"> Nuevo</a></li>
+                            <li><a href="#list" data-toggle="tab"> Lista</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="new">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-10 col-md-8">
+                                            <form action="/registrarCliente" method="post" id="cliente">
+                                                <input type="hidden" name="external" value="0" id="external">
+                                                <input type="hidden" name="externalp" value="0" id="externalp">
+                                                <input type="hidden" name="externalc" value="0" id="externalc">
+                                                <div class="col-xs-12 col-md-8">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Nombres</label>
+                                                        <input type="text" class="form-control" name="nombre"
+                                                            id="nombre">
+                                                    </div>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Apellidos</label>
+                                                        <input type="text" class="form-control" name="apellido"
+                                                            id="apellido">
+                                                    </div>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Telefono</label>
+                                                        <input type="text" class="form-control" name="telefono"
+                                                            id="telefono">
+                                                    </div>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Cedula</label>
+                                                        <input type="text" class="form-control" name="cedula"
+                                                            id="cedula">
+                                                    </div>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Referencias</label>
+                                                        <input type="text" class="form-control" name="referencias"
+                                                            id="referencias">
+                                                    </div>
+                                                    <div class="form-group" style="margin: auto">
+                                                        <label class="control-label">Ciudad</label>
+                                                        <input type="text" class="form-control" name="ciudad"
+                                                            id="txt_ciudad">
+                                                    </div>
+                                                    <div class="form-group" style="margin: auto">
+                                                        <label class="control-label">Direccion</label>
+                                                        <input type="text" class="form-control" name="direccion"
+                                                            id="txt_direccion">
+                                                    </div>
+                                                    <input type="hidden" class="form-control" name="longitud"
+                                                        id="txt_long">
+                                                    <input type="hidden" class="form-control" name="latitud"
+                                                        id="txt_lat">
 
-    <!-- Content page-->
-    <section class="full-box dashboard-contentPage">
-        <!-- NavBar -->
-        <nav class="full-box dashboard-Navbar">
-            <ul class="full-box list-unstyled text-right">
-                <li class="pull-left">
-                    <a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
-                </li>
-                <li>
-                    <a href="#!" class="btn-Notifications-area">
-                        <i class="zmdi zmdi-notifications-none"></i>
-                        <span class="badge">7</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#!" class="btn-search">
-                        <i class="zmdi zmdi-search"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#!" class="btn-modal-help">
-                        <i class="zmdi zmdi-help-outline"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- Content page -->
-        <div class="container-fluid">
-            <div class="page-header">
-                <h1 class="text-titles"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Clientes <small> Registro</small>
-                </h1>
-            </div>
-            <p class="lead"></p>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12">
-                    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#new" data-toggle="tab"> Nuevo</a></li>
-                        <li><a href="#list" data-toggle="tab"> Lista</a></li>
-                    </ul>
-                    <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane fade active in" id="new">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-xs-10 col-md-8">
-                                        <form action="/registrarCliente" method="post" id="cliente">
-                                            <input type="hidden" name="external" value="0" id="external">
-                                            <input type="hidden" name="externalp" value="0" id="externalp">
-                                            <input type="hidden" name="externalc" value="0" id="externalc">
-                                            <div class="col-xs-12 col-md-8">
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Nombres</label>
-                                                    <input type="text" class="form-control" name="nombre" id="nombre">
                                                 </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Apellidos</label>
-                                                    <input type="text" class="form-control" name="apellido"
-                                                        id="apellido">
-                                                </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Telefono</label>
-                                                    <input type="text" class="form-control" name="telefono"
-                                                        id="telefono">
-                                                </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Cedula</label>
-                                                    <input type="text" class="form-control" name="cedula" id="cedula">
-                                                </div>
-                                                <div class="form-group label-floating">
-                                                    <label class="control-label">Referencias</label>
-                                                    <input type="text" class="form-control" name="referencias"
-                                                        id="referencias">
-                                                </div>
-                                                <div class="form-group" style="margin: auto">
-                                                    <label class="control-label">Ciudad</label>
-                                                    <input type="text" class="form-control" name="ciudad"
-                                                        id="txt_ciudad">
-                                                </div>
-                                                <div class="form-group" style="margin: auto">
-                                                    <label class="control-label">Direccion</label>
-                                                    <input type="text" class="form-control" name="direccion"
-                                                        id="txt_direccion">
-                                                </div>
-                                                <input type="hidden" class="form-control" name="longitud" id="txt_long">
-                                                <input type="hidden" class="form-control" name="latitud" id="txt_lat">
-
-                                            </div>
-                                            <div class="col-xs-12 col-md-3">
-                                                <div class="text-right">
-                                                    <div id="map"
-                                                        style="width:522px; height:570px; margin-bottom:40px; margin-left: 30px">
+                                                <div class="col-xs-12 col-md-3">
+                                                    <div class="text-right">
+                                                        <div id="map"
+                                                            style="width:522px; height:570px; margin-bottom:40px; margin-left: 30px">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <p class="text-center">
-                                                <button href="#!" class="btn btn-info btn-raised btn-sm"><i
-                                                        class="zmdi zmdi-floppy"></i> Guardar</button>
-                                            </p>
-                                        </form>
-                                    </div>
-                                </div>
-<<<<<<< HEAD
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="list">
-                            <div class="table-responsive">
-                                <table class="table table-hover text-center">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">#</th>
-                                            <th class="text-center">Nombre</th>
-                                            <th class="text-center">Apellidos</th>
-                                            <th class="text-center">Telefono</th>
-                                            <th class="text-center">Cedula</th>
-                                            <th class="text-center">Referencia</th>
-                                            <th class="text-center">Ciudad</th>
-                                            <th class="text-center">Update</th>
-                                            <th class="text-center">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {{#each this.clientes as |item i|}}
-                                        <tr>
-=======
-                            </div>                            
-                            <div class="tab-pane fade" id="list">
-                                <div class="table-responsive">
-                                    <div class="col-xs-8 col-xs-offset-2">
-                                        <div class="input-group">         
-                                            <input type="text" class="form-control" name="x" placeholder="Buscar cliente..." id="buscar_cliente">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                                            </span>
+                                                <p class="text-center">
+                                                    <button href="#!" class="btn btn-info btn-raised btn-sm"><i
+                                                            class="zmdi zmdi-floppy"></i> Guardar</button>
+                                                </p>
+                                            </form>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="list">
+                                <div class="table-responsive">
                                     <table class="table table-hover text-center">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">#</th>
                                                 <th class="text-center">Nombre</th>
-                                                <th class="text-center">Apellidos</th> 
+                                                <th class="text-center">Apellidos</th>
                                                 <th class="text-center">Telefono</th>
                                                 <th class="text-center">Cedula</th>
                                                 <th class="text-center">Referencia</th>
                                                 <th class="text-center">Ciudad</th>
-                                                <th class="text-center">Update</th>
-                                                <th class="text-center">Delete</th>
+                                                <th class="text-center">Modificar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{#each this.clientes as |item i|}} 
+                                            {{#each this.clientes as |item i|}}
                                             <tr>
->>>>>>> next
 
-                                            <td>{{i}}</td>
-                                            <td>{{item.persona.nombre}}</td>
-                                            <td>{{item.persona.apellido}}</td>
-                                            <td>{{item.persona.telefono}}</td>
-                                            <td>{{item.persona.cliente.cedula}}</td>
-                                            <td>{{item.persona.cliente.referencias}}</td>
-                                            <td>{{item.ciudad }}</td>
-                                            <td>
-                                                <a a href="#new" data-toggle="tab" id="{{ i }}"
-                                                    class="btn btn-success btn-raised btn-xs"><i
-                                                        class="zmdi zmdi-refresh"></i></a>
-                                                <script>
-                                                    $("#{{i}}").click(function () {
-                                                        $("#nombre").val("{{item.persona.nombre}}");
-                                                        $("#apellido").val("{{item.persona.apellido}}");
-                                                        $("#telefono").val("{{item.persona.telefono}}");
-                                                        $("#cedula").val("{{item.persona.cliente.cedula}}");
-                                                        $("#referencias").val("{{item.persona.cliente.referencias}}");
-                                                        $("#txt_ciudad").val("{{item.ciudad}}");
-                                                        $("#txt_direccion").val("{{item.direccion}}");
-                                                        $("#txt_latitud").val("{{item.latitud}}");
-                                                        $("#txt_longitud").val("{{item.longitud}}");
-                                                        $("#external").val("{{item.external_id}}");
-                                                        $("#externalp").val("{{item.persona.external_id}}");
-                                                        $("#externalc").val("{{item.persona.cliente.external_id}}");
+                                                <td>{{i}}</td>
+                                                <td>{{item.persona.nombre}}</td>
+                                                <td>{{item.persona.apellido}}</td>
+                                                <td>{{item.persona.telefono}}</td>
+                                                <td>{{item.persona.cliente.cedula}}</td>
+                                                <td>{{item.persona.cliente.referencias}}</td>
+                                                <td>{{item.ciudad }}</td>
+                                                <td>
+                                                    <a a href="#new" data-toggle="tab" id="{{ i }}"
+                                                        class="btn btn-success btn-raised btn-xs"><i
+                                                            class="zmdi zmdi-refresh"></i></a>
+                                                    <script>
+                                                    $("#{{ i }}").click(function () {
+                                                            $("#nombre").val("{{item.persona.nombre}}");
+                                                        $("#apellido").val("{{ item.persona.apellido }}");
+                                                        $("#telefono").val("{{ item.persona.telefono }}");
+                                                        $("#cedula").val("{{ item.persona.cliente.cedula }}");
+                                                        $("#referencias").val("{{ item.persona.cliente.referencias }}");
+                                                        $("#txt_ciudad").val("{{ item.ciudad }}");
+                                                        $("#txt_direccion").val("{{ item.direccion }}");
+                                                        $("#txt_latitud").val("{{ item.latitud }}");
+                                                        $("#txt_longitud").val("{{ item.longitud }}");
+                                                        $("#external").val("{{ item.external_id }}");
+                                                        $("#externalp").val("{{ item.persona.external_id }}");
+                                                        $("#externalc").val("{{ item.persona.cliente.external_id }}");
                                                     });
-                                                </script>
-                                            </td>
-                                            <td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i
-                                                        class="zmdi zmdi-delete"></i></a></td>
-                                        </tr>
-                                        {{/each}}
-                                    </tbody>
-                                </table>
-                                <ul class="pagination pagination-sm">
-                                    <li class="disabled"><a href="#!">«</a></li>
-                                    <li class="active"><a href="#!">1</a></li>
-                                    <li><a href="#!">2</a></li>
-                                    <li><a href="#!">3</a></li>
-                                    <li><a href="#!">4</a></li>
-                                    <li><a href="#!">5</a></li>
-                                    <li><a href="#!">»</a></li>
-                                </ul>
+                                                    </script>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-
-<<<<<<< HEAD
-    <!-- Notifications area -->
-    <section class="full-box Notifications-area">
-        <div class="full-box Notifications-bg btn-Notifications-area"></div>
-        <div class="full-box Notifications-body">
-            <div class="Notifications-body-title text-titles text-center">
-                Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
-            </div>
-            <div class="list-group">
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-alert-triangle"></i>
-                    </div>
-                    <div class="row-content">
-                        <div class="least-content">17m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-                    </div>
-                </div>
-                <div class="list-group-separator"></div>
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-alert-octagon"></i>
-                    </div>
-                    <div class="row-content">
-                        <div class="least-content">15m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-                    </div>
-=======
         <!-- Notifications area -->
         <section class="full-box Notifications-area">
             <div class="full-box Notifications-bg btn-Notifications-area"></div>
@@ -694,71 +342,12 @@
                         </div>
                         <div class="row-content">
                             <div class="least-content">17m</div>
-                            <h4 class="list-group-item-heading">Notificacion</h4>
+                            <h4 class="list-group-item-heading">...</h4>
                             <p class="list-group-item-text">Proximamente</p>
                         </div>
-                    </div>                                      
->>>>>>> next
-                </div>
-                <div class="list-group-separator"></div>
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-help"></i>
-                    </div>
-                    <div class="row-content">
-                        <div class="least-content">10m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
-                    </div>
-<<<<<<< HEAD
-                </div>
-                <div class="list-group-separator"></div>
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="zmdi zmdi-info"></i>
-=======
-                    <div class="modal-body">
-                        <p>
-                            Si necesita ayuda comuniquese en este correo
-                            katty.jhaky@hotmail.es
-                        </p>
->>>>>>> next
-                    </div>
-                    <div class="row-content">
-                        <div class="least-content">8m</div>
-                        <h4 class="list-group-item-heading">Tile with a label</h4>
-                        <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
                     </div>
                 </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Dialog help -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Help</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt beatae esse velit ipsa sunt
-                        incidunt aut voluptas, nihil reiciendis maiores eaque hic vitae saepe voluptatibus. Ratione
-                        veritatis a unde autem!
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal"><i
-                            class="zmdi zmdi-thumb-up"></i> Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</body>
-
+                <div class="list-group-separator"></div>            
+        </section>
+    </body>
 </html>

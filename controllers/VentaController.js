@@ -175,9 +175,7 @@ class VentaController {
         });
     }
     mostrarProductoVenta(req, res) {
-        Cliente.findAll({include: [{model: Persona, include: [{model: Geolocalizacion}]},
-                        {model: Venta, include: [{model: Producto, include: [Categoria]}]}
-                    ]}).then(function (productos) {
+        Producto.findAll({}).then(function (productos) {
             if (productos) {
                 console.log(productos.length);
                 getGalerias([], productos, 0, function (galerias){

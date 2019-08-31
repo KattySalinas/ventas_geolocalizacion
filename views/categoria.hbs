@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="./css/main.css">
         <!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
 
-        <!--====== Scripts -->
+        <!-- ====== Scripts -->
         <script src="./js/jquery-3.1.1.min.js"></script>
         <script src="./js/sweetalert2.min.js"></script>
         <script src="./js/bootstrap.min.js"></script>
@@ -26,11 +26,11 @@
     <body>
         <script>
             $().ready(function () {
-                console.log("*****************");
+                console.log("*******");
                 $("#buscarCategoria").keyup(function () {
                     var busqueda = $("#buscarCategoria").val();
                     buscarCategoria(busqueda);
-                    console.log("*****************");
+                    console.log("*******");
                 });
 
                 function buscarCategoria(busqueda) {
@@ -54,7 +54,6 @@
                                     html += '});';
                                     html += '</scrip' + 't>';
                                     html += '</td>';
-                                    html += '<td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>'
                                     html += '</tr>';
                                 }
                                 $("tbody").empty();
@@ -82,7 +81,6 @@
                                     html += '});';
                                     html += '</scrip' + 't>';
                                     html += '</td>';
-                                    html += '<td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>'
                                     html += '</tr>';
                                 }
                                 $("tbody").empty();
@@ -196,12 +194,6 @@
                             <span class="badge">1</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#!" class="btn-search">
-                            <i class="zmdi zmdi-search"></i>
-                        </a>
-                    </li>
-                   
                 </ul>
             </nav>
             <!-- Content page -->
@@ -242,118 +234,66 @@
                                     </div>
                                 </div>
                             </div>
-<<<<<<< HEAD
-                        </div>
-                        <div class="tab-pane fade" id="list">
-                            <!-- Buscar  -->
-                            
-                            <div class="container">
-                                        <div class="row">    
-                                            <div class="col-xs-8 col-xs-offset-2">
-                                                <div class="input-group">
-                                                    <div class="input-group-btn search-panel">
-                                                        
-                                                    </div>
-                                                    <input type="hidden" name="search_param" value="all" id="search_param">         
-                                                    <input id = "buscarCategoria" type="text" class="form-control" name="x" placeholder="Buscar categoría...">
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                                                    </span>
+                            <div class="tab-pane fade" id="list">
+                                <!-- Buscar  -->
+                                <div class="container-fluid" >
+                                    <div class="row">    
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <div class="input-group">
+                                                <div class="input-group-btn search-panel">
+
                                                 </div>
+                                                <input type="hidden" name="search_param" value="all" id="search_param">         
+                                                <input id = "buscarCategoria" type="text" class="form-control" name="x" placeholder="Buscar categoría...">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
-                            <!-- Fin Buscar  -->
-                            <div class="table-responsive">
-                                <table class="table table-hover text-center">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">#</th>
-                                            <th class="text-center">Nombre</th>
-                                            <th class="text-center">Actualizar</th>                                            
-                                        </tr>
-                                    </thead>
-                                    <tbody id="nombreBuscado">
-                                        {{#each this.categoria as |item i|}}
-                                        <tr>
-                                            <td>{{i}}</td>
-                                            <td>{{item.nombre}}</td>                                            
-                                            <td>
-                                                <a href="#new" data-toggle="tab" id="{{ i }}"
-                                                    class="btn btn-success btn-raised btn-xs"><i
-                                                        class="zmdi zmdi-refresh"></i></a>
-                                                <script>
-                                                    $("#{{i}}").click(function () {
-                                                        $("#nombre").val("{{item.nombre}}");
-                                                        $("#external").val("{{item.external_id}}");
-                                                    });
-                                                </script>
-                                            </td>                                            
-                                        </tr>
-                                        {{/each}}
-                                    </tbody>
-                                </table>
-<<<<<<< HEAD
-                                
-=======
-                                <ul class="pagination pagination-sm">
-                                    <li class="disabled"><a href="#!">«</a></li>
-                                    <li class="active"><a href="#!">1</a></li>
-                                    <li><a href="#!">2</a></li>
-                                    <li><a href="#!">3</a></li>
-                                    <li><a href="#!">4</a></li>
-                                    <li><a href="#!">5</a></li>
-                                    <li><a href="#!">»</a></li>
-                                </ul>
-=======
-                            <div class="tab-pane fade" id="list">
-                                <!-- Buscar  -->
-                                <input class="form-control" type="text"  id="buscarCategoria"  placeholder="¿Qué estás buscando?" style="width:500px">
-                                <!-- Fin Buscar  -->
-                                <div class="table-responsive">
-                                    <table class="table table-hover text-center">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th class="text-center">Nombre</th>
-                                                <th class="text-center">Actualizar</th>
-                                                <th class="text-center">Eliminar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="nombreBuscado">
-                                            {{#each this.categoria as |item i|}}
-                                            <tr>
-                                                <td>{{i}}</td>
-                                                <td>{{item.nombre}}</td>
-                                                <td>
-                                                    <a href="#new" data-toggle="tab" id="{{ i }}"
-                                                       class="btn btn-success btn-raised btn-xs"><i
-                                                            class="zmdi zmdi-refresh"></i></a>
-                                                    <script>
-                                                        $("#{{i}}").click(function () {
-                                                            $("#nombre").val("{{item.nombre}}");
-                                                            $("#external").val("{{item.external_id}}");
-                                                        });
-                                                    </script>
-                                                </td>
-                                                <td><a href="#list" class="btn btn-danger btn-raised btn-xs"><i
-                                                            class="zmdi zmdi-delete"></i></a></td>
-                                            </tr>
-                                            {{/each}}
-                                        </tbody>
-                                    </table>
-                                    <ul class="pagination pagination-sm">
-                                        <li class="disabled"><a href="#!">«</a></li>
-                                        <li class="active"><a href="#!">1</a></li>
-                                        <li><a href="#!">2</a></li>
-                                        <li><a href="#!">3</a></li>
-                                        <li><a href="#!">4</a></li>
-                                        <li><a href="#!">5</a></li>
-                                        <li><a href="#!">»</a></li>
-                                    </ul>
                                 </div>
->>>>>>> next
->>>>>>> 2805978a8b6da8b4dd0c3a9bbbd70d8c06b8b00e
+                                <!-- Fin Buscar  -->
+                                <div class="container-fluid">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="text-center">Nombre</th>
+                                                    <th class="text-center">Actualizar</th>                                            
+                                                </tr>
+                                            </thead>
+                                            <tbody id="nombreBuscado">
+                                                {{#each this.categoria as |item i|}}
+                                                <tr>
+                                                    <td>{{i}}</td>
+                                                    <td>{{item.nombre}}</td>                                            
+                                                    <td>
+                                                        <a href="#new" data-toggle="tab" id="{{ i }}"
+                                                           class="btn btn-success btn-raised btn-xs"><i
+                                                                class="zmdi zmdi-refresh"></i></a>
+                                                        <script>
+                                                            $("#{{i}}").click(function () {
+                                                                $("#nombre").val("{{item.nombre}}");
+                                                                $("#external").val("{{item.external_id}}");
+                                                            });
+                                                        </script>
+                                                    </td>                                            
+                                                </tr>
+                                                {{/each}}
+                                            </tbody>
+                                        </table>
+                                        <ul class="pagination pagination-sm">
+                                            <li class="disabled"><a href="#!">«</a></li>
+                                            <li class="active"><a href="#!">1</a></li>
+                                            <li><a href="#!">2</a></li>
+                                            <li><a href="#!">3</a></li>
+                                            <li><a href="#!">4</a></li>
+                                            <li><a href="#!">5</a></li>
+                                            <li><a href="#!">»</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -375,7 +315,7 @@
                         </div>
                         <div class="row-content">
                             <div class="least-content">17m</div>
-                            <h4 class="list-group-item-heading">Notificacion</h4>
+                            <h4 class="list-group-item-heading">...</h4>
                             <p class="list-group-item-text">Proximamente</p>
                         </div>
                     </div>                                      

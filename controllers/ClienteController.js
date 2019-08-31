@@ -90,13 +90,12 @@ class ClienteController {
             });
         });
     }
-      listarClientes(req, res) {
-        Geolocalizacion.findAll({include: [{model: Persona, include: {model: Cliente}}]}).then(function (Lclientes) {
-           if (Lclientes) {             
-                res.status(200).json(Lclientes);
-            }
+
+    listarCLiente(req, res) {
+        Geolocalizacion.findAll({include: [{model: Persona, include: [Cliente]}]}).then(function (Lclientes) {
+            res.status(200).json(Lclientes);  
         });
-    }
+    }   
 
     buscarCliente(req, res) {
         var nombre = req.params.nombre;

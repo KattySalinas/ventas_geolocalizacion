@@ -20,7 +20,7 @@ class ProductoController {
                 descripcion: req.body.descripcion,
                 cantidad: req.body.cantidad,
                 precio: req.body.precio,
-                estado: req.body.estado,
+                estado: true,
                 external_id: uuidv4()
             }).then(producto => {
                 var data = [];
@@ -50,6 +50,13 @@ class ProductoController {
                         console.log(err);
                         res.status(500).json(err);
                     });
+                }else{
+                    Galeria.bulkCreate(data.push({foto: 'imagen.jpg'})).then(() => {
+                        res.redirect('/productos');
+                    }).catch(err => {
+                        console.log(err);
+                        res.status(500).json(err);
+                    }); 
                 }
             }).catch((err) => {
                 console.log(err)
@@ -63,7 +70,7 @@ class ProductoController {
                 descripcion: req.body.descripcion,
                 cantidad: req.body.cantidad,
                 precio: req.body.precio,
-                estado: req.body.estado,
+                estado: true,
             },{where: {external_id: req.body.external}} ).then((updated, created) => {
                 Producto.findAll({limit: 1, where: {external_id: req.body.external}}).then(produ => {
                     let id = produ[0].dataValues.id;
@@ -94,6 +101,13 @@ class ProductoController {
                                 res.status(500).json(err);
                             });
                         });
+                    }else{
+                        Galeria.bulkCreate(data.push({foto: 'imagen.jpg'})).then(() => {
+                            res.redirect('/productos');
+                        }).catch(err => {
+                            console.log(err);
+                            res.status(500).json(err);
+                        }); 
                     }
                 });
             });
@@ -114,17 +128,18 @@ class ProductoController {
             }
         });
     }
-     listarProductos(req, res) {
+
+    listarProductos(req, res) {
         Categoria.findAll({}).then(function (categoria) {
             if (categoria) {
-                Producto.findAll({include: [{model: Galeria},{model:Categoria}]}).then(function (listaProducto) {
-                    //console.log(listaProducto[0].galeria);                  
+                Producto.findAll({include: [{model: Galeria},{model:Categoria}]}).then(function (listaProducto) { 
                     res.status(200).json(listaProducto);
                 });
             }
         });
     }
 
+    
     buscarProducto(req, res) {
         var nombre = req.params.nombre;
         Producto.findAll({where: {nombre: {$like: '' + nombre + '%'}},
@@ -144,7 +159,20 @@ class ProductoController {
         }).catch(function (err) {
             res.status(500).json(err);
         });
-    }  
+    }
+    
+    // eliminarProducto(req,res){
+    //    let id = req.query.id;
+    //    console.log(id);
+    //    if(producto.estado===1){
+    //     Producto.update({estado: false}, {where: {id: id}}).then(function(status){
+    //             res.json({code:0, mensaje: 'Actualizado'});
+    //     }).catch(function(error){
+    //         console.log(error);
+    //         res.json({code:-1, mensaje: 'Error al dar de baja'});
+    //     });
+    //    }
+    // }
  
 
 }

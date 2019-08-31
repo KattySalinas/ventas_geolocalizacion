@@ -1,605 +1,625 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>Period</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <link rel="stylesheet" href="./css/main.css">
-        <!--====== Scripts -->
-        <script src="./js/jquery-3.1.1.min.js"></script>
-        <script src="./js/sweetalert2.min.js"></script>
-        <script src="./js/bootstrap.min.js"></script>
-        <script src="./js/material.min.js"></script>
-        <script src="./js/ripples.min.js"></script>
-        <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="./js/main.js"></script>
-        <script src="css/bootstrap-material-design.min.css"></script>
-        <script src="css/bootstrap.min.css"></script>
-        <script>
-            $.material.init();
-        </script>
 
-    </head>
-    <body>
-        <script>
+<head>
+    <title>Period</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <!--====== Scripts -->
+    <script src="./js/jquery-3.1.1.min.js"></script>
+    <script src="./js/sweetalert2.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/material.min.js"></script>
+    <script src="./js/ripples.min.js"></script>
+    <script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="css/bootstrap-material-design.min.css"></script>
+    <script src="css/bootstrap.min.css"></script>
+    <script>
+        $.material.init();
+    </script>
 
-            function refrescar() {
-                var url = 'http://localhost:3000/compra/carrito/listado';
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data, textStatus, jqXHR) {
-                        mostrarCantidad(data);
-                        construirTabla(data);
-                    }, error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR);
-                    }
-                });
+</head>
+
+<body>
+    <script>
+        
+
+        function refrescar() {
+            var url = 'http://localhost:3000/compra/carrito/listado';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    mostrarCantidad(data);
+                    construirTabla(data);
+                }, error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                }
+            });
+        }
+        function agregarCarrito(external) {
+            var url = 'http://localhost:3000/mostrar_carrito/' + external;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    refrescar();
+                    //mostrarCantidad(data);
+                }, error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                }
+            });
+        }
+        function mostrarCantidad(data) {
+            var cant = 0;
+            var precio = 0;
+            $.each(data, function (i, item) {
+                cant += item.cant;
+                precio += item.pt;
+            });
+            $("#nro_items").html(cant + ' <b>$ ' + precio + '</b>');
+            console.log("se refresco");
+
+        }
+
+        function construirTabla(data) {
+            var html = "";
+            var subtotal = 0;
+            var iva = 0;
+            var total = 0;
+            $.each(data, function (i, item) {
+                html += '<tr>';
+                html += '<td>' + (i + 1) + '</td>';
+                html += '<td><a id="a_' + i + '" onClick="return item(' + "'" + item.external + "'" + ', 0)" href="#" class="btn btn-link btn-raised btn-sm"><i class="zmdi zmdi-minus"></i></a>' + item.cant + '<a id="q_' + i + '" onClick="return item(' + "'" + item.external + "'" + ', 1)" href="#" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-plus"></i></a></td>';
+                html += '<td>' + item.categoria + ' ' + item.nombre + '</td>';
+                html += '<td>' + item.pu + '</td>';
+                html += '<td>' + item.pt + '</td>';
+                html += '</tr>';
+                subtotal += item.pt;
+            });
+            subtotal = subtotal.toFixed(2);
+            //var total = subtotal * 1.12;
+            //var iva = total - subtotal;
+            //total = total.toFixed(2);
+            //iva = iva.toFixed(2);
+            html += '<tr><td colspan="4" style="text-align: right; font-weight: bold;">TOTAL: </td>';
+            html += '<td>$ <input value="' + subtotal + '" name="total" readonly/></td></tr>';
+            if (data.length == 0) {
+                $("#btn_compra").hide();
+            } else {
+                $("#btn_compra").show();
             }
-            function agregarCarrito(external) {
-                var url = 'http://localhost:3000/mostrar_carrito/' + external;
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data, textStatus, jqXHR) {
-                        refrescar();
-                        //mostrarCantidad(data);
-                    }, error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR);
-                    }
-                });
-            }
-            function mostrarCantidad(data) {
-                var cant = 0;
-                var precio = 0;
-                $.each(data, function (i, item) {
-                    cant += item.cant;
-                    precio += item.pt;
-                });
-                $("#nro_items").html(cant + ' <b>$ ' + precio + '</b>');
-                console.log("se refresco");
+            $("#tabla tbody").html(html);
+        }
+        function item(external, tipo) {
+            var url = 'http://localhost:3000/quitar_carrito/' + external;
+            url = (tipo == 1) ? 'http://localhost:3000/agregar_carrito/' + external : url;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    construirTabla(data);
+                    mostrarCantidad(data);
+                }, error: function (jqXHR, textStatus, errorThrown) {
 
-            }
+                }
+            });
+        }
+        $().ready(function () {
+            listarCliente();
+            refrescar();
+            $("#buscarProducto").keyup(function () {
+                var busqueda = $("#buscarProducto").val();
 
-            function construirTabla(data) {
-                var html = "";
-                var subtotal = 0;
-                var iva = 0;
-                var total = 0;
-                $.each(data, function (i, item) {
-                    html += '<tr>';
-                    html += '<td>' + (i + 1) + '</td>';
-                    html += '<td><a id="a_' + i + '" onClick="return item(' + "'" + item.external + "'" + ', 0)" href="#" class="btn btn-link btn-raised btn-sm"><i class="zmdi zmdi-minus"></i></a>' + item.cant + '<a id="q_' + i + '" onClick="return item(' + "'" + item.external + "'" + ', 1)" href="#" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-plus"></i></a></td>';
-                    html += '<td>' + item.categoria + ' ' + item.nombre + '</td>';
-                    html += '<td>' + item.pu + '</td>';
-                    html += '<td>' + item.pt + '</td>';
-                    html += '</tr>';
-                    subtotal += item.pt;
-                });
-                subtotal = subtotal.toFixed(2);
-                //var total = subtotal * 1.12;
-                //var iva = total - subtotal;
-                //total = total.toFixed(2);
-                //iva = iva.toFixed(2);
-                html += '<tr><td colspan="4" style="text-align: right; font-weight: bold;">TOTAL: </td>';
-                html += '<td>$ <input value="' + subtotal + '" name="total" readonly/></td></tr>';
-                if (data.length == 0) {
-                    $("#btn_compra").hide();
+                buscarProducto(busqueda);
+
+
+            });
+            $("#buscarVentaP").keyup(function () {
+                var busqueda = $("#buscarVentaP").val();
+                buscarVentaP(busqueda);
+            });
+            $("#cliente").keyup(function () {
+                var busqueda = $("#cliente").val();
+                if (busqueda) {
+                    buscarCliente(busqueda);
                 } else {
-                    $("#btn_compra").show();
+                    listarCliente();
                 }
-                $("#tabla tbody").html(html);
-            }
-            function item(external, tipo) {
-                var url = 'http://localhost:3000/quitar_carrito/' + external;
-                url = (tipo == 1) ? 'http://localhost:3000/agregar_carrito/' + external : url;
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data, textStatus, jqXHR) {
-                        construirTabla(data);
-                        mostrarCantidad(data);
-                    }, error: function (jqXHR, textStatus, errorThrown) {
 
-                    }
-                });
-            }
-            $().ready(function () {
-                listarCliente();
-                refrescar();
-                $("#buscarProducto").keyup(function () {
-                    var busqueda = $("#buscarProducto").val();
-
-                    buscarProducto(busqueda);
-
-
-                });
-                $("#buscarVentaP").keyup(function () {
-                    var busqueda = $("#buscarVentaP").val();
-                    buscarVentaP(busqueda);
-                });
-                $("#cliente").keyup(function () {
-                    var busqueda = $("#cliente").val();
-                    if (busqueda) {
-                        buscarCliente(busqueda);
-                    } else {
-                        listarCliente();
-                    }
-
-                });
-                function buscarProducto(busqueda) {
-                    if (busqueda !== '') {
-                        $.ajax({
-                            url: '/buscarProductoVenta/' + busqueda,
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function (data, textStatus, jqXHR) {
-                                var html = "";
-                                for (var i = 0; i < data.length; i++) {
-                                    html += '<div class="card-deck"  style="display: flex">';
-                                    html += '<div class="card" style="height: 400px; width: 239px; margin: 10px;">';
-                                    html += '<div style="position: relative; height: 200px; width: 239px;">';
-                                    html += '<img class="card-img-top" src="./uploads/' + data[i].url + '" alt="" style="height: 200px; width: 239px;position: absolute">';
-                                    html += '</div>';
-                                    html += '<div class="card-body" style="height: 15%">';
-                                    html += '<p style="color: #009688; font-weight: 600" class="card-title">' + data[i].producto.nombre + '</p>';
-                                    html += '<h5 class="card-text">' + data[i].producto.descripcion + '</h5>';
-                                    html += '</div><br>';
-                                    html += '<div class="card-footer">';
-                                    html += '<small class="text-muted">$ ' + data[i].producto.precio + '</small>';
-                                    html += '</div>';
-                                    html += '<p class="text-center">';
-                                    html += '<button class="btn btn-info btn-raised btn-sm" id="' + i + '">Agregar <i class="zmdi zmdi-check"></i></button>';
-                                    html += '</p>';
-                                    html += '<script>';
-                                    html += '$("#' + i + '").click(function () {';
-                                    html += 'agregarCarrito("' + data[i].producto.external_id + '");';
-                                    html += '});';
-                                    html += '</scrip' + 't>';
-                                    html += '</div>';
-                                }
-                                $("div#productoBuscado").empty();
-                                $("#productoBuscado").html(html);
-                            }, error: function (jqXHR, textStatus, errorThrown) {
-                            }
-                        });
-                    } else {
-                        $.ajax({
-                            url: '/mostrar_producto',
-                            type: 'GET',
-                            dataType: 'json',
-                            success: function (data, textStatus, jqXHR) {
-                                var html = "";
-                                for (var i = 0; i < data.length; i++) {
-                                    html += '<div class="card-deck" style="display: flex">';
-                                    html += '<div class="card" style="height: 400px; width: 239px; margin: 10px;">';
-                                    html += '<div style="position: relative; height: 200px; width: 239px;">';
-                                    html += '<img class="card-img-top" src="./uploads/' + data[i].url + '" alt="" style="height: 200px; width: 239px;position: absolute">';
-                                    html += '</div>';
-                                    html += '<div class="card-body" style="height: 15%">';
-                                    html += '<p style="color: #009688; font-weight: 600" class="card-title">' + data[i].producto.nombre + '</p>';
-                                    html += '<h5 class="card-text">' + data[i].producto.descripcion + '</h5>';
-                                    html += '</div><br>';
-                                    html += '<div class="card-footer">';
-                                    html += '<small class="text-muted">$ ' + data[i].producto.precio + '</small>';
-                                    html += '</div>';
-                                    html += '<p class="text-center">';
-                                    html += '<button class="btn btn-info btn-raised btn-sm" id="' + i + '">Agregar <i class="zmdi zmdi-check"></i></button>';
-                                    html += '</p>';
-                                    html += '<script>';
-                                    html += '$("#' + i + '").click(function () {';
-                                    html += 'agregarCarrito("' + data[i].producto.external_id + '");';
-                                    html += '});';
-                                    html += '</scrip' + 't>';
-                                    html += '</div>';
-                                }
-                                $("div#productoBuscado").empty();
-                                $("#productoBuscado").html(html);
-                            }, error: function (jqXHR, textStatus, errorThrown) {
-                            }
-                        });
-                    }
-                }
-                function buscarCliente(nombre) {
+            });
+            function buscarProducto(busqueda) {
+                if (busqueda !== '') {
                     $.ajax({
-                        url: '/buscarCliente/' + nombre,
+                        url: '/buscarProductoVenta/' + busqueda,
                         type: 'GET',
                         dataType: 'json',
                         success: function (data, textStatus, jqXHR) {
-                            console.log(data);
-                            var html = '';
-                            if (data != '') {
-                                $.each(data, function (i, item) {
-                                    html += '<option value="' + item.id + '">' + item.persona.nombre + ' ' + item.persona.apellido + '</option>';
-                                });
-                            } else {
-                                html += '<option>No hay registros</option>';
+                            var html = "";
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<div class="card-deck"  style="display: flex">';
+                                html += '<div class="card" style="height: 400px; width: 239px; margin: 10px;">';
+                                html += '<div style="position: relative; height: 200px; width: 239px;">';
+                                html += '<img class="card-img-top" src="./uploads/' + data[i].url + '" alt="" style="height: 200px; width: 239px;position: absolute">';
+                                html += '</div>';
+                                html += '<div class="card-body" style="height: 15%">';
+                                html += '<p style="color: #009688; font-weight: 600" class="card-title">' + data[i].producto.nombre + '</p>';
+                                html += '<h5 class="card-text">' + data[i].producto.descripcion + '</h5>';
+                                html += '</div><br>';
+                                html += '<div class="card-footer">';
+                                html += '<small class="text-muted">$ ' + data[i].producto.precio + '</small>';
+                                html += '</div>';
+                                html += '<p class="text-center">';
+                                html += '<button class="btn btn-info btn-raised btn-sm" id="' + i + '">Agregar <i class="zmdi zmdi-check"></i></button>';
+                                html += '</p>';
+                                html += '<script>';
+                                html += '$("#' + i + '").click(function () {';
+                                html += 'agregarCarrito("' + data[i].producto.external_id + '");';
+                                html += '});';
+                                html += '</scrip' + 't>';
+                                html += '</div>';
                             }
-                            $("#buscar_cliente").empty();
-                            $("#buscar_cliente").html(html);
+                            $("div#productoBuscado").empty();
+                            $("#productoBuscado").html(html);
                         }, error: function (jqXHR, textStatus, errorThrown) {
-
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: '/mostrar_producto',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data, textStatus, jqXHR) {
+                            var html = "";
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<div class="card-deck" style="display: flex">';
+                                html += '<div class="card" style="height: 400px; width: 239px; margin: 10px;">';
+                                html += '<div style="position: relative; height: 200px; width: 239px;">';
+                                html += '<img class="card-img-top" src="./uploads/' + data[i].url + '" alt="" style="height: 200px; width: 239px;position: absolute">';
+                                html += '</div>';
+                                html += '<div class="card-body" style="height: 15%">';
+                                html += '<p style="color: #009688; font-weight: 600" class="card-title">' + data[i].producto.nombre + '</p>';
+                                html += '<h5 class="card-text">' + data[i].producto.descripcion + '</h5>';
+                                html += '</div><br>';
+                                html += '<div class="card-footer">';
+                                html += '<small class="text-muted">$ ' + data[i].producto.precio + '</small>';
+                                html += '</div>';
+                                html += '<p class="text-center">';
+                                html += '<button class="btn btn-info btn-raised btn-sm" id="' + i + '">Agregar <i class="zmdi zmdi-check"></i></button>';
+                                html += '</p>';
+                                html += '<script>';
+                                html += '$("#' + i + '").click(function () {';
+                                html += 'agregarCarrito("' + data[i].producto.external_id + '");';
+                                html += '});';
+                                html += '</scrip' + 't>';
+                                html += '</div>';
+                            }
+                            $("div#productoBuscado").empty();
+                            $("#productoBuscado").html(html);
+                        }, error: function (jqXHR, textStatus, errorThrown) {
                         }
                     });
                 }
-                function listarCliente() {
-                    $.ajax({
-                        url: '/listar_clientes',
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (data, textStatus, jqXHR) {
-                            console.log(data);
-                            var html = '';
+            }
+            function buscarCliente(nombre) {
+                $.ajax({
+                    url: '/buscarCliente/' + nombre,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        var html = '';
+                        if (data != '') {
                             $.each(data, function (i, item) {
                                 html += '<option value="' + item.id + '">' + item.persona.nombre + ' ' + item.persona.apellido + '</option>';
                             });
-                            $("#buscar_cliente").empty();
-                            $("#buscar_cliente").html(html);
-                        }, error: function (jqXHR, textStatus, errorThrown) {
-
+                        } else {
+                            html += '<option>No hay registros</option>';
                         }
-                    });
-                }
+                        $("#buscar_cliente").empty();
+                        $("#buscar_cliente").html(html);
+                    }, error: function (jqXHR, textStatus, errorThrown) {
+
+                    }
+                });
+            }
+            function listarCliente() {
+                $.ajax({
+                    url: '/listar_clientes',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data);
+                        var html = '';
+                        $.each(data, function (i, item) {
+                            html += '<option value="' + item.id + '">' + item.persona.nombre + ' ' + item.persona.apellido + '</option>';
+                        });
+                        $("#buscar_cliente").empty();
+                        $("#buscar_cliente").html(html);
+                    }, error: function (jqXHR, textStatus, errorThrown) {
+
+                    }
+                });
+            }
 
 
-                function buscarVentaP(busqueda) {
-                    $.ajax({
-                        url: '/buscarVenta/' + busqueda,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (data, textStatus, jqXHR) {
-                            //console.log(data);
-                            var html = "";
-                            if (data.length > 0) {
-                                /*data.forEach(cliente => {
-                                 console.log(cliente);
-                                 //cliente tiene venta y detalle_articulo
-                                 cliente.geolocalizacions.forEach(persona => {
-                                 persona.cliente.forEach(data => {
-                                 console.log(data);
-                                 html += '<tr>';
-                                 html += '<td>'+data+'</td>';
-                                 html += '<td>'+data.nombre+'</td>';
-                                 html += '<td>'+data.ciudad+'</td>';                                
-                                 //html += '<td>'+ data.venta.detalle_articulos.articulo.nombre+'</td>';
-                                 html +='<td>'+data.fecha+'</td>';
-                                 html +='<td>$ '+data.valor_total+'</td>';
-                                 html +='<td><a a href="/pagos" id="'+ data +'" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-money"></i></a></td>';
-                                 html +='</tr>';
-                                 });
-                                 
-                                 });
-                                 });*/
-                                console.log(data);
-                                for (var i = 0; i < data.length; i++) {
-                                    html += '<tr>';
-                                    html += '<td>' + i + '</td>';
-                                    html += '<td>' + data[i].persona.nombre + '</td>';
-                                    html += '<td>' + data[i].ciudad + '</td>';
-                                    html += '<td>' + data[i].persona.cliente.venta.detalle_articulos.articulo.nombre + '</td>';
-                                    html += '<td>' + data[i].fecha + '</td>';
-                                    html += '<td>$ ' + data.valor_total + '</td>';
-                                    html += '<td><a a href="/pagos" id="' + i + '" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-money"></i></a></td>';
-                                    html += '</tr>';
+            function buscarVentaP(busqueda) {
+                $.ajax({
+                    url: '/buscarVenta/' + busqueda,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data, textStatus, jqXHR) {
+                        //console.log(data);
+                        var html = "";
+                        if (data.length > 0) {
+                            /*data.forEach(cliente => {
+                             console.log(cliente);
+                             //cliente tiene venta y detalle_articulo
+                             cliente.geolocalizacions.forEach(persona => {
+                             persona.cliente.forEach(data => {
+                             console.log(data);
+                             html += '<tr>';
+                             html += '<td>'+data+'</td>';
+                             html += '<td>'+data.nombre+'</td>';
+                             html += '<td>'+data.ciudad+'</td>';                                
+                             //html += '<td>'+ data.venta.detalle_articulos.articulo.nombre+'</td>';
+                             html +='<td>'+data.fecha+'</td>';
+                             html +='<td>$ '+data.valor_total+'</td>';
+                             html +='<td><a a href="/pagos" id="'+ data +'" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-money"></i></a></td>';
+                             html +='</tr>';
+                             });
+                             
+                             });
+                             });*/
+                            console.log(data);
+                            for (var i = 0; i < data.length; i++) {
+                                html += '<tr>';
+                                html += '<td>' + i + '</td>';
+                                html += '<td>' + data[i].persona.nombre + '</td>';
+                                html += '<td>' + data[i].ciudad + '</td>';
+                                html += '<td>' + data[i].persona.cliente.venta.detalle_articulos.articulo.nombre + '</td>';
+                                html += '<td>' + data[i].fecha + '</td>';
+                                html += '<td>$ ' + data.valor_total + '</td>';
+                                html += '<td><a a href="/pagos" id="' + i + '" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-money"></i></a></td>';
+                                html += '</tr>';
 
-                                }
-                            } else {
-                                html += '<div><b>No hay clientes con este nombre...</b></div>'; //mensaje no hay horarios disponibles
                             }
-                            $("tbody#buscarVenta").empty();
-                            $("tbody#buscarVenta").html(html);
-                        }, error: function (jqXHR, textStatus, errorThrown) {
+                        } else {
+                            html += '<div><b>No hay clientes con este nombre...</b></div>'; //mensaje no hay horarios disponibles
                         }
-                    });
-                }
-            });
-        </script>
-        <!-- SideBar -->
-        <section class="full-box cover dashboard-sideBar">
-            <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
-            <div class="full-box dashboard-sideBar-ct">
-                <!--SideBar Title -->
-                <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
-                    company <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
-                </div>
-                <!-- SideBar User info -->
-                <div class="full-box dashboard-sideBar-UserInfo">
-                    <figure class="full-box">
-                        <img src="./assets/img/avatar.jpg" alt="UserIcon">
-                        <figcaption class="text-center text-titles">{{comerciante}}</figcaption>
-                    </figure>
-                    <ul class="full-box list-unstyled text-center">
+                        $("tbody#buscarVenta").empty();
+                        $("tbody#buscarVenta").html(html);
+                    }, error: function (jqXHR, textStatus, errorThrown) {
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- SideBar -->
+    <section class="full-box cover dashboard-sideBar">
+        <div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
+        <div class="full-box dashboard-sideBar-ct">
+            <!--SideBar Title -->
+            <div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
+                company <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
+            </div>
+            <!-- SideBar User info -->
+            <div class="full-box dashboard-sideBar-UserInfo">
+                <figure class="full-box">
+                    <img src="./assets/img/avatar.jpg" alt="UserIcon">
+                    <figcaption class="text-center text-titles">{{comerciante}}</figcaption>
+                </figure>
+                <ul class="full-box list-unstyled text-center">
+                    <li>
+                        <a href="#!" title="Proximamente">
+                            <i class="zmdi zmdi-settings"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!" class="btn-exit-system">
+                            <i class="zmdi zmdi-power"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- SideBar Menu -->
+            <ul class="list-unstyled full-box dashboard-sideBar-Menu">
+                <li>
+                    <a href="/home">
+                        <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Inicio
+                    </a>
+                </li>
+                <li>
+                    <a href="/ventas" class="btn-sideBar-SubMenu">
+                        <i class="zmdi zmdi-case zmdi-hc-fw"></i> Ventas
+                    </a>
+                </li>
+                <li>
+                    <a href="/pagos" class="btn-sideBar-SubMenu">
+                        <i class="zmdi zmdi-money zmdi-hc-fw"></i> Pagos
+                    </a>
+                </li>
+                <li>
+                    <a href="#!" class="btn-sideBar-SubMenu">
+                        <i class=" zmdi zmdi-font zmdi-hc-fw "></i> Arcticulos <i
+                            class="zmdi zmdi-caret-down pull-right"></i>
+                    </a>
+                    <ul class="list-unstyled full-box">
                         <li>
-                            <a href="#!" title="Proximamente">
-                                <i class="zmdi zmdi-settings"></i>
-                            </a>
+                            <a href="/productos"><i class="zmdi zmdi-book zmdi-hc-fw "></i> Productos</a>
                         </li>
                         <li>
-                            <a href="#!" class="btn-exit-system">
-                                <i class="zmdi zmdi-power"></i>
-                            </a>
+                            <a href="/categorias"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Categorias</a>
                         </li>
                     </ul>
-                </div>
-                <!-- SideBar Menu -->
-                <ul class="list-unstyled full-box dashboard-sideBar-Menu">
-                    <li>
-                        <a href="/home">
-                            <i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Inicio
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/ventas" class="btn-sideBar-SubMenu">
-                            <i class="zmdi zmdi-case zmdi-hc-fw"></i> Ventas
-                        </a>					
-                    </li>
-                    <li>
-                        <a href="/pagos" class="btn-sideBar-SubMenu">
-                            <i class="zmdi zmdi-money zmdi-hc-fw"></i> Pagos 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#!" class="btn-sideBar-SubMenu">
-                            <i class=" zmdi zmdi-font zmdi-hc-fw "></i> Arcticulos <i class="zmdi zmdi-caret-down pull-right"></i>
-                        </a>
-                        <ul class="list-unstyled full-box">
-                            <li>
-                                <a href="/productos"><i class="zmdi zmdi-book zmdi-hc-fw "></i> Productos</a>
-                            </li>
-                            <li>
-                                <a href="/categorias"><i class="zmdi zmdi-card zmdi-hc-fw"></i> Categorias</a>
-                            </li>
-                        </ul>
-                    </li> 
-                    <li>
-                        <a href="/clientes" class="btn-sideBar-SubMenu">
-                            <i class="zmdi zmdi-account zmdi-hc-fw"></i> Clientes 
-                        </a>
-                    </li>                    
-                    <li>
-                        <a href="/rutas" class="btn-sideBar-SubMenu">
-                            <i class="zmdi zmdi-trending-up zmdi-hc-fw"></i> Rutas
-                        </a>                        
-                    </li>
-                </ul>
-            </div>
-        </section>
+                </li>
+                <li>
+                    <a href="/clientes" class="btn-sideBar-SubMenu">
+                        <i class="zmdi zmdi-account zmdi-hc-fw"></i> Clientes
+                    </a>
+                </li>
+                <li>
+                    <a href="/rutas" class="btn-sideBar-SubMenu">
+                        <i class="zmdi zmdi-trending-up zmdi-hc-fw"></i> Rutas
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
 
-        <!-- Content page-->
-        <section class="full-box dashboard-contentPage">
-            <!-- NavBar -->
-            <nav class="full-box dashboard-Navbar">
-                <ul class="full-box list-unstyled text-right">
-                    <li class="pull-left">
-                        <a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
-                    </li>
-                    <li>
-                        <a href="#!" class="btn-Notifications-area">
-                            <i class="zmdi zmdi-notifications-none"></i>
-                            <span class="badge">1</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#!" class="btn-search">
-                            <i class="zmdi zmdi-search"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- Content page -->
-            <div class="container-fluid">
-                <div class="page-header">
-                    <h1 class="text-titles"><i class="zmdi zmdi-case zmdi-hc-fw"></i> Ventas <small> Registro</small></h1>
-                </div>
-                <p class="lead"></p>
-            </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                            <li class="active"><a href="#prod" data-toggle="tab">Productos</a></li>
-                            <li><a href="#venta" data-toggle="tab">Registrar venta <i class="zmdi zmdi-shopping-cart-add"></i><span class="badge" id="nro_items">0</span></a></li>
-                            <li ><a href="#list" data-toggle="tab">Lista</a></li>
-                        </ul>
-                        <div id="myTabContent" class="tab-content">
-                            <div class="tab-pane fade active in" id="prod">
-                                <div class="table-responsive">
-                                    <div class="container">
-                                        <input class="form-control" type="text"  id="buscarProducto"  placeholder="¿Qué estás buscando?" style="width:500px">
-                                        <div class="" id="productoBuscado">
-                                            <div class="card-deck" >
-                                                {{#each this.productos as |item i|}}
-                                                <div class="card" style="height: 400px; width: 239px; margin: 10px;">
-                                                    <div style="position: relative; height: 200px; width: 239px;">
-                                                        {{#each item.galeria as |itemG|}}
-                                                        <img class="card-img-top" src="./uploads/{{itemG.foto}}" alt="" style="height: 200px; width: 239px;position: absolute">
-                                                        {{/each}}
-                                                    </div>
-                                                    <div class="card-body" style="height: 15%">
-                                                        <p style="color: #009688; font-weight: 600" class="card-title">{{item.categorium.nombre}} {{item.nombre}}</p>
-                                                        <h5 class="card-text">{{item.descripcion}}</h5>
-                                                    </div><br>
-                                                    <div class="card-footer">
-                                                        <small class="text-muted">$ {{item.precio}}</small>
-                                                    </div>
-                                                    <p class="text-center">
-                                                        <button class="btn btn-info btn-raised btn-sm" id="{{i}}">Agregar <i class="zmdi zmdi-check"></i></button>
-                                                    </p>
-                                                    <script>
-                                                        $("#{{ i }}").click(function () {
-                                                            agregarCarrito("{{ item.external_id }}");
-                                                        });
-                                                    </script>
-                                                </div>
-                                                {{/each}}
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Content page-->
+    <section class="full-box dashboard-contentPage">
+        <!-- NavBar -->
+        <nav class="full-box dashboard-Navbar">
+            <ul class="full-box list-unstyled text-right">
+                <li class="pull-left">
+                    <a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
+                </li>
+                <li>
+                    <a href="#!" class="btn-Notifications-area">
+                        <i class="zmdi zmdi-notifications-none"></i>
+                        <span class="badge">1</span>
+                    </a>
+                </li>
 
-                            <div class="tab-pane fade" id="venta">
-                                <div class="table-responsive">
+            </ul>
+        </nav>
+        <!-- Content page -->
+        <div class="container-fluid">
+            <div class="page-header">
+                <h1 class="text-titles"><i class="zmdi zmdi-case zmdi-hc-fw"></i> Ventas <small> Registro</small></h1>
+            </div>
+            <p class="lead"></p>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                        <li class="active"><a href="#prod" data-toggle="tab">Productos</a></li>
+                        <li><a href="#venta" data-toggle="tab">Registrar venta <i
+                                    class="zmdi zmdi-shopping-cart-add"></i><span class="badge"
+                                    id="nro_items">0</span></a></li>
+                        <li><a href="#list" data-toggle="tab">Lista</a></li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="prod">
+                            <div class="table-responsive">
+                                <div class="container">
+                                    <!--Buscar Producto Venta -->
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <div class="col-xs-12 col-md-10 col-md-offset-1">
-                                                <input style="width: 200px" type="text" class="form-control" id="cliente" placeholder="Buscar cliente...">
-                                                <form method="post" action="/guardar_venta">
-
-                                                    <input type="hidden" name="external" value="0" id="external">
-                                                    <div class="form-group label-floating col-md-6">
-                                                        <label class="control-label">Cliente</label>
-                                                        <select id="buscar_cliente" class="form-control" name="cliente">
-
-                                                        </select>
+                                            <div class="col-xs-8 col-xs-offset-2">
+                                                <div class="input-group">
+                                                    <div class="input-group-btn search-panel">
 
                                                     </div>
-                                                    <div class="form-group label-floating col-md-6">
-                                                        <label class="control-label">Fecha</label>
-                                                        <input class="form-control" type="date" name="fecha">
-                                                    </div>
-                                                    <div style="height: 100px"></div>
-                                                    <table id="tabla" class="table">
-                                                        <thead style="background: #DFDCDB">
-                                                            <tr>
-                                                                <th>Nro</th>
-                                                                <th>Cantidad</th>
-                                                                <th>Descripcion</th>
-                                                                <th>P. Unitario</th>
-                                                                <th>P. Total</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                        </tbody>
-                                                    </table>
-                                                    <p class="text-center">
-                                                        <button id="btn_compra" type="submit" class="btn btn-info btn-raised"> Vender <i class="zmdi zmdi-money"></i></button>
-                                                    </p>
-                                                </form>
+                                                    <input type="hidden" name="search_param" value="all"
+                                                        id="search_param">
+                                                    <input id="buscarProducto" type="text" class="form-control" name="x"
+                                                        placeholder="Buscar producto..." style="margin-bottom: 20px">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button"><span
+                                                                class="glyphicon glyphicon-search"></span></button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="list">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <!--<input class="form-control" type="text"  id="buscarVentaP"  placeholder="¿Qué estás buscando?" style="width:500px">-->
-                                        <table class="table table-hover text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">#</th>
-                                                    <th class="text-center">Cliente</th>
-                                                    <th class="text-center">Ciudad</th>
-                                                    <th class="text-center">Articulo</th> 
-                                                    <th class="text-center">Fecha</th>
-                                                    <th class="text-center">Valor</th>
-                                                    <th class="text-center">Pago</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="buscarVenta">
-                                                {{#each this.ventas as |item a|}} 
-                                                <tr>
-                                                    <td>{{a}}</td>
-                                                    <td>{{item.cliente.persona.nombre}}</td>
-                                                    {{#each item.cliente.persona.geolocalizacions as |itemG |}}
-                                                    <td>{{itemG.ciudad}}</td>
+                                    <!-- Fin Buscar Producto Venta -->
+                                    <div class="" id="productoBuscado">
+                                        <div class="card-deck">
+                                            {{#each this.productos as |item i|}}
+                                            <div class="card" style="height: 400px; width: 239px; margin: 10px;">
+                                                <div style="position: relative; height: 200px; width: 239px;">
+                                                    {{#each item.galeria as |itemG|}}
+                                                    <img class="card-img-top" src="./uploads/{{itemG.foto}}" alt=""
+                                                        style="height: 200px; width: 239px;position: absolute">
                                                     {{/each}}
-                                                    <td>{{#each item.detalle_articulos as |itemAR|}}
-                                                        {{itemAR.articulo.categorium.nombre}} {{itemAR.articulo.nombre}} -
-                                                        {{/each}}
-                                                    </td>
-                                                    <td>{{item.fecha}}</td>
-                                                    <td>$ {{item.valor_total}}</td>
-                                                    <td>
-                                                        <a a href="/pagos" id="{{ a }}" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-money"></i></a>                                                  
-                                                    </td>
-                                                </tr>                                                
-                                                {{/each}}
-<<<<<<< HEAD
-                                                </tbody>
-                                            </table>
-                                            <ul class="pagination pagination-sm">
-                                                <li class="disabled"><a href="#!">«</a></li>
-                                                <li class="active"><a href="#!">1</a></li>
-                                                <li><a href="#!">2</a></li>
-                                                <li><a href="#!">3</a></li>
-                                                <li><a href="#!">4</a></li>
-                                                <li><a href="#!">5</a></li>
-                                                <li><a href="#!">»</a></li>
-                                            </ul>
+                                                </div>
+                                                <div class="card-body" style="height: 15%">
+                                                    <p style="color: #009688; font-weight: 600" class="card-title">
+                                                        {{item.nombre}}</p>
+                                                    <h5 class="card-text">{{item.descripcion}}</h5>
+                                                </div><br>
+                                                <div class="card-footer">
+                                                    <small class="text-muted">$ {{item.precio}}</small>
+                                                </div>
+                                                <p class="text-center">
+                                                    <button class="btn btn-info btn-raised btn-sm" id="{{i}}">Agregar <i
+                                                            class="zmdi zmdi-check"></i></button>
+                                                </p>
+                                                <script>
+                                                    $("#{{ i }}").click(function () {
+                                                        agregarCarrito("{{ item.external_id }}");
+                                                    });
+                                                </script>
+                                            </div>
+                                            {{/each}}
                                         </div>
-=======
 
-                                            </tbody>
-                                        </table>
-                                        <ul class="pagination pagination-sm">
-                                            <li class="disabled"><a href="#!">«</a></li>
-                                            <li class="active"><a href="#!">1</a></li>
-                                            <li><a href="#!">2</a></li>
-                                            <li><a href="#!">3</a></li>
-                                            <li><a href="#!">4</a></li>
-                                            <li><a href="#!">5</a></li>
-                                            <li><a href="#!">»</a></li>
-                                        </ul>
->>>>>>> next
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-        </section>
 
-        <!-- Notifications area -->
-        <section class="full-box Notifications-area">
-            <div class="full-box Notifications-bg btn-Notifications-area"></div>
-            <div class="full-box Notifications-body">
-                <div class="Notifications-body-title text-titles text-center">
-                    Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
-                </div>
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <div class="row-action-primary">
-                            <i class="zmdi zmdi-alert-triangle"></i>
+                        <div class="tab-pane fade" id="venta">
+                            <div class="table-responsive">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-10 col-md-offset-1">
+                                            <!-- Buscar -->
+                                            <input style="width: 200px" type="text" class="form-control" id="cliente" placeholder="Buscar cliente...">
+                                            <form method="post" action="/guardar_venta">
+
+                                                <input type="hidden" name="external" value="0" id="external">
+                                                <div class="form-group label-floating col-md-6">
+                                                    <label class="control-label">Cliente</label>
+                                                    <select id="buscar_cliente" class="form-control" name="cliente">
+
+                                                    </select>
+
+                                                </div>
+                                                <div class="form-group label-floating col-md-6">
+                                                    <label class="control-label">Fecha</label>
+                                                    <input class="form-control" type="date" name="fecha" id="Buscarfecha">
+                                                </div>
+                                                <div style="height: 100px"></div>
+                                                <table id="tabla" class="table">
+                                                    <thead style="background: #DFDCDB">
+                                                        <tr>
+                                                            <th>Nro</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Descripcion</th>
+                                                            <th>P. Unitario</th>
+                                                            <th>P. Total</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                                <p class="text-center">
+                                                    <button id="btn_compra" type="submit"
+                                                        class="btn btn-info btn-raised"> Vender <i
+                                                            class="zmdi zmdi-money"></i></button>
+                                                </p>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row-content">
-                            <div class="least-content">17m</div>
-                            <h4 class="list-group-item-heading">Notificacion</h4>
-                            <p class="list-group-item-text">Proximamente</p>
+                        <div class="tab-pane fade" id="list">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <!--<input class="form-control" type="text"  id="buscarVentaP"  placeholder="¿Qué estás buscando?" style="width:500px">-->
+                                    <table class="table table-hover text-center">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th class="text-center">Cliente</th>
+                                                <th class="text-center">Ciudad</th>
+                                                <th class="text-center">Articulo</th>
+                                                <th class="text-center">Fecha</th>
+                                                <th class="text-center">Valor</th>
+                                                <th class="text-center">Pago</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="buscarVenta">
+                                            {{#each this.ventas as |item a|}}
+                                            <tr>
+                                                <td>{{a}}</td>
+                                                <td>{{item.cliente.persona.nombre}}</td>
+                                                {{#each item.cliente.persona.geolocalizacions as |itemG |}}
+                                                <td>{{itemG.ciudad}}</td>
+                                                {{/each}}
+                                                <td>{{#each item.detalle_articulos as |itemAR|}}
+                                                    {{itemAR.articulo.categorium.nombre}} {{itemAR.articulo.nombre}} -
+                                                    {{/each}}
+                                                </td>
+                                                <td>{{item.fecha}}</td>
+                                                <td>$ {{item.valor_total}}</td>
+                                                <td>
+                                                    <a a href="/pagos" id="{{ a }}"
+                                                        class="btn btn-success btn-raised btn-xs"><i
+                                                            class="zmdi zmdi-money"></i></a>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>                                      
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Dialog help -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Help</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            Si necesita ayuda comuniquese en este correo
-                            katty.jhaky@hotmail.es
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary btn-raised text-center" data-dismiss="modal"><i class="zmdi zmdi-thumb-up"></i> Ok</button>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-    </body>
+    <!-- Notifications area -->
+    <section class="full-box Notifications-area">
+        <div class="full-box Notifications-bg btn-Notifications-area"></div>
+        <div class="full-box Notifications-body">
+            <div class="Notifications-body-title text-titles text-center">
+                Notifications <i class="zmdi zmdi-close btn-Notifications-area"></i>
+            </div>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <div class="row-action-primary">
+                        <i class="zmdi zmdi-alert-triangle"></i>
+                    </div>
+                    <div class="row-content">
+                        <div class="least-content">17m</div>
+                        <h4 class="list-group-item-heading">...</h4>
+                        <p class="list-group-item-text">Proximamente</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Dialog help -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="Dialog-Help">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Help</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Si necesita ayuda comuniquese en este correo
+                        katty.jhaky@hotmail.es
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-raised text-center" data-dismiss="modal"><i
+                            class="zmdi zmdi-thumb-up"></i> Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let d = new Date();
+        let ano = d.getFullYear();
+        let mes = ((d.getMonth() + 1) < 10) ? '0' + (d.getMonth() + 1) : (d.getMonth() + 1);
+        let dia = d.getDate();
+        let fecha = ano + '-' + mes + '-' + dia;
+        $("#Buscarfecha").val(fecha);
+        //alert('La fecha actual es: ' + fecha);
+    </script>
+
+</body>
+
 </html>
