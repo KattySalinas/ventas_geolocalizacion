@@ -28,7 +28,7 @@
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^4.44.2",
+    "sequelize": "^5.15.1",
     "sync-each": "^1.0.1",
     "uuid": "^3.3.2"
   }
